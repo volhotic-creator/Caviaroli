@@ -14,6 +14,8 @@
   --rouge:#b01c1c;--rouge2:#d42b2b;--or:#c9a84c;--or2:#e8c97a;
   --vert:#2d6e34;--vert2:#4a9e54;--creme:#f2ede3;--blanc:#fafaf6;
   --gris:#888;--gris2:#555;--gris3:#2a2c32;
+  --ease-out:cubic-bezier(0.23,1,0.32,1);
+  --ease-in-out:cubic-bezier(0.77,0,0.175,1);
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 body{background:var(--noir);}
@@ -73,7 +75,7 @@ body{background:var(--noir);}
 .sphere-stem{width:3px;height:26px;background:linear-gradient(to bottom,#1e5c24,#0c2e10);margin:0 auto;border-radius:2px;}
 .sphere-shadow{width:90px;height:18px;background:radial-gradient(ellipse,rgba(0,0,0,.6) 0%,transparent 100%);border-radius:50%;margin:0 auto;margin-top:.4rem;}
 .sphere-glow{position:absolute;width:200px;height:200px;border-radius:50%;background:radial-gradient(ellipse,rgba(45,110,52,.08) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);z-index:0;}
-.sphere-wrap{position:relative;z-index:1;margin-bottom:1rem;}
+.sphere-wrap{position:relative;z-index:1;margin-bottom:1rem;display:flex;flex-direction:column;align-items:center;}
 .sphere-reflection{width:32px;height:10px;background:radial-gradient(ellipse,rgba(255,255,255,.3) 0%,transparent 100%);border-radius:50%;position:absolute;top:22%;left:30%;}
 .stars-deco{font-size:.8rem;letter-spacing:.4rem;color:rgba(201,168,76,.25);position:absolute;z-index:1;}
 .sd1{top:14%;left:18%;}
@@ -254,7 +256,8 @@ body{background:var(--noir);}
 /* ════════════════════════════════════
    NOTA / ALERTA
 ════════════════════════════════════ */
-.nota{border-left:2px solid var(--or);padding:.6rem .9rem;background:rgba(201,168,76,.04);font-size:.78rem;font-weight:300;color:var(--gris);line-height:1.6;}
+.nota{padding:.65rem 1rem;background:rgba(201,168,76,.05);font-size:.78rem;font-weight:300;color:var(--gris);line-height:1.6;position:relative;}
+.nota::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,var(--or) 0%,rgba(201,168,76,.15) 60%,transparent 100%);}
 .nota strong{color:var(--or);font-weight:500;}
 .alerta{border:1px solid rgba(176,28,28,.35);background:rgba(176,28,28,.06);padding:.8rem 1.1rem;font-size:.82rem;color:#e07060;text-align:center;line-height:1.6;}
 .alerta strong{color:#ff8070;font-weight:500;}
@@ -301,6 +304,33 @@ body{background:var(--noir);}
 .t02-accent{background:var(--vert2);}
 .t03-accent{background:var(--rouge2);}
 .t04-accent{background:#3050b0;}
+
+/* ════════════════════════════════════
+   MOTION (Emil Kowalski)
+════════════════════════════════════ */
+@keyframes float{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-9px);}
+}
+.sphere-xl{
+  animation:float 5s var(--ease-in-out) infinite;
+}
+.sphere-xl:hover{
+  animation-play-state:paused;
+  box-shadow:0 0 120px rgba(45,110,52,.7),0 0 220px rgba(45,110,52,.2),inset -16px -16px 40px rgba(0,0,0,.65),inset 6px 6px 16px rgba(200,240,196,.12);
+  transition:box-shadow 200ms var(--ease-out);
+}
+/* Task card press feedback */
+.tc{
+  transition:background 150ms var(--ease-out),transform 160ms var(--ease-out);
+}
+.tc:active{
+  transform:scale(0.97);
+}
+.tc:hover{
+  background:var(--noir3);
+  transition:background 150ms var(--ease-out);
+}
 </style>
 </head>
 <body>
@@ -357,7 +387,7 @@ body{background:var(--noir);}
   <div class="eyebrow">Benchmarking global</div>
   <div class="h2">Los mejores ecommerce<br><em>de aceite de oliva.</em></div>
   <hr class="rule">
-  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--gris3);border:1px solid var(--gris3);margin-top:1rem;">
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--gris3);border:1px solid var(--gris3);margin-top:1rem;">
 
     <!-- Oliviers & Co -->
     <div style="background:#faf7f0;padding:1.2rem;position:relative;overflow:hidden;">
@@ -456,6 +486,29 @@ body{background:var(--noir);}
         </div>
         <div style="font-size:.65rem;color:#888;line-height:1.5;">Lata metálica con gota realista · Anti-cliché · Tipografía minimalista · Forma como firma</div>
         <div style="margin-top:.6rem;background:var(--or);color:#000;font-size:.48rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;padding:.25rem .5rem;display:inline-block;">★ Pentaward · Red Dot · Dieline</div>
+      </div>
+    </div>
+
+    <!-- Frantoio Muraglia -->
+    <div style="background:#f7f4ef;padding:1.2rem;position:relative;overflow:hidden;grid-column:span 1;">
+      <div style="position:absolute;inset:0;background:linear-gradient(135deg,#f7f4ef 50%,#ede8df);"></div>
+      <!-- Ceramic amphora dots — color-coded by intensity -->
+      <div style="position:absolute;top:.6rem;right:.6rem;display:flex;gap:3px;">
+        <div style="width:9px;height:14px;border-radius:40% 40% 50% 50%;background:#f0d870;" title="Delicato"></div>
+        <div style="width:9px;height:14px;border-radius:40% 40% 50% 50%;background:#e07830;" title="Medio"></div>
+        <div style="width:9px;height:14px;border-radius:40% 40% 50% 50%;background:#c02020;" title="Intenso"></div>
+      </div>
+      <div style="position:relative;z-index:1;">
+        <div style="font-family:'Playfair Display',serif;font-size:1rem;color:#1a1208;letter-spacing:.05em;margin-bottom:.2rem;">Frantoio Muraglia</div>
+        <div style="font-size:.48rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#8a6030;margin-bottom:.7rem;">frantoiomuraglia.it · Puglia, Italia</div>
+        <div style="display:flex;gap:.3rem;margin-bottom:.6rem;">
+          <div style="width:16px;height:16px;border-radius:50%;background:#f7f4ef;border:1px solid #ccc;" title="Blanco"></div>
+          <div style="width:16px;height:16px;border-radius:50%;background:#f0d870;" title="Amarillo suave"></div>
+          <div style="width:16px;height:16px;border-radius:50%;background:#e07830;" title="Naranja"></div>
+          <div style="width:16px;height:16px;border-radius:50%;background:#1a1208;" title="Negro"></div>
+        </div>
+        <div style="font-size:.65rem;color:#4a3820;line-height:1.5;">Ánforas cerámicas pintadas a mano · Código de color por intensidad · Coleccionables de Puglia · Objeto de deseo</div>
+        <div style="margin-top:.6rem;background:#1a1208;color:#f0d870;font-size:.48rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;padding:.25rem .5rem;display:inline-block;">★ Packaging como arte</div>
       </div>
     </div>
 
@@ -630,6 +683,10 @@ body{background:var(--noir);}
         </div>
 
         <!-- CAVIAROLI - zona objetivo -->
+        <div style="position:absolute;top:8%;left:40%;transform:translate(-50%,-50%);text-align:center;">
+          <div style="width:8px;height:8px;border-radius:50%;background:#c8784a;margin:0 auto;"></div>
+          <div style="font-size:.38rem;color:#c8784a;margin-top:.1rem;white-space:nowrap;">Muraglia</div>
+        </div>
         <div style="position:absolute;top:14%;left:70%;transform:translate(-50%,-50%);">
           <div style="width:14px;height:14px;border-radius:50%;background:var(--or);border:2px solid #fff;box-shadow:0 0 12px rgba(201,168,76,.6);margin:0 auto;"></div>
           <div style="font-size:.42rem;font-weight:700;color:var(--or);margin-top:.15rem;white-space:nowrap;text-shadow:0 0 8px rgba(0,0,0,.8);">CAVIAROLI →</div>
@@ -640,21 +697,25 @@ body{background:var(--noir);}
     <div>
       <div class="label gris" style="margin-bottom:.7rem;">Ventajas diferenciales de Caviaroli</div>
       <div style="display:flex;flex-direction:column;gap:.5rem;">
-        <div style="padding:.7rem .9rem;background:rgba(201,168,76,.06);border-left:2px solid var(--or);">
-          <div style="font-size:.7rem;font-weight:500;color:var(--blanc);margin-bottom:.15rem;">Producto único en el mundo</div>
-          <div style="font-size:.62rem;color:var(--gris);">Caviar de aceite — nadie más lo tiene. El producto es el diferencial visual.</div>
+        <div style="padding:.7rem .9rem;background:rgba(201,168,76,.06);display:flex;gap:.7rem;align-items:flex-start;">
+          <div style="width:4px;height:4px;border-radius:50%;background:var(--or);margin-top:.45rem;flex-shrink:0;"></div>
+          <div><div style="font-size:.7rem;font-weight:500;color:var(--blanc);margin-bottom:.15rem;">Producto único en el mundo</div>
+          <div style="font-size:.62rem;color:var(--gris);">Caviar de aceite — nadie más lo tiene. El producto es el diferencial visual.</div></div>
         </div>
-        <div style="padding:.7rem .9rem;background:rgba(74,158,84,.06);border-left:2px solid var(--vert2);">
-          <div style="font-size:.7rem;font-weight:500;color:var(--blanc);margin-bottom:.15rem;">Albert Adrià como aval</div>
-          <div style="font-size:.62rem;color:var(--gris);">Drops by Albert Adrià en el catálogo. Credencial de cocina de vanguardia.</div>
+        <div style="padding:.7rem .9rem;background:rgba(74,158,84,.06);display:flex;gap:.7rem;align-items:flex-start;">
+          <div style="width:4px;height:4px;border-radius:50%;background:var(--vert2);margin-top:.45rem;flex-shrink:0;"></div>
+          <div><div style="font-size:.7rem;font-weight:500;color:var(--blanc);margin-bottom:.15rem;">Albert Adrià como aval</div>
+          <div style="font-size:.62rem;color:var(--gris);">Drops by Albert Adrià en el catálogo. Credencial de cocina de vanguardia.</div></div>
         </div>
-        <div style="padding:.7rem .9rem;background:rgba(201,168,76,.06);border-left:2px solid var(--or);">
-          <div style="font-size:.7rem;font-weight:500;color:var(--blanc);margin-bottom:.15rem;">Origen España — estética mediterranea</div>
-          <div style="font-size:.62rem;color:var(--gris);">Finca, olivo, esfera. El producto mismo es fotogénico. No necesita styling.</div>
+        <div style="padding:.7rem .9rem;background:rgba(201,168,76,.06);display:flex;gap:.7rem;align-items:flex-start;">
+          <div style="width:4px;height:4px;border-radius:50%;background:var(--or);margin-top:.45rem;flex-shrink:0;"></div>
+          <div><div style="font-size:.7rem;font-weight:500;color:var(--blanc);margin-bottom:.15rem;">Origen España — estética mediterranea</div>
+          <div style="font-size:.62rem;color:var(--gris);">Finca, olivo, esfera. El producto mismo es fotogénico. No necesita styling.</div></div>
         </div>
-        <div style="padding:.7rem .9rem;background:rgba(48,80,176,.06);border-left:2px solid #8090e0;">
-          <div style="font-size:.7rem;font-weight:500;color:var(--blanc);margin-bottom:.15rem;">Nicho sin competencia en Argentina</div>
-          <div style="font-size:.62rem;color:var(--gris);">Primer mover en caviar de aceite premium. Posición única en Google Shopping.</div>
+        <div style="padding:.7rem .9rem;background:rgba(48,80,176,.06);display:flex;gap:.7rem;align-items:flex-start;">
+          <div style="width:4px;height:4px;border-radius:50%;background:#8090e0;margin-top:.45rem;flex-shrink:0;"></div>
+          <div><div style="font-size:.7rem;font-weight:500;color:var(--blanc);margin-bottom:.15rem;">Nicho sin competencia en Argentina</div>
+          <div style="font-size:.62rem;color:var(--gris);">Primer mover en caviar de aceite premium. Posición única en Google Shopping.</div></div>
         </div>
       </div>
       <div class="nota" style="margin-top:.9rem;">
@@ -1113,7 +1174,8 @@ body{background:var(--noir);}
       <div class="nota" style="margin-top:.8rem;">
         <strong>Activación:</strong> 48 horas desde configuración. Costo: $0.
       </div>
-      <div class="nota" style="margin-top:.5rem;border-color:var(--rouge);">
+      <div class="nota" style="margin-top:.5rem;background:rgba(176,28,28,.05);">
+        <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,var(--rouge) 0%,rgba(176,28,28,.15) 60%,transparent 100%);"></div>
         <strong style="color:var(--rouge);">Prerequisito:</strong> T-03 debe estar importada. Sin precios, Google rechaza todos los productos.
       </div>
     </div>
