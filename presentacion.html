@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Caviaroli — Proyecto Digital 2026</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/black.css" />
+<style>
+  :root {
+    --verde:   #4a7c4e;
+    --verde-l: #7ab87f;
+    --oro:     #c9a84c;
+    --negro:   #0a0a0a;
+    --gris:    #1a1a1a;
+    --texto:   #e8e8e0;
+  }
+
+  .reveal { font-family: 'Georgia', serif; color: var(--texto); }
+  .reveal .slides section { background: var(--negro); }
+
+  /* ── PORTADA ── */
+  .portada { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1.2rem; }
+  .portada .esfera {
+    width:120px; height:120px; border-radius:50%;
+    background: radial-gradient(circle at 35% 30%, #a8d4a0, #2d5a30 55%, #0a1505);
+    box-shadow: 0 0 60px rgba(74,124,78,0.5), inset 0 0 20px rgba(0,0,0,0.4);
+  }
+  .portada h1 { font-size:2.6rem; color:#fff; letter-spacing:.18em; margin:0; text-transform:uppercase; }
+  .portada .subtitulo { font-size:1rem; color:var(--oro); letter-spacing:.25em; text-transform:uppercase; margin:0; }
+  .portada .meta { font-size:.75rem; color:#666; letter-spacing:.1em; margin-top:.5rem; }
+
+  /* ── SECCIÓN TÍTULOS ── */
+  .reveal h2 { color:var(--oro); font-size:1.3rem; text-transform:uppercase; letter-spacing:.15em; margin-bottom:.6rem; }
+  .reveal h3 { color:var(--verde-l); font-size:1.1rem; margin:0 0 .4rem; }
+  .tag {
+    display:inline-block; padding:.15rem .55rem; border-radius:3px;
+    font-size:.6rem; text-transform:uppercase; letter-spacing:.1em; font-family:monospace;
+    font-weight:bold; margin-bottom:.5rem;
+  }
+  .tag-ok    { background:#1a4a1e; color:#7ab87f; border:1px solid #2d6a34; }
+  .tag-open  { background:#4a3a00; color:#c9a84c; border:1px solid #6a5200; }
+  .tag-block { background:#4a1a00; color:#e07050; border:1px solid #6a2a00; }
+  .tag-dep   { background:#1a1a4a; color:#7080e0; border:1px solid #2a2a8a; }
+
+  /* ── GRID DE TASKS ── */
+  .grid-tasks { display:grid; grid-template-columns:1fr 1fr; gap:.9rem; width:100%; }
+  .task-card {
+    background:var(--gris); border:1px solid #2a2a2a; border-radius:6px;
+    padding:.9rem 1rem; text-align:left;
+  }
+  .task-card .num { font-size:.65rem; color:#555; font-family:monospace; margin-bottom:.2rem; }
+  .task-card h3 { font-size:.85rem; color:#fff; margin:0 0 .3rem; }
+  .task-card p  { font-size:.65rem; color:#888; margin:0; line-height:1.4; }
+
+  /* ── CHECKLIST ── */
+  .checklist { list-style:none; padding:0; margin:.6rem 0 0; text-align:left; }
+  .checklist li {
+    font-size:.72rem; color:#bbb; padding:.25rem 0;
+    border-bottom:1px solid #1e1e1e; display:flex; align-items:flex-start; gap:.5rem;
+  }
+  .checklist li:last-child { border-bottom:none; }
+  .checklist .box {
+    flex-shrink:0; width:14px; height:14px; border:1px solid #444; border-radius:2px;
+    display:inline-block; margin-top:2px;
+  }
+  .checklist .done .box { background:var(--verde); border-color:var(--verde); }
+  .checklist .done span  { color:#555; text-decoration:line-through; }
+
+  /* ── DOS COLUMNAS ── */
+  .cols { display:grid; grid-template-columns:1fr 1fr; gap:1.2rem; width:100%; }
+  .col  { text-align:left; }
+
+  /* ── BLOQUE CÓDIGO ── */
+  .cmd {
+    background:#111; border:1px solid #2a2a2a; border-radius:4px;
+    padding:.6rem .9rem; font-family:monospace; font-size:.68rem;
+    color:#7ab87f; text-align:left; margin:.5rem 0; white-space:pre;
+    overflow-x:auto;
+  }
+
+  /* ── TABLA ── */
+  table.params { width:100%; border-collapse:collapse; font-size:.65rem; }
+  table.params th { color:var(--oro); border-bottom:1px solid #333; padding:.3rem .5rem; text-align:left; }
+  table.params td { color:#bbb; padding:.25rem .5rem; border-bottom:1px solid #1e1e1e; }
+  table.params td:first-child { color:#7ab87f; font-family:monospace; white-space:nowrap; }
+  table.params td:last-child  { color:#888; }
+
+  /* ── FLUJO ── */
+  .flujo { display:flex; align-items:center; justify-content:center; gap:.5rem; flex-wrap:wrap; }
+  .flujo-item {
+    background:#111; border:1px solid #2a2a2a; border-radius:5px;
+    padding:.5rem .8rem; font-size:.7rem; text-align:center; min-width:90px;
+  }
+  .flujo-item .f-num { color:var(--oro); font-size:.6rem; font-family:monospace; }
+  .flujo-item .f-label { color:#ddd; }
+  .flujo-arrow { color:#444; font-size:1.2rem; }
+  .flujo-parallel {
+    display:flex; flex-direction:column; gap:.4rem; align-items:center;
+  }
+
+  /* ── HIGHLIGHT BOX ── */
+  .hbox {
+    background:#111; border-left:3px solid var(--oro); padding:.6rem .9rem;
+    border-radius:0 4px 4px 0; margin:.5rem 0; font-size:.72rem; color:#ccc;
+    text-align:left;
+  }
+  .hbox strong { color:var(--oro); }
+
+  /* ── BLOQUEANTE ── */
+  .bloqueante {
+    background:#2a0e00; border:1px solid #6a2a00; border-radius:5px;
+    padding:.7rem 1rem; font-size:.75rem; color:#e07050; text-align:center;
+    margin:.7rem 0;
+  }
+  .bloqueante strong { color:#ff8060; }
+
+  /* ── CIERRE ── */
+  .cierre { text-align:center; }
+  .cierre .grande { font-size:1.8rem; color:var(--verde-l); margin:.3rem 0; }
+  .cierre p { font-size:.78rem; color:#666; }
+
+  .small { font-size:.65rem; color:#666; }
+  .accent { color:var(--oro); }
+  .verde  { color:var(--verde-l); }
+  .reveal ul { list-style:none; padding:0; }
+  .reveal ul li::before { content:"·  "; color:var(--oro); }
+  .reveal ul li { font-size:.75rem; color:#bbb; margin:.2rem 0; }
+  .progress-bar { display:flex; gap:.3rem; margin:.6rem 0; }
+  .pb-step { flex:1; height:4px; border-radius:2px; background:#222; }
+  .pb-step.active { background:var(--verde); }
+  .pb-step.current { background:var(--oro); }
+</style>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<!-- ══════════════════════════════════════════════
+     SLIDE 1 · PORTADA
+══════════════════════════════════════════════ -->
+<section>
+  <div class="portada">
+    <div class="esfera"></div>
+    <h1>Caviaroli</h1>
+    <p class="subtitulo">Proyecto Digital — Jun 2026</p>
+    <p class="meta">Para: Esteban · Nahuel &nbsp;|&nbsp; 4 Tasks &nbsp;|&nbsp; Activación inmediata</p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     SLIDE 2 · CONTEXTO
+══════════════════════════════════════════════ -->
+<section>
+  <h2>El cambio de estrategia</h2>
+  <div class="cols">
+    <div class="col">
+      <h3 style="color:#666;">Antes</h3>
+      <ul>
+        <li>Comunicación de marca genérica</li>
+        <li>Contenido aspiracional sin CTA</li>
+        <li>Sin precios en la tienda</li>
+        <li>Feed sin cohesión visual</li>
+        <li>Sin presencia en Google Shopping</li>
+      </ul>
+    </div>
+    <div class="col">
+      <h3 class="verde">Ahora</h3>
+      <ul>
+        <li>Producto directo al consumidor</li>
+        <li>Urgencia comercial — lote a vencer</li>
+        <li>66 productos con precio en ARS</li>
+        <li>Feed unificado + video IA</li>
+        <li>Google Shopping sin inversión</li>
+      </ul>
+    </div>
+  </div>
+  <div class="hbox" style="margin-top:1rem;">
+    <strong>Dos frentes simultáneos:</strong> liquidar el lote urgente + construir audiencia orgánica de largo plazo.
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     SLIDE 3 · RESUMEN 4 TASKS
+══════════════════════════════════════════════ -->
+<section>
+  <h2>Las 4 tasks</h2>
+  <div class="grid-tasks">
+    <div class="task-card">
+      <div class="num">T-01</div>
+      <div class="tag tag-open">Diseño pendiente</div>
+      <h3>Imagen de perfil IG</h3>
+      <p>Esfera de oliva glossy sobre fondo negro. Dos versiones: global + Argentina.</p>
+    </div>
+    <div class="task-card">
+      <div class="num">T-02</div>
+      <div class="tag tag-open">Producción pendiente</div>
+      <h3>Feed + contenido orgánico</h3>
+      <p>Serie de urgencia + educación de producto + videos con Higgsfield AI.</p>
+    </div>
+    <div class="task-card">
+      <div class="num">T-03</div>
+      <div class="tag tag-block">Bloqueada: falta TC</div>
+      <h3>CSV masivo Tiendanube</h3>
+      <p>Precios EUR→ARS + promo por vencimiento + SEO con IA. Script listo.</p>
+    </div>
+    <div class="task-card">
+      <div class="num">T-04</div>
+      <div class="tag tag-dep">Depende de T-03</div>
+      <h3>Google Shopping</h3>
+      <p>Fichas gratuitas de producto. $0 de inversión. Activo en 48 hs.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     SLIDE 4 · T-01
+══════════════════════════════════════════════ -->
+<section>
+  <div class="tag tag-open">T-01 · Imagen de perfil Instagram</div>
+  <h2>Esfera de oliva — identidad visual</h2>
+  <div class="cols">
+    <div class="col">
+      <h3>Qué</h3>
+      <p style="font-size:.72rem; color:#bbb; line-height:1.6;">
+        Reemplazar la foto de perfil actual por una esfera de oliva perfecta —
+        glossy, tridimensional, con tallo — sobre fondo negro profundo.
+        Sin texto. Sin logo.
+      </p>
+      <div class="hbox" style="margin-top:.8rem;">
+        <strong>Por qué importa:</strong> en búsqueda de Instagram la imagen se ve a 46 px.
+        La esfera destaca; el logotipo tipográfico no.
+      </div>
+    </div>
+    <div class="col">
+      <h3>Checklist Nahuel</h3>
+      <ul class="checklist">
+        <li><span class="box"></span><span>Definir fondo: #0a0a0a vs #0a1a05</span></li>
+        <li><span class="box"></span><span>Generar render en Midjourney / Firefly / Ideogram</span></li>
+        <li><span class="box"></span><span>Versión Global (@caviaroli)</span></li>
+        <li><span class="box"></span><span>Versión Argentina (@caviaroli.argentina)</span></li>
+        <li><span class="box"></span><span>Test a 46 px y 150 px</span></li>
+        <li><span class="box"></span><span>Exportar PNG circular 320×320 px mínimo</span></li>
+        <li><span class="box"></span><span>Subir a ambos perfiles</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="cmd">Prompt sugerido Midjourney:
+"a perfect olive sphere, glossy, photorealistic, 3D render,
+ with a small stem, on deep black background, studio lighting,
+ macro photography, ultra high detail"</div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     SLIDE 5 · T-02
+══════════════════════════════════════════════ -->
+<section>
+  <div class="tag tag-open">T-02 · Feed + Contenido Orgánico</div>
+  <h2>De marca a producto directo</h2>
+  <div class="cols">
+    <div class="col">
+      <h3>Estructura de contenido</h3>
+      <ul class="checklist">
+        <li><span class="box"></span><span><strong style="color:#ddd;">A · Grilla visual</strong> — paleta negro + verde oliva + blanco, tipografía unificada</span></li>
+        <li><span class="box"></span><span><strong style="color:#ddd;">B · Serie urgencia</strong> — 3-5 posts: precio + stock limitado + CTA directo</span></li>
+        <li><span class="box"></span><span><strong style="color:#ddd;">C · Educación</strong> — qué es, cómo se usa, maridajes, recetas simples</span></li>
+        <li><span class="box"></span><span><strong style="color:#ddd;">D · Video IA</strong> — 2-3 videos con Higgsfield AI (esferas, aceite, plato final)</span></li>
+        <li><span class="box"></span><span><strong style="color:#ddd;">E · Reels</strong> — 7-15 seg, gancho en 2 seg, CTA a caviaroli.com.ar</span></li>
+      </ul>
+    </div>
+    <div class="col">
+      <h3>Herramientas</h3>
+      <div class="hbox"><strong>Video IA:</strong> higgsfield.ai — video de producto con movimiento premium sin producción física</div>
+      <div class="hbox" style="margin-top:.5rem;"><strong>Ritmo:</strong> 1 post/día durante 2 semanas</div>
+      <div class="hbox" style="margin-top:.5rem;"><strong>Copy urgencia:</strong><br>"Stock limitado. Caviaroli Albahaca 200g a precio especial. Link en bio →"</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     SLIDE 6 · T-03 INTRO
+══════════════════════════════════════════════ -->
+<section>
+  <div class="tag tag-block">T-03 · CSV Tiendanube — Script listo</div>
+  <h2>Actualización masiva de precios + SEO</h2>
+
+  <div class="bloqueante">
+    <strong>⚠ BLOQUEANTE para Esteban:</strong> confirmar tipo de cambio EUR → ARS<br/>
+    <span style="font-size:.7rem;">Sin este dato el script no puede ejecutarse. El resto ya está resuelto.</span>
+  </div>
+
+  <div class="cols" style="margin-top:.4rem;">
+    <div class="col">
+      <h3>Situación actual</h3>
+      <ul>
+        <li>66 productos en Tiendanube con precio = 0</li>
+        <li>74 registros en Excel con precio EUR</li>
+        <li>60/66 con match automático de precio</li>
+        <li>6 productos a cargar manualmente</li>
+        <li>52 productos urgentes → descuento -20%</li>
+      </ul>
+    </div>
+    <div class="col">
+      <h3>Qué hace el script</h3>
+      <ul>
+        <li>Lee CSV Tiendanube + Excel vencimientos</li>
+        <li>Cruza productos por nombre flexible</li>
+        <li>Convierte EUR → ARS con el TC confirmado</li>
+        <li>Asigna precio promo a lote urgente</li>
+        <li>Genera SEO con IA (Claude) por producto</li>
+        <li>Exporta CSV listo para importar</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     SLIDE 7 · T-03 EJECUCIÓN
+══════════════════════════════════════════════ -->
+<section>
+  <div class="tag tag-block">T-03 · Ejecución paso a paso</div>
+  <h2>Para Nahuel — comandos exactos</h2>
+
+  <p style="font-size:.7rem; color:#888; text-align:left; margin-bottom:.4rem;">1 · Instalar dependencias</p>
+  <div class="cmd">pip install pandas openpyxl anthropic</div>
+
+  <p style="font-size:.7rem; color:#888; text-align:left; margin:.4rem 0;">2 · Configurar API key (para SEO con IA)</p>
+  <div class="cmd">export ANTHROPIC_API_KEY=sk-ant-...</div>
+
+  <p style="font-size:.7rem; color:#888; text-align:left; margin:.4rem 0;">3 · Dry run para validar</p>
+  <div class="cmd">python caviaroli_proyecto_completo.py task3 \
+    --tc 1100 \
+    --tiendanube tiendanube646256.csv \
+    --vencimientos Caviaroli_Vencimientos.xlsx \
+    --dry-run</div>
+
+  <p style="font-size:.7rem; color:#888; text-align:left; margin:.4rem 0;">4 · Ejecución definitiva</p>
+  <div class="cmd">python caviaroli_proyecto_completo.py task3 \
+    --tc 1100 \
+    --tiendanube tiendanube646256.csv \
+    --vencimientos Caviaroli_Vencimientos.xlsx \
+    --output caviaroli_actualizado.csv</div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     SLIDE 8 · T-03 PARÁMETROS
+══════════════════════════════════════════════ -->
+<section>
+  <div class="tag tag-block">T-03 · Parámetros</div>
+  <h2>Variables configurables</h2>
+  <table class="params">
+    <tr>
+      <th>Parámetro</th>
+      <th>Descripción</th>
+      <th>Default</th>
+    </tr>
+    <tr><td>--tc</td><td>Tipo de cambio EUR → ARS <strong style="color:#e07050;">(requerido)</strong></td><td>—</td></tr>
+    <tr><td>--descuento</td><td>% descuento lote urgente</td><td>20</td></tr>
+    <tr><td>--tiendanube</td><td>CSV exportado de Tiendanube</td><td>tiendanube.csv</td></tr>
+    <tr><td>--vencimientos</td><td>Excel de vencimientos</td><td>Caviaroli_Vencimientos.xlsx</td></tr>
+    <tr><td>--output</td><td>CSV de salida</td><td>caviaroli_actualizado.csv</td></tr>
+    <tr><td>--dias-urgente</td><td>Días para marcar como urgente</td><td>120</td></tr>
+    <tr><td>--dry-run</td><td>Preview sin generar archivo</td><td>—</td></tr>
+  </table>
+  <div class="hbox" style="margin-top:.8rem;">
+    <strong>Sin API key:</strong> el script igual genera el CSV con precios correctos.
+    El SEO queda con placeholder para completar después.
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     SLIDE 9 · T-03 CHECKLIST
+══════════════════════════════════════════════ -->
+<section>
+  <div class="tag tag-block">T-03 · Checklist de ejecución</div>
+  <h2>Para Nahuel</h2>
+  <div class="cols">
+    <div class="col">
+      <ul class="checklist">
+        <li><span class="box"></span><span>Esteban confirma tipo de cambio EUR→ARS</span></li>
+        <li><span class="box"></span><span>Instalar: <code>pip install pandas openpyxl anthropic</code></span></li>
+        <li><span class="box"></span><span>Configurar ANTHROPIC_API_KEY en el entorno</span></li>
+        <li><span class="box"></span><span>Exportar CSV desde Tiendanube → Productos → Exportar</span></li>
+        <li><span class="box"></span><span>Ejecutar con <code>--dry-run</code> para validar</span></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="checklist">
+        <li><span class="box"></span><span>Revisar 6 productos sin match automático</span></li>
+        <li><span class="box"></span><span>Ejecutar definitivo → obtener CSV</span></li>
+        <li><span class="box"></span><span>Importar CSV en Tiendanube → Productos → Importar</span></li>
+        <li><span class="box"></span><span>Validar precios y SEO en la tienda</span></li>
+        <li><span class="box"></span><span>✓ Listo para T-04</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="hbox">
+    <strong>6 productos a cargar manualmente:</strong> Libro, Pasta Pura, Drops by Albert Adrià y variantes sin match por nombre.
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     SLIDE 10 · T-04
+══════════════════════════════════════════════ -->
+<section>
+  <div class="tag tag-dep">T-04 · Google Shopping — depende de T-03</div>
+  <h2>Fichas gratuitas — $0 de inversión</h2>
+  <div class="cols">
+    <div class="col">
+      <h3>Por qué funciona para Caviaroli</h3>
+      <ul>
+        <li>Nicho con poca competencia paga en Argentina</li>
+        <li>Quien busca "caviar de aceite Argentina" ya quiere comprar</li>
+        <li>Los precios promocionales aparecen con precio tachado</li>
+        <li>El SEO de T-03 alimenta el feed de Google directamente</li>
+        <li>Activación: 48 hs desde configuración</li>
+      </ul>
+    </div>
+    <div class="col">
+      <h3>Checklist Nahuel</h3>
+      <ul class="checklist">
+        <li><span class="box"></span><span>Crear cuenta en merchants.google.com</span></li>
+        <li><span class="box"></span><span>Verificar dominio caviaroli.com.ar</span></li>
+        <li><span class="box"></span><span>Vincular Tiendanube → Canales de venta → Google Shopping</span></li>
+        <li><span class="box"></span><span>Activar fichas gratuitas en Merchant Center</span></li>
+        <li><span class="box"></span><span>Mapear categorías Google Shopping</span></li>
+        <li><span class="box"></span><span>Esperar 48 hs → revisar diagnóstico</span></li>
+        <li><span class="box"></span><span>Confirmar productos activos</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     SLIDE 11 · T-04 CATEGORÍAS
+══════════════════════════════════════════════ -->
+<section>
+  <div class="tag tag-dep">T-04 · Categorías Google Shopping</div>
+  <h2>Mapeo sugerido para Tiendanube</h2>
+  <table class="params">
+    <tr><th>Categoría Tiendanube</th><th>Categoría Google Shopping</th></tr>
+    <tr><td>Perlas de aceite</td><td>Alimentos &gt; Condimentos y salsas</td></tr>
+    <tr><td>Aceites Caviaroli</td><td>Alimentos &gt; Aceites comestibles</td></tr>
+    <tr><td>Perlas de vinagre</td><td>Alimentos &gt; Vinagres</td></tr>
+    <tr><td>Perlas de vino</td><td>Alimentos &gt; Condimentos y salsas</td></tr>
+    <tr><td>Salsas Oliquida</td><td>Alimentos &gt; Salsas</td></tr>
+    <tr><td>Pinturas de aceite</td><td>Alimentos &gt; Condimentos y salsas</td></tr>
+    <tr><td>Packs / Starter Kit</td><td>Alimentos &gt; Canastas y sets de alimentos</td></tr>
+  </table>
+  <div class="hbox" style="margin-top:.8rem;">
+    Configurar en Tiendanube → cada categoría tiene el campo "Categoría de Google Shopping".
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     SLIDE 12 · ORDEN DE EJECUCIÓN
+══════════════════════════════════════════════ -->
+<section>
+  <h2>Orden de ejecución</h2>
+  <div class="flujo" style="margin:.8rem 0;">
+    <div class="flujo-parallel">
+      <div class="flujo-item">
+        <div class="f-num">T-01</div>
+        <div class="f-label">Imagen IG</div>
+      </div>
+      <div class="flujo-item">
+        <div class="f-num">T-02</div>
+        <div class="f-label">Feed + contenido</div>
+      </div>
+    </div>
+    <div class="flujo-arrow">→</div>
+    <div class="flujo-item" style="border-color:#6a2a00;">
+      <div class="f-num" style="color:#e07050;">T-03</div>
+      <div class="f-label">CSV Tiendanube</div>
+      <div style="font-size:.55rem; color:#e07050; margin-top:.2rem;">necesita TC</div>
+    </div>
+    <div class="flujo-arrow">→</div>
+    <div class="flujo-item" style="border-color:#2a2a6a;">
+      <div class="f-num" style="color:#7080e0;">T-04</div>
+      <div class="f-label">Google Shopping</div>
+    </div>
+  </div>
+
+  <div class="cols" style="margin-top:.6rem;">
+    <div class="col">
+      <h3>T-01 + T-02 en paralelo</h3>
+      <p style="font-size:.7rem; color:#888;">Sin dependencias entre sí. Pueden arrancar hoy.</p>
+    </div>
+    <div class="col">
+      <h3>T-03 bloqueada</h3>
+      <p style="font-size:.7rem; color:#888;">Necesita confirmación de TC de Esteban. Script listo para ejecutar en minutos.</p>
+    </div>
+  </div>
+
+  <div class="bloqueante" style="margin-top:.6rem;">
+    <strong>Acción para Esteban:</strong> confirmar el tipo de cambio EUR → ARS<br/>
+    <span style="font-size:.68rem;">Con ese dato, T-03 y T-04 se ejecutan en menos de 1 hora.</span>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     SLIDE 13 · CIERRE
+══════════════════════════════════════════════ -->
+<section>
+  <div class="cierre">
+    <div style="margin-bottom:1rem;">
+      <div style="width:70px; height:70px; border-radius:50%; background: radial-gradient(circle at 35% 30%, #a8d4a0, #2d5a30 55%, #0a1505); margin:0 auto; box-shadow: 0 0 40px rgba(74,124,78,0.4);"></div>
+    </div>
+    <h2 style="color:#fff; font-size:1.5rem; letter-spacing:.1em;">Caviaroli</h2>
+    <p class="grande">Listo para activar.</p>
+
+    <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:.5rem; margin:1rem 0; font-size:.6rem;">
+      <div style="background:#111; border:1px solid #222; border-radius:4px; padding:.5rem;">
+        <div style="color:var(--oro);">T-01</div>
+        <div style="color:#888;">Imagen IG</div>
+        <div style="color:#c9a84c;">→ Arrancar ya</div>
+      </div>
+      <div style="background:#111; border:1px solid #222; border-radius:4px; padding:.5rem;">
+        <div style="color:var(--oro);">T-02</div>
+        <div style="color:#888;">Feed + video</div>
+        <div style="color:#c9a84c;">→ Arrancar ya</div>
+      </div>
+      <div style="background:#2a0e00; border:1px solid #6a2a00; border-radius:4px; padding:.5rem;">
+        <div style="color:#e07050;">T-03</div>
+        <div style="color:#888;">CSV precios</div>
+        <div style="color:#e07050;">⚠ Falta TC</div>
+      </div>
+      <div style="background:#111; border:1px solid #222; border-radius:4px; padding:.5rem;">
+        <div style="color:#7080e0;">T-04</div>
+        <div style="color:#888;">Google Shopping</div>
+        <div style="color:#7080e0;">→ Tras T-03</div>
+      </div>
+    </div>
+
+    <p class="small">
+      Script T-03: <span class="accent">github.com/volhotic-creator/caviaroli</span><br/>
+      caviaroli.com.ar &nbsp;·&nbsp; @caviaroli.argentina
+    </p>
+  </div>
+</section>
+
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script>
+Reveal.initialize({
+  hash: true,
+  controls: true,
+  progress: true,
+  slideNumber: true,
+  transition: 'fade',
+  transitionSpeed: 'fast',
+  backgroundTransition: 'fade',
+  width: 960,
+  height: 540,
+  margin: 0.04,
+  plugins: []
+});
+</script>
+</body>
+</html>
