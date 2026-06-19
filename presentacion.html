@@ -6,548 +6,301 @@
 <title>Caviaroli — Proyecto Digital 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css"/>
 <style>
+:root{
+  --noir:#06070a;--noir2:#0d0e12;--noir3:#13151a;--noir4:#1a1c22;
+  --rouge:#b01c1c;--rouge2:#d42b2b;--or:#c9a84c;--or2:#e8c97a;
+  --vert:#2d6e34;--vert2:#4a9e54;--creme:#f2ede3;--blanc:#fafaf6;
+  --gris:#888;--gris2:#555;--gris3:#2a2c32;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--noir);}
+.reveal{font-family:'Inter',sans-serif;background:var(--noir);color:var(--creme);}
+.reveal .slides{text-align:left;}
+.reveal .slides section{background:var(--noir);padding:0;height:100%;width:100%;display:flex!important;flex-direction:column;justify-content:center;}
+.reveal .progress span{background:var(--or);}
+.reveal .controls{color:var(--or);}
+.reveal .slide-number{font-family:'Inter',sans-serif;font-size:.55rem;letter-spacing:.12em;color:var(--gris2);background:transparent;}
+.reveal h1,.reveal h2,.reveal h3,.reveal p,.reveal ul,.reveal ol{margin:0;}
+.reveal ul{list-style:none;padding:0;}
 
-/* ════════════════════════════════════════════
-   TOKENS
-════════════════════════════════════════════ */
-:root {
-  --noir:     #080808;
-  --noir-2:   #0f0f0f;
-  --noir-3:   #161616;
-  --rouge:    #9B1C1C;
-  --rouge-l:  #C0392B;
-  --or:       #C9A84C;
-  --or-l:     #E8C97A;
-  --creme:    #F0EDE4;
-  --gris:     #888880;
-  --gris-l:   #AAAAAA;
-  --vert:     #2D5A30;
-  --vert-l:   #4A7C4E;
-  --blanc:    #FAFAF8;
-}
+/* ── SLIDE WRAPPER ── */
+.S{padding:3rem 4.5rem;height:100%;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;}
+.S-wide{padding:3rem 3.5rem;}
+.S-split{display:grid;grid-template-columns:1fr 1fr;height:100%;}
 
-/* ════════════════════════════════════════════
-   BASE
-════════════════════════════════════════════ */
-* { box-sizing: border-box; margin: 0; padding: 0; }
+/* ── TYPE ── */
+.eyebrow{font-size:.58rem;font-weight:600;letter-spacing:.25em;text-transform:uppercase;color:var(--or);margin-bottom:1rem;display:flex;align-items:center;gap:.7rem;}
+.eyebrow::before{content:'';width:20px;height:1px;background:var(--or);flex-shrink:0;}
+.h1{font-family:'Playfair Display',serif;font-size:2.8rem;line-height:1.1;color:var(--blanc);font-weight:400;}
+.h1 em{font-style:italic;color:var(--or2);}
+.h2{font-family:'Playfair Display',serif;font-size:1.8rem;line-height:1.2;color:var(--blanc);font-weight:400;}
+.h2 em{font-style:italic;color:var(--or2);}
+.h3{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--blanc);font-weight:400;margin-bottom:.4rem;}
+.body{font-size:.82rem;font-weight:300;color:var(--gris);line-height:1.7;}
+.label{font-size:.55rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--gris2);}
+.rule{border:none;height:1px;background:linear-gradient(90deg,var(--rouge),transparent);margin:.9rem 0;}
+.rule-or{background:linear-gradient(90deg,var(--or),transparent);}
 
-.reveal {
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  background: var(--noir);
-  color: var(--creme);
-}
-.reveal .slides { text-align: left; }
-.reveal .slides section {
-  background: var(--noir);
-  padding: 0;
-  height: 100%;
-  width: 100%;
-  display: flex !important;
-  flex-direction: column;
-  justify-content: center;
-}
-.reveal .progress span { background: var(--or); }
-.reveal .controls { color: var(--or); }
-.reveal .slide-number { color: var(--gris); font-family: 'Inter', sans-serif; font-size: .6rem; letter-spacing: .15em; }
+/* ── BADGE ── */
+.badge{display:inline-flex;align-items:center;gap:.3rem;padding:.18rem .6rem;border-radius:1px;font-size:.52rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;}
+.b-or{background:rgba(201,168,76,.1);color:var(--or);border:1px solid rgba(201,168,76,.25);}
+.b-red{background:rgba(176,28,28,.12);color:#e07060;border:1px solid rgba(176,28,28,.3);}
+.b-vert{background:rgba(45,110,52,.12);color:var(--vert2);border:1px solid rgba(45,110,52,.3);}
+.b-blue{background:rgba(60,90,180,.1);color:#8090e0;border:1px solid rgba(60,90,180,.25);}
+.dot{width:5px;height:5px;border-radius:50%;background:currentColor;}
 
-/* ════════════════════════════════════════════
-   SLIDE LAYOUT
-════════════════════════════════════════════ */
-.slide {
-  padding: 3.5rem 5rem;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  position: relative;
-}
-.slide--narrow { padding: 3.5rem 7rem; }
+/* ════════════════════════════════════
+   SLIDE 01 — PORTADA
+════════════════════════════════════ */
+.cover{display:grid;grid-template-columns:1fr 420px;height:100%;background:var(--noir);}
+.cover-l{padding:4rem 4rem 4rem 5rem;display:flex;flex-direction:column;justify-content:space-between;position:relative;}
+.cover-l::after{content:'';position:absolute;right:0;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,transparent,var(--rouge) 30%,var(--rouge) 70%,transparent);opacity:.3;}
+.cover-r{background:var(--noir2);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:0;position:relative;overflow:hidden;}
+.cover-r-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 45%,rgba(45,110,52,.12) 0%,transparent 60%),radial-gradient(ellipse at 50% 45%,rgba(176,28,28,.06) 0%,transparent 80%);}
+.cover-logo{font-family:'Playfair Display',serif;font-size:3.5rem;font-weight:400;letter-spacing:.5em;color:var(--blanc);text-transform:uppercase;line-height:1;}
+.cover-sub{font-size:.65rem;font-weight:400;letter-spacing:.3em;text-transform:uppercase;color:var(--or);margin-top:.6rem;}
+.cover-meta{display:flex;flex-direction:column;gap:.4rem;}
+.cover-meta-row{font-size:.56rem;font-weight:400;letter-spacing:.15em;text-transform:uppercase;color:var(--gris2);display:flex;align-items:center;gap:.6rem;}
+.cover-meta-row::before{content:'·';color:var(--rouge);}
 
-/* borde lateral rojo izquierdo */
-.slide::before {
-  content: '';
-  position: absolute;
-  left: 0; top: 10%; bottom: 10%;
-  width: 1px;
-  background: linear-gradient(to bottom, transparent, var(--rouge) 30%, var(--rouge) 70%, transparent);
-  opacity: .4;
-}
-.slide--nobar::before { display: none; }
+/* esfera grande */
+.sphere-xl{width:160px;height:160px;border-radius:50%;position:relative;z-index:1;
+  background:radial-gradient(circle at 33% 28%,#d4efd0 0%,#6bbf74 15%,#3a8e42 35%,#1e5c24 58%,#0c2e10 100%);
+  box-shadow:0 0 100px rgba(45,110,52,.5),0 0 200px rgba(45,110,52,.15),inset -16px -16px 40px rgba(0,0,0,.65),inset 6px 6px 16px rgba(200,240,196,.12);}
+.sphere-stem{width:3px;height:26px;background:linear-gradient(to bottom,#1e5c24,#0c2e10);margin:0 auto;border-radius:2px;}
+.sphere-shadow{width:90px;height:18px;background:radial-gradient(ellipse,rgba(0,0,0,.6) 0%,transparent 100%);border-radius:50%;margin:0 auto;margin-top:.4rem;}
+.sphere-glow{position:absolute;width:200px;height:200px;border-radius:50%;background:radial-gradient(ellipse,rgba(45,110,52,.08) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);z-index:0;}
+.sphere-wrap{position:relative;z-index:1;margin-bottom:1rem;}
+.sphere-reflection{width:32px;height:10px;background:radial-gradient(ellipse,rgba(255,255,255,.3) 0%,transparent 100%);border-radius:50%;position:absolute;top:22%;left:30%;}
+.stars-deco{font-size:.8rem;letter-spacing:.4rem;color:rgba(201,168,76,.25);position:absolute;z-index:1;}
+.sd1{top:14%;left:18%;}
+.sd2{top:18%;left:28%;font-size:.5rem;}
+.sd3{bottom:18%;right:22%;font-size:.6rem;}
 
-/* ════════════════════════════════════════════
-   TIPOGRAFÍA
-════════════════════════════════════════════ */
-.eyebrow {
-  font-family: 'Inter', sans-serif;
-  font-size: .6rem;
-  font-weight: 500;
-  letter-spacing: .25em;
-  text-transform: uppercase;
-  color: var(--or);
-  margin-bottom: 1.2rem;
-  display: flex;
-  align-items: center;
-  gap: .8rem;
-}
-.eyebrow::before { content: ''; display: inline-block; width: 24px; height: 1px; background: var(--or); flex-shrink: 0; }
+/* ════════════════════════════════════
+   SLIDE 02 — CONTEXTO
+════════════════════════════════════ */
+.ctx-split{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--gris3);height:80%;margin-top:1rem;border:1px solid var(--gris3);}
+.ctx-col{background:var(--noir2);padding:1.6rem 1.8rem;}
+.ctx-col-r{background:var(--noir3);}
+.ctx-title{font-size:.58rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;margin-bottom:1rem;padding-bottom:.6rem;border-bottom:1px solid var(--gris3);}
+.ctx-row{display:flex;align-items:flex-start;gap:.7rem;padding:.45rem 0;border-bottom:1px solid rgba(255,255,255,.03);font-size:.78rem;font-weight:300;color:var(--gris);}
+.ctx-row-r{color:var(--creme);}
+.ctx-icon{flex-shrink:0;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.65rem;}
+.ci-gray{background:rgba(255,255,255,.04);color:var(--gris2);}
+.ci-or{background:rgba(201,168,76,.1);color:var(--or);}
 
-.titulo {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-weight: 400;
-  font-size: 2.4rem;
-  line-height: 1.15;
-  color: var(--blanc);
-  margin-bottom: .5rem;
-}
-.titulo em { font-style: italic; color: var(--or-l); }
-.titulo--lg { font-size: 3.2rem; }
-.titulo--sm { font-size: 1.6rem; }
+/* ════════════════════════════════════
+   SLIDE 03 — 4 TASKS VISUAL
+════════════════════════════════════ */
+.tasks-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--gris3);border:1px solid var(--gris3);margin-top:1.2rem;}
+.tc{background:var(--noir2);padding:1.5rem 1.6rem;position:relative;transition:background .2s;}
+.tc:hover{background:var(--noir3);}
+.tc-num{font-size:.52rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--gris2);margin-bottom:.5rem;}
+.tc-icon{width:40px;height:40px;border-radius:4px;display:flex;align-items:center;justify-content:center;margin-bottom:.7rem;}
+.tc-title{font-family:'Playfair Display',serif;font-size:1rem;color:var(--blanc);margin:.4rem 0 .4rem;}
+.tc-desc{font-size:.72rem;font-weight:300;color:var(--gris);line-height:1.6;}
+.tc-accent{position:absolute;top:0;left:0;right:0;height:2px;}
 
-.subtitulo {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.05rem;
-  font-weight: 300;
-  color: var(--gris-l);
-  line-height: 1.7;
-  margin-bottom: 1.5rem;
-}
+/* ════════════════════════════════════
+   INSTAGRAM MOCKUP
+════════════════════════════════════ */
+.ig-phone{width:160px;background:#000;border-radius:26px;padding:10px;box-shadow:0 0 0 1px #222,0 20px 60px rgba(0,0,0,.8);position:relative;flex-shrink:0;}
+.ig-screen{background:#111;border-radius:18px;overflow:hidden;}
+.ig-header{background:#000;padding:.5rem .6rem;display:flex;align-items:center;gap:.4rem;}
+.ig-avatar-small{width:22px;height:22px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#c8e8c4,#2d6e34 50%,#0a1f0d);border:1.5px solid var(--or);}
+.ig-name{font-size:.45rem;font-weight:600;color:#fff;}
+.ig-profile{padding:.6rem .5rem;text-align:center;}
+.ig-avatar-lg{width:46px;height:46px;border-radius:50%;margin:0 auto .3rem;border:2px solid var(--or);}
+.ig-av-inner{width:100%;height:100%;border-radius:50%;background:radial-gradient(circle at 35% 30%,#c8e8c4,#2d6e34 50%,#0a1f0d);}
+.ig-av-placeholder{width:100%;height:100%;border-radius:50%;background:#222;display:flex;align-items:center;justify-content:center;font-size:.7rem;color:#444;}
+.ig-username{font-size:.4rem;font-weight:700;color:#fff;}
+.ig-bio{font-size:.35rem;color:#888;margin:.2rem 0;line-height:1.4;}
+.ig-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:.2rem;margin:.3rem 0;}
+.ig-stat{text-align:center;}
+.ig-stat-n{font-size:.5rem;font-weight:700;color:#fff;}
+.ig-stat-l{font-size:.3rem;color:#888;}
+.ig-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-top:.4rem;}
+.ig-cell{aspect-ratio:1;background:#1a1a1a;overflow:hidden;position:relative;}
+.ig-cell img{width:100%;height:100%;object-fit:cover;}
+.ig-cell-olive{background:radial-gradient(circle at 40% 35%,#6bbf74,#1e5c24 60%,#0c2e10);}
+.ig-cell-dark{background:#111;}
+.ig-cell-green{background:linear-gradient(135deg,#1a3a1e,#0c2010);}
 
-.cuerpo {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: .92rem;
-  font-weight: 300;
-  color: var(--gris-l);
-  line-height: 1.8;
-}
+.ig-size-demo{display:flex;align-items:flex-end;gap:1.5rem;margin-top:1rem;}
+.ig-circle{border-radius:50%;background:radial-gradient(circle at 35% 30%,#c8e8c4,#2d6e34 50%,#0a1f0d);border:1.5px solid var(--or);}
 
-.label {
-  font-family: 'Inter', sans-serif;
-  font-size: .58rem;
-  font-weight: 500;
-  letter-spacing: .2em;
-  text-transform: uppercase;
-  color: var(--gris);
-}
+/* ════════════════════════════════════
+   CONTENT CALENDAR
+════════════════════════════════════ */
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-top:.6rem;}
+.cal-day{aspect-ratio:1;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:.5rem;font-weight:600;position:relative;}
+.cal-empty{background:var(--noir3);}
+.cal-urgencia{background:rgba(176,28,28,.25);border:1px solid rgba(176,28,28,.4);color:#e07060;}
+.cal-edu{background:rgba(45,110,52,.2);border:1px solid rgba(45,110,52,.3);color:var(--vert2);}
+.cal-video{background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.3);color:var(--or);}
+.cal-reel{background:rgba(100,60,180,.2);border:1px solid rgba(100,60,180,.3);color:#a070f0;}
+.cal-header{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:2px;}
+.cal-head{font-size:.42rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gris2);text-align:center;padding:.2rem 0;}
 
-.mono {
-  font-family: 'Courier New', monospace;
-  font-size: .72rem;
-}
+/* ════════════════════════════════════
+   DATA VIZ — T03
+════════════════════════════════════ */
+.donut-wrap{position:relative;width:130px;height:130px;flex-shrink:0;}
+.donut-svg{transform:rotate(-90deg);}
+.donut-label{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;}
+.donut-num{font-family:'Playfair Display',serif;font-size:1.6rem;color:var(--or2);}
+.donut-sub{font-size:.48rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gris2);}
 
-/* ════════════════════════════════════════════
-   SEPARADORES
-════════════════════════════════════════════ */
-.rule {
-  width: 100%;
-  height: 1px;
-  background: linear-gradient(to right, var(--rouge) 0%, #2a0a0a 60%, transparent 100%);
-  margin: 1.2rem 0;
-  border: none;
-}
-.rule--or {
-  background: linear-gradient(to right, var(--or) 0%, #2a1e00 60%, transparent 100%);
-}
-.rule--full {
-  background: linear-gradient(to right, transparent, #222 30%, #222 70%, transparent);
-}
+.bar-row{display:flex;align-items:center;gap:.7rem;margin:.35rem 0;}
+.bar-label-txt{font-size:.65rem;font-weight:400;color:var(--gris);width:90px;flex-shrink:0;}
+.bar-track{flex:1;height:6px;background:var(--noir4);border-radius:3px;overflow:hidden;}
+.bar-fill{height:100%;border-radius:3px;transition:width .6s;}
+.bar-val{font-size:.62rem;font-weight:600;color:var(--blanc);width:28px;text-align:right;flex-shrink:0;}
 
-/* ════════════════════════════════════════════
-   PORTADA
-════════════════════════════════════════════ */
-.portada {
-  padding: 0;
-  position: relative;
-  overflow: hidden;
-  height: 100%;
-  display: flex;
-  align-items: stretch;
-}
-.portada-left {
-  flex: 1;
-  background: var(--noir);
-  padding: 4rem 4rem 4rem 5rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-.portada-right {
-  width: 38%;
-  position: relative;
-  background: var(--noir-2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-}
-.portada-right::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse at 50% 40%, rgba(74,124,78,.18) 0%, transparent 65%),
-    radial-gradient(ellipse at 50% 40%, rgba(155,28,28,.08) 0%, transparent 80%);
-}
-.esfera-wrap { position: relative; z-index: 1; }
-.esfera {
-  width: 140px; height: 140px; border-radius: 50%;
-  background:
-    radial-gradient(circle at 32% 28%, #c8e8c4 0%, #5a9e60 18%, #2d6e34 40%, #1a4a20 65%, #0a1f0d 100%);
-  box-shadow:
-    0 0 80px rgba(45,90,48,.5),
-    0 0 140px rgba(45,90,48,.2),
-    inset -12px -12px 30px rgba(0,0,0,.6),
-    inset 4px 4px 12px rgba(200,232,196,.15);
-  margin: 0 auto;
-}
-.esfera-reflection {
-  width: 28px; height: 10px;
-  background: radial-gradient(ellipse, rgba(255,255,255,.35) 0%, transparent 100%);
-  border-radius: 50%;
-  margin: 0 auto;
-  margin-top: -132px;
-  margin-left: 28px;
-  position: relative;
-}
-.tallo {
-  width: 2px; height: 18px;
-  background: linear-gradient(to bottom, #2d5a30, #1a3a1a);
-  margin: 0 auto;
-  border-radius: 1px;
-}
-.estrella-michelin {
-  position: absolute;
-  z-index: 1;
-}
-.em-1 { top: 18%; left: 22%; font-size: 1.2rem; color: rgba(201,168,76,.15); }
-.em-2 { top: 22%; left: 34%; font-size: .7rem; color: rgba(201,168,76,.1); }
-.em-3 { bottom: 22%; right: 25%; font-size: .9rem; color: rgba(201,168,76,.12); }
-.portada-logo {
-  font-family: 'Playfair Display', serif;
-  font-size: 3rem;
-  font-weight: 400;
-  letter-spacing: .4em;
-  color: var(--blanc);
-  text-transform: uppercase;
-  margin-bottom: .2rem;
-}
-.portada-tagline {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: .85rem;
-  font-weight: 300;
-  letter-spacing: .3em;
-  text-transform: uppercase;
-  color: var(--or);
-}
-.portada-meta {
-  display: flex;
-  flex-direction: column;
-  gap: .3rem;
-}
-.portada-meta-item {
-  font-family: 'Inter', sans-serif;
-  font-size: .58rem;
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  color: var(--gris);
-  display: flex;
-  align-items: center;
-  gap: .6rem;
-}
-.portada-meta-item::before { content: '—'; color: var(--rouge); }
+.stat-big{font-family:'Playfair Display',serif;font-size:2.4rem;line-height:1;color:var(--or2);}
+.stat-row{display:flex;gap:2rem;margin:.8rem 0;}
+.stat-block{text-align:center;}
+.stat-lbl{font-size:.5rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--gris2);margin-top:.2rem;}
 
-/* ════════════════════════════════════════════
-   BADGES DE ESTADO
-════════════════════════════════════════════ */
-.badge {
-  display: inline-flex;
-  align-items: center;
-  gap: .35rem;
-  padding: .2rem .7rem;
-  border-radius: 2px;
-  font-family: 'Inter', sans-serif;
-  font-size: .55rem;
-  font-weight: 500;
-  letter-spacing: .15em;
-  text-transform: uppercase;
-}
-.badge--or      { background: rgba(201,168,76,.08);  color: var(--or);   border: 1px solid rgba(201,168,76,.2); }
-.badge--rouge   { background: rgba(155,28,28,.12);   color: #E07060;     border: 1px solid rgba(155,28,28,.3); }
-.badge--vert    { background: rgba(45,90,48,.12);    color: var(--vert-l); border: 1px solid rgba(45,90,48,.3); }
-.badge--bleu    { background: rgba(60,80,160,.12);   color: #8090D0;     border: 1px solid rgba(60,80,160,.3); }
-.badge-dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+/* urgency clock */
+.urg-ring{width:80px;height:80px;border-radius:50%;border:2px solid var(--gris3);position:relative;display:flex;align-items:center;justify-content:center;flex-direction:column;}
+.urg-ring::before{content:'';position:absolute;inset:-3px;border-radius:50%;border:3px solid transparent;border-top-color:var(--rouge);border-right-color:var(--rouge);transform:rotate(-30deg);}
+.urg-pct{font-family:'Playfair Display',serif;font-size:1rem;color:var(--rouge2);}
+.urg-sub{font-size:.38rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gris2);}
 
-/* ════════════════════════════════════════════
-   GRID DE TASKS
-════════════════════════════════════════════ */
-.tasks-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1px;
-  background: #1e1e1e;
-  border: 1px solid #1e1e1e;
-  margin-top: 1.5rem;
-}
-.task-cell {
-  background: var(--noir-2);
-  padding: 1.4rem 1.6rem;
-  position: relative;
-  transition: background .2s;
-}
-.task-cell:hover { background: var(--noir-3); }
-.task-num {
-  font-family: 'Inter', sans-serif;
-  font-size: .55rem;
-  letter-spacing: .2em;
-  color: var(--gris);
-  margin-bottom: .5rem;
-}
-.task-titulo {
-  font-family: 'Playfair Display', serif;
-  font-size: 1rem;
-  font-weight: 400;
-  color: var(--blanc);
-  margin: .4rem 0 .5rem;
-}
-.task-desc {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: .8rem;
-  font-weight: 300;
-  color: var(--gris);
-  line-height: 1.6;
-}
+/* ════════════════════════════════════
+   TERMINAL
+════════════════════════════════════ */
+.terminal{background:#0a0b0e;border:1px solid var(--gris3);border-radius:6px;overflow:hidden;font-size:.65rem;}
+.term-bar{background:#1a1c22;padding:.4rem .7rem;display:flex;align-items:center;gap:.4rem;}
+.term-dot{width:8px;height:8px;border-radius:50%;}
+.td1{background:#ff5f57;}
+.td2{background:#ffbd2e;}
+.td3{background:#28c840;}
+.term-title{font-size:.5rem;color:var(--gris2);margin:0 auto;letter-spacing:.1em;}
+.term-body{padding:.7rem 1rem;line-height:1.8;font-family:'Courier New',monospace;}
+.tc-prompt{color:var(--vert2);}
+.tc-cmd{color:var(--creme);}
+.tc-flag{color:var(--or);}
+.tc-val{color:#8090e0;}
+.tc-comment{color:var(--gris2);}
+.tc-out{color:#666;}
+.tc-success{color:var(--vert2);}
+.tc-error{color:#e07060;}
 
-/* ════════════════════════════════════════════
-   DOS COLUMNAS
-════════════════════════════════════════════ */
-.cols { display: grid; gap: 3rem; }
-.cols--2 { grid-template-columns: 1fr 1fr; }
-.cols--3 { grid-template-columns: 1fr 1fr 1fr; }
-.cols--60-40 { grid-template-columns: 60fr 40fr; }
-.cols--40-60 { grid-template-columns: 40fr 60fr; }
+/* ════════════════════════════════════
+   GOOGLE SHOPPING MOCKUP
+════════════════════════════════════ */
+.browser{background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 20px 80px rgba(0,0,0,.8);max-width:480px;}
+.browser-bar{background:#f1f3f4;padding:.4rem .6rem;display:flex;align-items:center;gap:.5rem;}
+.browser-btns{display:flex;gap:.3rem;}
+.browser-btn{width:8px;height:8px;border-radius:50%;}
+.bb1{background:#ff5f57;}
+.bb2{background:#ffbd2e;}
+.bb3{background:#28c840;}
+.browser-url{flex:1;background:#fff;border-radius:12px;padding:.2rem .6rem;font-size:.5rem;color:#666;font-family:'Inter',sans-serif;display:flex;align-items:center;gap:.3rem;}
+.browser-url-icon{color:#4285f4;font-size:.6rem;}
+.browser-body{padding:.6rem;}
+.g-search-bar{border:1px solid #ddd;border-radius:24px;padding:.3rem .8rem;font-size:.55rem;color:#333;display:flex;align-items:center;gap:.4rem;margin-bottom:.5rem;}
+.g-tabs{display:flex;gap:.8rem;border-bottom:1px solid #e0e0e0;margin-bottom:.5rem;}
+.g-tab{font-size:.5rem;color:#666;padding:.2rem 0;border-bottom:2px solid transparent;cursor:default;}
+.g-tab-active{color:#1a73e8;border-bottom-color:#1a73e8;}
+.g-products{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;}
+.g-prod{border:1px solid #e0e0e0;border-radius:6px;overflow:hidden;background:#fff;}
+.g-prod-img{height:60px;background:radial-gradient(circle at 40% 35%,#c8e8c4,#2d6e34 60%,#0a1f0d);display:flex;align-items:center;justify-content:center;}
+.g-prod-sphere{width:30px;height:30px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#d4efd0,#3a8e42 40%,#0c2e10);}
+.g-prod-info{padding:.3rem .4rem;}
+.g-prod-name{font-size:.45rem;color:#333;font-weight:600;line-height:1.3;}
+.g-prod-price{font-size:.5rem;color:#1a73e8;font-weight:600;margin-top:.15rem;}
+.g-prod-promo{font-size:.4rem;color:#e74c3c;text-decoration:line-through;margin-right:.2rem;}
+.g-prod-store{font-size:.38rem;color:#888;margin-top:.1rem;}
+.g-badge-free{background:#e8f5e9;color:#2e7d32;font-size:.38rem;padding:.08rem .3rem;border-radius:2px;display:inline-block;font-weight:600;}
 
-/* ════════════════════════════════════════════
-   CHECKLIST
-════════════════════════════════════════════ */
-.checklist { list-style: none; }
-.checklist li {
-  display: flex;
-  align-items: flex-start;
-  gap: .8rem;
-  padding: .5rem 0;
-  border-bottom: 1px solid #161616;
-  font-family: 'Cormorant Garamond', serif;
-  font-size: .88rem;
-  font-weight: 300;
-  color: var(--gris-l);
-  line-height: 1.5;
-}
-.checklist li:last-child { border-bottom: none; }
-.check-box {
-  flex-shrink: 0;
-  width: 14px; height: 14px;
-  border: 1px solid #333;
-  display: flex; align-items: center; justify-content: center;
-  margin-top: 3px;
-}
-.check-box--done { background: var(--vert); border-color: var(--vert); }
-.check-box--done::after { content: '✓'; color: #fff; font-size: .5rem; }
-.checklist-label { font-style: italic; color: var(--or); font-size: .72rem; }
+/* ════════════════════════════════════
+   ROADMAP TIMELINE
+════════════════════════════════════ */
+.timeline{position:relative;padding:1.5rem 0;}
+.tl-line{position:absolute;top:50%;left:60px;right:60px;height:2px;background:linear-gradient(90deg,var(--rouge),var(--or) 60%,var(--gris3) 100%);transform:translateY(-50%);}
+.tl-nodes{display:flex;justify-content:space-between;position:relative;z-index:1;padding:0 40px;}
+.tl-node{display:flex;flex-direction:column;align-items:center;gap:.5rem;}
+.tl-circle{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;position:relative;font-family:'Playfair Display',serif;font-size:.9rem;}
+.tl-c-or{background:var(--or);color:var(--noir);}
+.tl-c-red{background:var(--rouge2);color:#fff;}
+.tl-c-blue{background:#3050b0;color:#fff;}
+.tl-c-gray{background:var(--noir4);color:var(--gris);border:1px solid var(--gris3);}
+.tl-label{font-size:.58rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--blanc);text-align:center;}
+.tl-sub{font-size:.5rem;color:var(--gris2);text-align:center;max-width:80px;}
+.tl-parallel{display:flex;flex-direction:column;gap:.3rem;align-items:center;}
+.tl-parallel .tl-circle{width:36px;height:36px;font-size:.75rem;}
+.tl-arrow-group{display:flex;align-items:center;gap:0;}
 
-/* ════════════════════════════════════════════
-   BLOQUE COMANDO
-════════════════════════════════════════════ */
-.cmd-block {
-  background: var(--noir-2);
-  border: 1px solid #1e1e1e;
-  border-left: 2px solid var(--rouge);
-  padding: .9rem 1.1rem;
-  margin: .6rem 0;
-  font-family: 'Courier New', monospace;
-  font-size: .68rem;
-  color: #7ab87f;
-  white-space: pre;
-  overflow-x: auto;
-  line-height: 1.7;
-}
-.cmd-block .cmd-comment { color: #444; }
-.cmd-block .cmd-flag    { color: var(--or); }
-.cmd-block .cmd-val     { color: #8090D0; }
+/* ════════════════════════════════════
+   CHECKLIST VISUAL
+════════════════════════════════════ */
+.cl-item{display:flex;align-items:flex-start;gap:.7rem;padding:.45rem 0;border-bottom:1px solid rgba(255,255,255,.04);}
+.cl-item:last-child{border-bottom:none;}
+.cl-box{width:16px;height:16px;border:1px solid #333;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;}
+.cl-box-filled{background:var(--vert);border-color:var(--vert);}
+.cl-box-filled::after{content:'✓';color:#fff;font-size:.5rem;}
+.cl-text{font-size:.78rem;font-weight:300;color:var(--gris);line-height:1.5;}
+.cl-text strong{color:var(--creme);font-weight:400;}
+.cl-chip{display:inline-block;font-size:.48rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.1rem .4rem;border-radius:1px;margin-left:.4rem;vertical-align:middle;}
+.cc-red{background:rgba(176,28,28,.15);color:#e07060;}
 
-/* ════════════════════════════════════════════
+/* ════════════════════════════════════
+   NOTA / ALERTA
+════════════════════════════════════ */
+.nota{border-left:2px solid var(--or);padding:.6rem .9rem;background:rgba(201,168,76,.04);font-size:.78rem;font-weight:300;color:var(--gris);line-height:1.6;}
+.nota strong{color:var(--or);font-weight:500;}
+.alerta{border:1px solid rgba(176,28,28,.35);background:rgba(176,28,28,.06);padding:.8rem 1.1rem;font-size:.82rem;color:#e07060;text-align:center;line-height:1.6;}
+.alerta strong{color:#ff8070;font-weight:500;}
+
+/* ════════════════════════════════════
    TABLA
-════════════════════════════════════════════ */
-.tabla { width: 100%; border-collapse: collapse; }
-.tabla th {
-  font-family: 'Inter', sans-serif;
-  font-size: .55rem;
-  font-weight: 500;
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  color: var(--gris);
-  padding: .5rem .8rem;
-  border-bottom: 1px solid #1e1e1e;
-  text-align: left;
-}
-.tabla td {
-  padding: .55rem .8rem;
-  border-bottom: 1px solid #0f0f0f;
-  font-family: 'Cormorant Garamond', serif;
-  font-size: .84rem;
-  font-weight: 300;
-  color: var(--gris-l);
-  vertical-align: top;
-}
-.tabla td:first-child { color: #7ab87f; font-family: 'Courier New', monospace; font-size: .68rem; white-space: nowrap; }
-.tabla td:last-child  { color: #555; font-size: .75rem; }
-.tabla tr:hover td { background: var(--noir-3); }
+════════════════════════════════════ */
+.tabla{width:100%;border-collapse:collapse;}
+.tabla th{font-size:.52rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--gris2);padding:.45rem .7rem;border-bottom:1px solid var(--gris3);text-align:left;}
+.tabla td{padding:.5rem .7rem;border-bottom:1px solid rgba(255,255,255,.04);font-size:.78rem;font-weight:300;color:var(--gris);vertical-align:middle;}
+.tabla td:first-child{font-family:'Courier New',monospace;font-size:.65rem;color:var(--vert2);}
+.tabla td:last-child{color:var(--gris2);font-size:.65rem;}
+.tabla tr:hover td{background:var(--noir3);}
 
-/* ════════════════════════════════════════════
-   HIGHLIGHT / NOTA
-════════════════════════════════════════════ */
-.nota {
-  border-left: 2px solid var(--or);
-  padding: .7rem 1rem;
-  background: rgba(201,168,76,.04);
-  font-family: 'Cormorant Garamond', serif;
-  font-size: .84rem;
-  font-weight: 300;
-  color: var(--gris-l);
-  line-height: 1.6;
-  margin: .8rem 0;
-}
-.nota strong { color: var(--or); font-weight: 400; }
-
-.alerta {
-  border: 1px solid rgba(155,28,28,.4);
-  background: rgba(155,28,28,.06);
-  padding: .9rem 1.2rem;
-  border-radius: 1px;
-  font-family: 'Cormorant Garamond', serif;
-  font-size: .9rem;
-  color: #E07060;
-  text-align: center;
-  line-height: 1.6;
-  margin: .8rem 0;
-}
-.alerta strong { color: #FF8070; font-weight: 500; }
-
-/* ════════════════════════════════════════════
-   FLUJO
-════════════════════════════════════════════ */
-.flujo {
-  display: flex;
-  align-items: center;
-  gap: .6rem;
-  margin: 1.2rem 0;
-}
-.flujo-nodo {
-  flex: 1;
-  background: var(--noir-2);
-  border: 1px solid #1e1e1e;
-  padding: .9rem 1rem;
-  text-align: center;
-}
-.flujo-nodo--rouge { border-color: rgba(155,28,28,.4); }
-.flujo-nodo--bleu  { border-color: rgba(60,80,160,.3); }
-.flujo-num {
-  font-family: 'Inter', sans-serif;
-  font-size: .52rem;
-  letter-spacing: .2em;
-  color: var(--gris);
-  margin-bottom: .2rem;
-}
-.flujo-label {
-  font-family: 'Playfair Display', serif;
-  font-size: .78rem;
-  color: var(--blanc);
-}
-.flujo-sub {
-  font-family: 'Inter', sans-serif;
-  font-size: .5rem;
-  color: var(--gris);
-  letter-spacing: .1em;
-  margin-top: .15rem;
-}
-.flujo-arrow { color: #2a2a2a; font-size: 1rem; flex-shrink: 0; }
-.flujo-parallel { display: flex; flex-direction: column; gap: .4rem; flex: 1; }
-
-/* ════════════════════════════════════════════
-   STATS
-════════════════════════════════════════════ */
-.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: #1e1e1e; margin: 1rem 0; }
-.stat {
-  background: var(--noir-2);
-  padding: 1rem 1.2rem;
-  text-align: center;
-}
-.stat-num {
-  font-family: 'Playfair Display', serif;
-  font-size: 2rem;
-  font-weight: 400;
-  color: var(--or-l);
-  display: block;
-  line-height: 1;
-  margin-bottom: .3rem;
-}
-.stat-label {
-  font-family: 'Inter', sans-serif;
-  font-size: .52rem;
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  color: var(--gris);
-}
-
-/* ════════════════════════════════════════════
+/* ════════════════════════════════════
    CIERRE
-════════════════════════════════════════════ */
-.cierre-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1px;
-  background: #1e1e1e;
-  margin: 1.5rem 0;
-}
-.cierre-cell {
-  background: var(--noir-2);
-  padding: 1rem;
-  text-align: center;
-}
-.cierre-t { font-family: 'Inter', sans-serif; font-size: .5rem; letter-spacing: .2em; text-transform: uppercase; color: var(--gris); }
-.cierre-n { font-family: 'Playfair Display', serif; font-size: .88rem; color: var(--blanc); margin: .25rem 0; }
-.cierre-s { font-family: 'Inter', sans-serif; font-size: .52rem; letter-spacing: .1em; }
+════════════════════════════════════ */
+.close-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--gris3);border:1px solid var(--gris3);margin:1.5rem 0;}
+.cg-cell{background:var(--noir2);padding:1.2rem;text-align:center;}
+.cg-num{font-family:'Playfair Display',serif;font-size:.7rem;color:var(--gris2);margin-bottom:.3rem;}
+.cg-title{font-family:'Playfair Display',serif;font-size:.9rem;color:var(--blanc);}
+.cg-status{font-size:.52rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-top:.4rem;}
 
-/* ════════════════════════════════════════════
-   MICHELIN STARS DECO
-════════════════════════════════════════════ */
-.stars-deco {
-  font-size: .8rem;
-  letter-spacing: .3rem;
-  color: rgba(201,168,76,.3);
-  margin-bottom: .8rem;
-}
+/* ════════════════════════════════════
+   UTILS
+════════════════════════════════════ */
+.cols2{display:grid;grid-template-columns:1fr 1fr;gap:2rem;}
+.cols-60{display:grid;grid-template-columns:60fr 40fr;gap:2rem;}
+.cols-40{display:grid;grid-template-columns:40fr 60fr;gap:2rem;}
+.cols3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem;}
+.flex{display:flex;align-items:center;gap:1rem;}
+.flex-col{display:flex;flex-direction:column;gap:.5rem;}
+.mt1{margin-top:.6rem;}
+.mt2{margin-top:1.2rem;}
+.or{color:var(--or);}
+.rouge{color:#e07060;}
+.vert{color:var(--vert2);}
+.gris{color:var(--gris);}
+.blanc{color:var(--blanc);}
+.center{text-align:center;}
 
-/* ════════════════════════════════════════════
-   UTILITIES
-════════════════════════════════════════════ */
-.mb-xs { margin-bottom: .4rem; }
-.mb-sm { margin-bottom: .8rem; }
-.mb-md { margin-bottom: 1.4rem; }
-.mt-sm { margin-top: .8rem; }
-.or    { color: var(--or); }
-.rouge { color: #E07060; }
-.vert  { color: var(--vert-l); }
-.gris  { color: var(--gris); }
-.blanc { color: var(--blanc); }
-.italic { font-style: italic; }
-.upper  { text-transform: uppercase; letter-spacing: .1em; }
-
-/* override reveal defaults */
-.reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal p, .reveal ul, .reveal ol { margin: 0; }
-.reveal ul { list-style: none; padding: 0; }
-
+/* colores task */
+.t01-accent{background:var(--or);}
+.t02-accent{background:var(--vert2);}
+.t03-accent{background:var(--rouge2);}
+.t04-accent{background:#3050b0;}
 </style>
 </head>
 <body>
@@ -555,493 +308,650 @@
 <div class="slides">
 
 
-<!-- ════════════════════════════════════════════════
-     01 · PORTADA
-════════════════════════════════════════════════ -->
+<!--==============================================
+    01 · PORTADA
+===============================================-->
 <section>
-<div class="portada slide--nobar">
-  <div class="portada-left">
+<div class="cover">
+  <div class="cover-l">
     <div>
-      <div class="stars-deco">★ ★ ★</div>
-      <div class="portada-logo">Caviaroli</div>
-      <div class="portada-tagline">Proyecto Digital — Junio 2026</div>
+      <div style="font-size:.6rem;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:var(--rouge);margin-bottom:1.5rem;">★ ★ ★</div>
+      <div class="cover-logo">Caviaroli</div>
+      <div class="cover-sub">Proyecto Digital — Junio 2026</div>
     </div>
     <div>
-      <hr class="rule--or" style="margin: 2rem 0;">
-      <div class="portada-meta">
-        <div class="portada-meta-item">Para: Esteban &amp; Nahuel</div>
-        <div class="portada-meta-item">4 tasks · activación inmediata</div>
-        <div class="portada-meta-item">caviaroli.com.ar</div>
+      <hr class="rule rule-or" style="margin-bottom:1.5rem;">
+      <div class="cover-meta">
+        <div class="cover-meta-row">Para: Esteban (owner) · Nahuel (ejecutor)</div>
+        <div class="cover-meta-row">4 tasks · activación inmediata</div>
+        <div class="cover-meta-row">caviaroli.com.ar</div>
       </div>
     </div>
   </div>
-  <div class="portada-right">
-    <span class="estrella-michelin em-1">★</span>
-    <span class="estrella-michelin em-2">★</span>
-    <span class="estrella-michelin em-3">★</span>
-    <div class="esfera-wrap">
-      <div style="margin-bottom: 0;">
-        <div class="tallo" style="height:22px; margin-bottom:0;"></div>
+  <div class="cover-r">
+    <div class="cover-r-bg"></div>
+    <span class="stars-deco sd1">★</span>
+    <span class="stars-deco sd2">★</span>
+    <span class="stars-deco sd3">★</span>
+    <div class="sphere-wrap">
+      <div class="sphere-stem"></div>
+      <div class="sphere-xl" style="position:relative;">
+        <div class="sphere-reflection"></div>
       </div>
-      <div class="esfera"></div>
-      <div class="esfera-reflection"></div>
+      <div class="sphere-shadow"></div>
     </div>
-    <div style="margin-top:2rem; text-align:center; position:relative; z-index:1;">
-      <div class="label" style="color:rgba(201,168,76,.4); letter-spacing:.3em;">Caviar de Aceite</div>
-      <div style="font-family:'Cormorant Garamond',serif; font-size:.72rem; color:#333; margin-top:.3rem; letter-spacing:.1em;">España · Argentina</div>
+    <div style="position:relative;z-index:1;margin-top:1.5rem;text-align:center;">
+      <div class="label" style="color:rgba(201,168,76,.3);letter-spacing:.3em;">Caviar de Aceite</div>
+      <div style="font-size:.6rem;color:#2a2c32;margin-top:.3rem;letter-spacing:.1em;">España · Argentina</div>
     </div>
   </div>
 </div>
 </section>
 
 
-<!-- ════════════════════════════════════════════════
-     02 · CONTEXTO ESTRATÉGICO
-════════════════════════════════════════════════ -->
+<!--==============================================
+    02 · CONTEXTO
+===============================================-->
 <section>
-<div class="slide">
-  <div class="eyebrow">Contexto</div>
-  <div class="titulo">El cambio que<br><em>define este momento.</em></div>
+<div class="S">
+  <div class="eyebrow">Contexto estratégico</div>
+  <div class="h2">El cambio que <em>define este momento.</em></div>
   <hr class="rule">
-  <div class="cols cols--2" style="margin-top:1.2rem;">
-    <div>
-      <div class="label gris mb-xs">Antes</div>
-      <ul style="margin-top:.6rem;">
-        <li style="font-family:'Cormorant Garamond',serif; font-size:.85rem; color:#444; padding:.3rem 0; border-bottom:1px solid #111;">Comunicación de marca genérica</li>
-        <li style="font-family:'Cormorant Garamond',serif; font-size:.85rem; color:#444; padding:.3rem 0; border-bottom:1px solid #111;">66 productos con precio = 0</li>
-        <li style="font-family:'Cormorant Garamond',serif; font-size:.85rem; color:#444; padding:.3rem 0; border-bottom:1px solid #111;">Feed sin cohesión visual</li>
-        <li style="font-family:'Cormorant Garamond',serif; font-size:.85rem; color:#444; padding:.3rem 0; border-bottom:1px solid #111;">Sin presencia en Google Shopping</li>
-        <li style="font-family:'Cormorant Garamond',serif; font-size:.85rem; color:#444; padding:.3rem 0;">Lote a vencer sin estrategia</li>
-      </ul>
+  <div class="ctx-split">
+    <div class="ctx-col">
+      <div class="ctx-title gris">Situación anterior</div>
+      <div class="ctx-row"><div class="ctx-icon ci-gray">✕</div>Comunicación de marca genérica, sin foco en producto</div>
+      <div class="ctx-row"><div class="ctx-icon ci-gray">✕</div>66 productos en Tiendanube con precio = 0</div>
+      <div class="ctx-row"><div class="ctx-icon ci-gray">✕</div>Feed sin cohesión visual ni estrategia de contenido</div>
+      <div class="ctx-row"><div class="ctx-icon ci-gray">✕</div>Sin presencia en Google Shopping</div>
+      <div class="ctx-row" style="border:none;"><div class="ctx-icon ci-gray">✕</div>Lote a vencer sin urgencia comunicada</div>
     </div>
-    <div>
-      <div class="label or mb-xs">Ahora</div>
-      <ul style="margin-top:.6rem;">
-        <li style="font-family:'Cormorant Garamond',serif; font-size:.85rem; color:var(--creme); padding:.3rem 0; border-bottom:1px solid #1a1a1a;">Producto directo al consumidor</li>
-        <li style="font-family:'Cormorant Garamond',serif; font-size:.85rem; color:var(--creme); padding:.3rem 0; border-bottom:1px solid #1a1a1a;">66 productos activos con precio en ARS</li>
-        <li style="font-family:'Cormorant Garamond',serif; font-size:.85rem; color:var(--creme); padding:.3rem 0; border-bottom:1px solid #1a1a1a;">Feed unificado + video con IA generativa</li>
-        <li style="font-family:'Cormorant Garamond',serif; font-size:.85rem; color:var(--creme); padding:.3rem 0; border-bottom:1px solid #1a1a1a;">Google Shopping orgánico sin inversión</li>
-        <li style="font-family:'Cormorant Garamond',serif; font-size:.85rem; color:var(--creme); padding:.3rem 0;">Urgencia comercial + audiencia de largo plazo</li>
-      </ul>
+    <div class="ctx-col ctx-col-r">
+      <div class="ctx-title or">Estrategia nueva</div>
+      <div class="ctx-row ctx-row-r"><div class="ctx-icon ci-or">→</div>Producto directo al consumidor. Cada post convierte.</div>
+      <div class="ctx-row ctx-row-r"><div class="ctx-icon ci-or">→</div>66 productos con precio en ARS + SEO generado por IA</div>
+      <div class="ctx-row ctx-row-r"><div class="ctx-icon ci-or">→</div>Feed unificado + video premium con IA generativa</div>
+      <div class="ctx-row ctx-row-r"><div class="ctx-icon ci-or">→</div>Google Shopping orgánico. $0 de inversión publicitaria.</div>
+      <div class="ctx-row ctx-row-r" style="border:none;"><div class="ctx-icon ci-or">→</div>Urgencia comercial + construcción de audiencia de largo plazo</div>
     </div>
-  </div>
-  <div class="nota" style="margin-top:1.4rem;">
-    <strong>Dos frentes simultáneos:</strong> liquidar el lote urgente y construir presencia orgánica que perdure.
   </div>
 </div>
 </section>
 
 
-<!-- ════════════════════════════════════════════════
-     03 · LAS 4 TASKS
-════════════════════════════════════════════════ -->
+<!--==============================================
+    03 · 4 TASKS
+===============================================-->
 <section>
-<div class="slide">
+<div class="S">
   <div class="eyebrow">Plan de acción</div>
-  <div class="titulo">Las cuatro <em>tasks.</em></div>
+  <div class="h2">Las cuatro <em>tasks.</em></div>
   <div class="tasks-grid">
-    <div class="task-cell">
-      <div class="task-num">T — 01</div>
-      <div class="badge badge--or mb-xs"><span class="badge-dot"></span>Diseño pendiente</div>
-      <div class="task-titulo">Imagen de perfil Instagram</div>
-      <div class="task-desc">Esfera de oliva glossy sobre fondo negro profundo. Dos versiones: global y Argentina.</div>
+    <div class="tc">
+      <div class="tc-accent t01-accent"></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.5rem;">
+        <div class="tc-num">T — 01</div>
+        <div class="badge b-or"><span class="dot"></span>Diseño pendiente</div>
+      </div>
+      <div class="tc-icon" style="background:rgba(201,168,76,.08);">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" fill="none" stroke="#c9a84c" stroke-width="1.5"/><circle cx="12" cy="12" r="4" fill="rgba(201,168,76,.3)"/><line x1="12" y1="3" x2="12" y2="5" stroke="#c9a84c" stroke-width="1.5"/></svg>
+      </div>
+      <div class="tc-title">Imagen de perfil Instagram</div>
+      <div class="tc-desc">Esfera de oliva glossy sobre fondo negro. Dos versiones: @caviaroli y @caviaroli.argentina.</div>
     </div>
-    <div class="task-cell">
-      <div class="task-num">T — 02</div>
-      <div class="badge badge--or mb-xs"><span class="badge-dot"></span>Producción pendiente</div>
-      <div class="task-titulo">Feed + contenido orgánico</div>
-      <div class="task-desc">Serie de urgencia, educación de producto y video con Higgsfield AI. 1 post por día.</div>
+    <div class="tc">
+      <div class="tc-accent t02-accent"></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.5rem;">
+        <div class="tc-num">T — 02</div>
+        <div class="badge b-or"><span class="dot"></span>Producción pendiente</div>
+      </div>
+      <div class="tc-icon" style="background:rgba(74,158,84,.08);">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="7" height="7" rx="1" stroke="#4a9e54" stroke-width="1.5"/><rect x="14" y="3" width="7" height="7" rx="1" stroke="#4a9e54" stroke-width="1.5"/><rect x="3" y="14" width="7" height="7" rx="1" stroke="#4a9e54" stroke-width="1.5"/><rect x="14" y="14" width="7" height="7" rx="1" stroke="#4a9e54" stroke-width="1.5"/></svg>
+      </div>
+      <div class="tc-title">Feed + contenido orgánico</div>
+      <div class="tc-desc">Serie urgencia, educación de producto, videos con Higgsfield AI. 1 post/día, 2 semanas.</div>
     </div>
-    <div class="task-cell">
-      <div class="task-num">T — 03</div>
-      <div class="badge badge--rouge mb-xs"><span class="badge-dot"></span>Bloqueada — falta tipo de cambio</div>
-      <div class="task-titulo">CSV masivo Tiendanube</div>
-      <div class="task-desc">Precios EUR→ARS + promo por vencimiento + SEO por producto con IA. Script listo.</div>
+    <div class="tc">
+      <div class="tc-accent t03-accent"></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.5rem;">
+        <div class="tc-num">T — 03</div>
+        <div class="badge b-red"><span class="dot"></span>Bloqueada — falta TC</div>
+      </div>
+      <div class="tc-icon" style="background:rgba(176,28,28,.08);">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 12h10M4 18h12" stroke="#d42b2b" stroke-width="1.5" stroke-linecap="round"/><circle cx="19" cy="17" r="3" stroke="#d42b2b" stroke-width="1.5"/><line x1="21.5" y1="19.5" x2="23" y2="21" stroke="#d42b2b" stroke-width="1.5"/></svg>
+      </div>
+      <div class="tc-title">CSV masivo Tiendanube</div>
+      <div class="tc-desc">Precios EUR→ARS + promo por vencimiento + SEO por producto con IA. Script listo.</div>
     </div>
-    <div class="task-cell">
-      <div class="task-num">T — 04</div>
-      <div class="badge badge--bleu mb-xs"><span class="badge-dot"></span>Depende de T-03</div>
-      <div class="task-titulo">Google Shopping orgánico</div>
-      <div class="task-desc">Fichas gratuitas de producto. Sin inversión publicitaria. Activo en 48 horas.</div>
+    <div class="tc">
+      <div class="tc-accent t04-accent"></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.5rem;">
+        <div class="tc-num">T — 04</div>
+        <div class="badge b-blue"><span class="dot"></span>Depende de T-03</div>
+      </div>
+      <div class="tc-icon" style="background:rgba(48,80,176,.08);">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" stroke="#8090e0" stroke-width="1.5"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 0 20M12 2a15.3 15.3 0 0 0 0 20" stroke="#8090e0" stroke-width="1.5"/></svg>
+      </div>
+      <div class="tc-title">Google Shopping orgánico</div>
+      <div class="tc-desc">Fichas gratuitas de producto. Sin inversión publicitaria. Activo en 48 horas.</div>
     </div>
   </div>
 </div>
 </section>
 
 
-<!-- ════════════════════════════════════════════════
-     04 · T-01
-════════════════════════════════════════════════ -->
+<!--==============================================
+    04 · T-01 INSTAGRAM MOCKUP
+===============================================-->
 <section>
-<div class="slide">
-  <div class="eyebrow">T — 01 &nbsp;·&nbsp; Instagram</div>
-  <div class="titulo titulo--sm">Identidad visual —<br><em>la esfera que faltaba.</em></div>
+<div class="S S-wide">
+  <div class="eyebrow">T — 01 · Instagram</div>
+  <div class="h2">Identidad visual — <em>la esfera que faltaba.</em></div>
   <hr class="rule">
-  <div class="cols cols--60-40" style="margin-top:1rem;">
-    <div>
-      <div class="cuerpo mb-sm">
-        Reemplazar la foto de perfil por una esfera de oliva perfecta — glossy, tridimensional, con tallo — sobre fondo negro profundo. Sin texto. Sin logotipo.
+  <div class="cols-40" style="align-items:center;margin-top:.8rem;">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:1.2rem;">
+      <!-- Phone mockup ACTUAL -->
+      <div>
+        <div class="label gris" style="text-align:center;margin-bottom:.5rem;">Perfil actual</div>
+        <div class="ig-phone">
+          <div class="ig-screen">
+            <div class="ig-profile">
+              <div class="ig-avatar-lg" style="border-color:#333;">
+                <div class="ig-av-placeholder">C</div>
+              </div>
+              <div class="ig-username">@caviaroli.argentina</div>
+              <div class="ig-stats">
+                <div class="ig-stat"><div class="ig-stat-n">66</div><div class="ig-stat-l">productos</div></div>
+                <div class="ig-stat"><div class="ig-stat-n">0</div><div class="ig-stat-l">precio</div></div>
+                <div class="ig-stat"><div class="ig-stat-n">—</div><div class="ig-stat-l">SEO</div></div>
+              </div>
+            </div>
+            <div class="ig-grid">
+              <div class="ig-cell ig-cell-dark"></div>
+              <div class="ig-cell ig-cell-dark"></div>
+              <div class="ig-cell ig-cell-dark"></div>
+              <div class="ig-cell ig-cell-dark"></div>
+              <div class="ig-cell ig-cell-dark"></div>
+              <div class="ig-cell ig-cell-dark"></div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="nota">
-        <strong>Por qué importa:</strong> en búsqueda de Instagram la imagen se ve a 46 px. La esfera destaca sobre fondo oscuro; el logotipo tipográfico desaparece.
-      </div>
-      <div class="cmd-block" style="margin-top:.9rem; font-size:.6rem; white-space:pre-wrap;">"a perfect olive sphere, glossy, photorealistic,
-3D render, small stem, deep black background,
-studio lighting, macro, ultra high detail"
-
-<span class="cmd-comment">— Prompt para Midjourney / Firefly / Ideogram</span></div>
-    </div>
-    <div>
-      <div class="label gris mb-sm">Checklist Nahuel</div>
-      <ul class="checklist">
-        <li><div class="check-box"></div>Definir fondo: <span class="label or">#0a0a0a</span> vs <span class="label vert">#0a1a05</span></li>
-        <li><div class="check-box"></div>Render en Midjourney / Firefly</li>
-        <li><div class="check-box"></div>Versión Global — @caviaroli</li>
-        <li><div class="check-box"></div>Versión Argentina — @caviaroli.argentina</li>
-        <li><div class="check-box"></div>Test a 46 px y 150 px</li>
-        <li><div class="check-box"></div>Exportar PNG circular 320×320 px</li>
-        <li><div class="check-box"></div>Subir a ambos perfiles</li>
-      </ul>
-    </div>
-  </div>
-</div>
-</section>
-
-
-<!-- ════════════════════════════════════════════════
-     05 · T-02
-════════════════════════════════════════════════ -->
-<section>
-<div class="slide">
-  <div class="eyebrow">T — 02 &nbsp;·&nbsp; Contenido</div>
-  <div class="titulo titulo--sm">De marca a <em>producto directo.</em></div>
-  <hr class="rule">
-  <div class="cols cols--2" style="margin-top:.9rem;">
-    <div>
-      <div class="label gris mb-sm">Estructura de contenido</div>
-      <ul class="checklist">
-        <li><div class="check-box"></div><div><span class="blanc">A · Grilla visual</span><br><span class="gris" style="font-size:.78rem;">Paleta: negro + verde oliva + blanco. Tipografía y encuadre unificados.</span></div></li>
-        <li><div class="check-box"></div><div><span class="blanc">B · Serie urgencia</span><br><span class="gris" style="font-size:.78rem;">3–5 posts: precio + stock limitado + CTA directo a bio.</span></div></li>
-        <li><div class="check-box"></div><div><span class="blanc">C · Educación de producto</span><br><span class="gris" style="font-size:.78rem;">Qué es, cómo se usa, maridajes, recetas simples.</span></div></li>
-        <li><div class="check-box"></div><div><span class="blanc">D · Video IA</span><br><span class="gris" style="font-size:.78rem;">2–3 videos con Higgsfield AI — esferas, aceite, plato final.</span></div></li>
-        <li><div class="check-box"></div><div><span class="blanc">E · Reels de conversión</span><br><span class="gris" style="font-size:.78rem;">7–15 seg. Gancho en 2 seg. CTA a caviaroli.com.ar.</span></div></li>
-      </ul>
-    </div>
-    <div>
-      <div class="label gris mb-sm">Herramientas &amp; ritmo</div>
-      <div class="nota mb-sm">
-        <strong>Video IA:</strong> higgsfield.ai — video de producto premium con movimiento, sin producción física.
-      </div>
-      <div class="nota mb-sm">
-        <strong>Ritmo:</strong> 1 post / día durante 2 semanas.
-      </div>
-      <div class="nota">
-        <strong>Copy urgencia:</strong><br>
-        <em style="color:var(--gris-l);">"Stock limitado. Caviaroli Albahaca 200g a precio especial. Link en bio."</em>
-      </div>
-    </div>
-  </div>
-</div>
-</section>
-
-
-<!-- ════════════════════════════════════════════════
-     06 · T-03 SITUACIÓN
-════════════════════════════════════════════════ -->
-<section>
-<div class="slide">
-  <div class="eyebrow">T — 03 &nbsp;·&nbsp; Tiendanube</div>
-  <div class="titulo titulo--sm">CSV masivo —<br><em>script listo para ejecutar.</em></div>
-  <hr class="rule">
-  <div class="alerta">
-    <strong>Acción para Esteban:</strong> confirmar el tipo de cambio EUR → ARS.<br>
-    <span style="font-size:.78rem; color:#b05a50;">Sin este dato el script no puede correr. Todo lo demás está resuelto.</span>
-  </div>
-  <div class="stats">
-    <div class="stat">
-      <span class="stat-num">66</span>
-      <div class="stat-label">productos en Tiendanube</div>
-    </div>
-    <div class="stat">
-      <span class="stat-num">60</span>
-      <div class="stat-label">con match automático</div>
-    </div>
-    <div class="stat">
-      <span class="stat-num">52</span>
-      <div class="stat-label">urgentes → descuento −20%</div>
-    </div>
-  </div>
-  <div class="nota">
-    <strong>6 productos sin match automático:</strong> Libro, Pasta Pura, Drops by Albert Adrià y variantes. Se cargan manualmente en Tiendanube.
-  </div>
-</div>
-</section>
-
-
-<!-- ════════════════════════════════════════════════
-     07 · T-03 COMANDOS
-════════════════════════════════════════════════ -->
-<section>
-<div class="slide">
-  <div class="eyebrow">T — 03 &nbsp;·&nbsp; Ejecución</div>
-  <div class="titulo titulo--sm">Para Nahuel —<br><em>comandos exactos.</em></div>
-  <hr class="rule">
-  <div class="cols cols--2" style="margin-top:.9rem; gap:1.5rem;">
-    <div>
-      <div class="label gris mb-xs">1 · Instalar dependencias</div>
-      <div class="cmd-block">pip install pandas openpyxl anthropic</div>
-      <div class="label gris mb-xs" style="margin-top:.7rem;">2 · Configurar API key (SEO con IA)</div>
-      <div class="cmd-block">export ANTHROPIC_API_KEY=<span class="cmd-val">sk-ant-...</span></div>
-      <div class="nota" style="margin-top:.6rem; font-size:.78rem;">
-        Sin API key el script igual genera el CSV con precios correctos. El SEO queda como placeholder.
+      <!-- Phone mockup NUEVO -->
+      <div>
+        <div class="label or" style="text-align:center;margin-bottom:.5rem;">Perfil nuevo</div>
+        <div class="ig-phone">
+          <div class="ig-screen">
+            <div class="ig-profile">
+              <div class="ig-avatar-lg">
+                <div class="ig-av-inner"></div>
+              </div>
+              <div class="ig-username">@caviaroli.argentina</div>
+              <div class="ig-bio">Caviar de aceite gourmet · España</div>
+              <div class="ig-stats">
+                <div class="ig-stat"><div class="ig-stat-n">66</div><div class="ig-stat-l">productos</div></div>
+                <div class="ig-stat"><div class="ig-stat-n">ARS</div><div class="ig-stat-l">precio</div></div>
+                <div class="ig-stat"><div class="ig-stat-n">★</div><div class="ig-stat-l">SEO</div></div>
+              </div>
+            </div>
+            <div class="ig-grid">
+              <div class="ig-cell ig-cell-olive"></div>
+              <div class="ig-cell ig-cell-green"></div>
+              <div class="ig-cell ig-cell-olive"></div>
+              <div class="ig-cell ig-cell-green"></div>
+              <div class="ig-cell ig-cell-olive"></div>
+              <div class="ig-cell ig-cell-green"></div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div>
-      <div class="label gris mb-xs">3 · Dry run para validar</div>
-      <div class="cmd-block">python caviaroli_proyecto_completo.py task3 \
-  <span class="cmd-flag">--tc</span> <span class="cmd-val">1100</span> \
-  <span class="cmd-flag">--tiendanube</span> <span class="cmd-val">tiendanube.csv</span> \
-  <span class="cmd-flag">--vencimientos</span> <span class="cmd-val">Caviaroli_Vencimientos.xlsx</span> \
-  <span class="cmd-flag">--dry-run</span></div>
-      <div class="label gris mb-xs" style="margin-top:.7rem;">4 · Ejecución definitiva</div>
-      <div class="cmd-block">python caviaroli_proyecto_completo.py task3 \
-  <span class="cmd-flag">--tc</span> <span class="cmd-val">1100</span> \
-  <span class="cmd-flag">--tiendanube</span> <span class="cmd-val">tiendanube.csv</span> \
-  <span class="cmd-flag">--vencimientos</span> <span class="cmd-val">Caviaroli_Vencimientos.xlsx</span> \
-  <span class="cmd-flag">--output</span> <span class="cmd-val">caviaroli_actualizado.csv</span></div>
+      <div class="label gris" style="margin-bottom:.6rem;">Tamaños críticos</div>
+      <div class="ig-size-demo">
+        <div style="text-align:center;">
+          <div class="ig-circle" style="width:46px;height:46px;margin-bottom:.3rem;"></div>
+          <div class="label gris">46 px</div>
+          <div style="font-size:.5rem;color:var(--gris2);">búsqueda</div>
+        </div>
+        <div style="text-align:center;">
+          <div class="ig-circle" style="width:90px;height:90px;margin-bottom:.3rem;"></div>
+          <div class="label gris">150 px</div>
+          <div style="font-size:.5rem;color:var(--gris2);">perfil</div>
+        </div>
+      </div>
+      <div class="nota" style="margin-top:1rem;">
+        <strong>Por qué importa:</strong> en búsqueda, la imagen aparece a 46 px. La esfera sobre negro destaca. Un logotipo tipográfico a ese tamaño desaparece.
+      </div>
+      <div style="margin-top:1rem;">
+        <div class="label gris" style="margin-bottom:.5rem;">Checklist</div>
+        <div class="cl-item"><div class="cl-box"></div><div class="cl-text"><strong>Render</strong> en Midjourney / Firefly / Ideogram</div></div>
+        <div class="cl-item"><div class="cl-box"></div><div class="cl-text"><strong>2 versiones:</strong> global + Argentina (diferenciación sutil)</div></div>
+        <div class="cl-item"><div class="cl-box"></div><div class="cl-text"><strong>Test</strong> a 46 px y 150 px</div></div>
+        <div class="cl-item"><div class="cl-box"></div><div class="cl-text"><strong>Exportar</strong> PNG circular 320×320 px mínimo</div></div>
+      </div>
     </div>
   </div>
 </div>
 </section>
 
 
-<!-- ════════════════════════════════════════════════
-     08 · T-03 PARÁMETROS
-════════════════════════════════════════════════ -->
+<!--==============================================
+    05 · T-02 CALENDARIO
+===============================================-->
 <section>
-<div class="slide">
-  <div class="eyebrow">T — 03 &nbsp;·&nbsp; Parámetros</div>
-  <div class="titulo titulo--sm"><em>Variables configurables.</em></div>
+<div class="S">
+  <div class="eyebrow">T — 02 · Contenido orgánico</div>
+  <div class="h2">14 días — <em>un post por día.</em></div>
   <hr class="rule">
-  <table class="tabla" style="margin-top:1rem;">
-    <tr>
-      <th>Parámetro</th>
-      <th>Descripción</th>
-      <th>Default</th>
-    </tr>
-    <tr>
-      <td>--tc</td>
-      <td>Tipo de cambio EUR → ARS &nbsp;<span class="badge badge--rouge" style="font-size:.5rem;">requerido</span></td>
-      <td>—</td>
-    </tr>
-    <tr><td>--descuento</td><td>% descuento lote urgente</td><td>20</td></tr>
-    <tr><td>--tiendanube</td><td>CSV exportado de Tiendanube</td><td>tiendanube.csv</td></tr>
-    <tr><td>--vencimientos</td><td>Excel de vencimientos</td><td>Caviaroli_Vencimientos.xlsx</td></tr>
-    <tr><td>--output</td><td>CSV de salida</td><td>caviaroli_actualizado.csv</td></tr>
-    <tr><td>--dias-urgente</td><td>Días para marcar como urgente</td><td>120</td></tr>
-    <tr><td>--dry-run</td><td>Preview sin generar archivo</td><td>—</td></tr>
-  </table>
-</div>
-</section>
-
-
-<!-- ════════════════════════════════════════════════
-     09 · T-03 CHECKLIST
-════════════════════════════════════════════════ -->
-<section>
-<div class="slide">
-  <div class="eyebrow">T — 03 &nbsp;·&nbsp; Checklist</div>
-  <div class="titulo titulo--sm">Pasos de <em>ejecución.</em></div>
-  <hr class="rule">
-  <div class="cols cols--2" style="margin-top:.9rem;">
+  <div class="cols-60" style="margin-top:.8rem;">
     <div>
-      <ul class="checklist">
-        <li><div class="check-box"></div><div>Esteban confirma tipo de cambio EUR → ARS<span class="checklist-label" style="display:block;">Bloqueante</span></div></li>
-        <li><div class="check-box"></div>Exportar CSV desde Tiendanube → Productos → Exportar</li>
-        <li><div class="check-box"></div>Instalar dependencias: pandas · openpyxl · anthropic</li>
-        <li><div class="check-box"></div>Configurar <span class="mono">ANTHROPIC_API_KEY</span> en el entorno</li>
-        <li><div class="check-box"></div>Ejecutar con <span class="mono">--dry-run</span> y validar preview</li>
-      </ul>
+      <div class="label gris" style="margin-bottom:.6rem;">Calendario de contenido — 2 semanas</div>
+      <div class="cal-header">
+        <div class="cal-head">Lun</div><div class="cal-head">Mar</div><div class="cal-head">Mié</div>
+        <div class="cal-head">Jue</div><div class="cal-head">Vie</div><div class="cal-head">Sáb</div><div class="cal-head">Dom</div>
+      </div>
+      <div class="cal-grid">
+        <div class="cal-day cal-urgencia">U</div>
+        <div class="cal-day cal-edu">E</div>
+        <div class="cal-day cal-urgencia">U</div>
+        <div class="cal-day cal-video">V</div>
+        <div class="cal-day cal-edu">E</div>
+        <div class="cal-day cal-reel">R</div>
+        <div class="cal-day cal-empty"></div>
+        <div class="cal-day cal-edu">E</div>
+        <div class="cal-day cal-urgencia">U</div>
+        <div class="cal-day cal-video">V</div>
+        <div class="cal-day cal-edu">E</div>
+        <div class="cal-day cal-reel">R</div>
+        <div class="cal-day cal-urgencia">U</div>
+        <div class="cal-day cal-empty"></div>
+      </div>
+      <div style="display:flex;gap:.8rem;margin-top:.7rem;flex-wrap:wrap;">
+        <div style="display:flex;align-items:center;gap:.3rem;font-size:.55rem;"><div style="width:10px;height:10px;border-radius:2px;background:rgba(176,28,28,.25);border:1px solid rgba(176,28,28,.4);"></div><span class="gris">Urgencia (U)</span></div>
+        <div style="display:flex;align-items:center;gap:.3rem;font-size:.55rem;"><div style="width:10px;height:10px;border-radius:2px;background:rgba(45,110,52,.2);border:1px solid rgba(45,110,52,.3);"></div><span class="gris">Educación (E)</span></div>
+        <div style="display:flex;align-items:center;gap:.3rem;font-size:.55rem;"><div style="width:10px;height:10px;border-radius:2px;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.3);"></div><span class="gris">Video IA (V)</span></div>
+        <div style="display:flex;align-items:center;gap:.3rem;font-size:.55rem;"><div style="width:10px;height:10px;border-radius:2px;background:rgba(100,60,180,.2);border:1px solid rgba(100,60,180,.3);"></div><span class="gris">Reel (R)</span></div>
+      </div>
     </div>
     <div>
-      <ul class="checklist">
-        <li><div class="check-box"></div>Revisar 6 productos sin match automático</li>
-        <li><div class="check-box"></div>Ejecución definitiva → obtener CSV</li>
-        <li><div class="check-box"></div>Importar CSV en Tiendanube → Productos → Importar</li>
-        <li><div class="check-box"></div>Validar precios y SEO en la tienda</li>
-        <li><div class="check-box"></div><div>T-03 completa → iniciar T-04<span class="checklist-label" style="display:block;">Prerequisito de Google Shopping</span></div></li>
-      </ul>
+      <div class="label gris" style="margin-bottom:.6rem;">Tipos de pieza</div>
+      <div class="cl-item"><div class="cl-box"></div><div class="cl-text"><strong>Urgencia</strong> — precio + stock limitado + CTA directo</div></div>
+      <div class="cl-item"><div class="cl-box"></div><div class="cl-text"><strong>Educación</strong> — qué es, cómo se usa, maridajes</div></div>
+      <div class="cl-item"><div class="cl-box"></div><div class="cl-text"><strong>Video IA</strong> — esferas en slow motion con Higgsfield AI</div></div>
+      <div class="cl-item"><div class="cl-box"></div><div class="cl-text"><strong>Reel</strong> — 7-15 seg, gancho en 2 seg, CTA a tienda</div></div>
+      <div class="nota" style="margin-top:1rem;">
+        <strong>Herramienta:</strong> higgsfield.ai — video de producto premium sin producción física.
+      </div>
     </div>
   </div>
 </div>
 </section>
 
 
-<!-- ════════════════════════════════════════════════
-     10 · T-04
-════════════════════════════════════════════════ -->
+<!--==============================================
+    06 · T-03 DATA VIZ
+===============================================-->
 <section>
-<div class="slide">
-  <div class="eyebrow">T — 04 &nbsp;·&nbsp; Google Shopping</div>
-  <div class="titulo titulo--sm">Fichas orgánicas —<br><em>sin inversión publicitaria.</em></div>
+<div class="S">
+  <div class="eyebrow">T — 03 · Tiendanube</div>
+  <div class="h2">Los números <em>del inventario.</em></div>
   <hr class="rule">
-  <div class="cols cols--2" style="margin-top:.9rem;">
-    <div>
-      <div class="label gris mb-sm">Por qué funciona para Caviaroli</div>
-      <ul class="checklist">
-        <li><div class="check-box"></div>Nicho con poca competencia paga en Argentina</li>
-        <li><div class="check-box"></div>Quien busca "caviar de aceite Argentina" ya quiere comprar</li>
-        <li><div class="check-box"></div>Precio tachado visible → efecto oferta sin costo</li>
-        <li><div class="check-box"></div>El SEO de T-03 alimenta el feed de Google directamente</li>
-        <li><div class="check-box"></div>Activación: 48 horas · Costo: $0</li>
-      </ul>
+  <div class="alerta" style="margin-bottom:1rem;">
+    <strong>Acción Esteban:</strong> confirmar tipo de cambio EUR → ARS. El script no corre sin este dato.
+  </div>
+  <div class="cols3">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:.8rem;">
+      <div class="donut-wrap">
+        <svg class="donut-svg" width="130" height="130" viewBox="0 0 42 42">
+          <circle cx="21" cy="21" r="15.915" fill="none" stroke="#1a1c22" stroke-width="4"/>
+          <!-- 60/66 = 90.9% = 285.9 de 400 -->
+          <circle cx="21" cy="21" r="15.915" fill="none" stroke="#4a9e54" stroke-width="4" stroke-dasharray="90.9 9.1" stroke-linecap="round"/>
+        </svg>
+        <div class="donut-label">
+          <div class="donut-num">60</div>
+          <div class="donut-sub">de 66</div>
+        </div>
+      </div>
+      <div class="center">
+        <div class="blanc" style="font-size:.82rem;font-weight:400;">Match automático</div>
+        <div class="gris" style="font-size:.65rem;">por nombre + gramaje</div>
+      </div>
     </div>
     <div>
-      <div class="label gris mb-sm">Checklist Nahuel</div>
-      <ul class="checklist">
-        <li><div class="check-box"></div>Crear cuenta en merchants.google.com</li>
-        <li><div class="check-box"></div>Verificar dominio caviaroli.com.ar</li>
-        <li><div class="check-box"></div>Tiendanube → Canales de venta → Google Shopping</li>
-        <li><div class="check-box"></div>Activar fichas gratuitas en Merchant Center</li>
-        <li><div class="check-box"></div>Mapear categorías Google Shopping</li>
-        <li><div class="check-box"></div>Esperar 48 hs → revisar diagnóstico</li>
-      </ul>
+      <div class="label gris" style="margin-bottom:.8rem;">Distribución de productos</div>
+      <div class="bar-row">
+        <div class="bar-label-txt">Con match</div>
+        <div class="bar-track"><div class="bar-fill" style="width:91%;background:var(--vert2);"></div></div>
+        <div class="bar-val blanc">60</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label-txt">Urgentes −20%</div>
+        <div class="bar-track"><div class="bar-fill" style="width:79%;background:var(--rouge2);"></div></div>
+        <div class="bar-val blanc">52</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label-txt">Manual</div>
+        <div class="bar-track"><div class="bar-fill" style="width:9%;background:var(--or);"></div></div>
+        <div class="bar-val blanc">6</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label-txt">Con SEO IA</div>
+        <div class="bar-track"><div class="bar-fill" style="width:100%;background:linear-gradient(90deg,#3050b0,#8090e0);"></div></div>
+        <div class="bar-val blanc">66</div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:.6rem;">
+      <div class="label gris">Lote urgente</div>
+      <div style="display:flex;align-items:center;gap:1rem;">
+        <div class="urg-ring">
+          <div class="urg-pct">79%</div>
+          <div class="urg-sub">urgente</div>
+        </div>
+        <div>
+          <div class="blanc" style="font-size:.78rem;">52 productos</div>
+          <div class="gris" style="font-size:.65rem;">vencen en &lt;120 días</div>
+          <div class="rouge" style="font-size:.72rem;margin-top:.3rem;">→ descuento −20%</div>
+        </div>
+      </div>
+      <div class="nota" style="margin-top:.3rem;">
+        <strong>6 manuales:</strong> Libro, Pasta Pura, Drops by Albert Adrià.
+      </div>
     </div>
   </div>
 </div>
 </section>
 
 
-<!-- ════════════════════════════════════════════════
-     11 · T-04 CATEGORÍAS
-════════════════════════════════════════════════ -->
+<!--==============================================
+    07 · T-03 TERMINAL
+===============================================-->
 <section>
-<div class="slide">
-  <div class="eyebrow">T — 04 &nbsp;·&nbsp; Configuración</div>
-  <div class="titulo titulo--sm">Mapeo de <em>categorías.</em></div>
+<div class="S">
+  <div class="eyebrow">T — 03 · Ejecución</div>
+  <div class="h2">Para Nahuel — <em>comandos exactos.</em></div>
   <hr class="rule">
-  <table class="tabla" style="margin-top:1rem;">
-    <tr>
-      <th>Categoría en Tiendanube</th>
-      <th>Categoría Google Shopping</th>
-    </tr>
-    <tr><td>Perlas de aceite</td><td>Alimentos › Condimentos y salsas</td></tr>
-    <tr><td>Aceites Caviaroli</td><td>Alimentos › Aceites comestibles</td></tr>
-    <tr><td>Perlas de vinagre</td><td>Alimentos › Vinagres</td></tr>
-    <tr><td>Perlas de vino</td><td>Alimentos › Condimentos y salsas</td></tr>
-    <tr><td>Salsas Oliquida</td><td>Alimentos › Salsas</td></tr>
-    <tr><td>Pinturas de aceite</td><td>Alimentos › Condimentos y salsas</td></tr>
-    <tr><td>Packs / Starter Kit</td><td>Alimentos › Canastas y sets de alimentos</td></tr>
-  </table>
-  <div class="nota" style="margin-top:.9rem;">
-    Configurar en Tiendanube: cada categoría tiene el campo <strong>"Categoría de Google Shopping"</strong> en su panel de edición.
+  <div class="cols2" style="margin-top:.8rem;">
+    <div class="flex-col">
+      <div class="terminal">
+        <div class="term-bar">
+          <div class="term-dot td1"></div><div class="term-dot td2"></div><div class="term-dot td3"></div>
+          <div class="term-title">terminal</div>
+        </div>
+        <div class="term-body">
+<span class="tc-comment"># 1. Instalar dependencias</span>
+<span class="tc-prompt">$</span> <span class="tc-cmd">pip install</span> <span class="tc-val">pandas openpyxl anthropic</span>
+
+<span class="tc-comment"># 2. API key para SEO con IA</span>
+<span class="tc-prompt">$</span> <span class="tc-cmd">export</span> <span class="tc-flag">ANTHROPIC_API_KEY</span>=<span class="tc-val">sk-ant-...</span>
+
+<span class="tc-comment"># 3. Dry run — validar sin generar</span>
+<span class="tc-prompt">$</span> <span class="tc-cmd">python</span> caviaroli_proyecto_completo.py task3 \
+    <span class="tc-flag">--tc</span> <span class="tc-val">1100</span> \
+    <span class="tc-flag">--tiendanube</span> <span class="tc-val">tiendanube.csv</span> \
+    <span class="tc-flag">--vencimientos</span> <span class="tc-val">Caviaroli_Vencimientos.xlsx</span> \
+    <span class="tc-flag">--dry-run</span>
+
+<span class="tc-out">  Tiendanube: 66 productos cargados</span>
+<span class="tc-out">  Vencimientos: 74 SKUs únicos</span>
+<span class="tc-out">  Urgentes (&lt;120 días): 52</span>
+<span class="tc-success">  SEO generado: lote 1 (10 productos) ✓</span>
+<span class="tc-success">  DRY RUN — preview OK</span>
+        </div>
+      </div>
+      <div class="terminal">
+        <div class="term-bar">
+          <div class="term-dot td1"></div><div class="term-dot td2"></div><div class="term-dot td3"></div>
+          <div class="term-title">ejecución definitiva</div>
+        </div>
+        <div class="term-body">
+<span class="tc-prompt">$</span> <span class="tc-cmd">python</span> caviaroli_proyecto_completo.py task3 \
+    <span class="tc-flag">--tc</span> <span class="tc-val">1100</span> \
+    <span class="tc-flag">--output</span> <span class="tc-val">caviaroli_actualizado.csv</span>
+
+<span class="tc-success">  CSV generado: caviaroli_actualizado.csv ✓</span>
+<span class="tc-success">  Importar en Tiendanube → Productos → Importar</span>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="label gris" style="margin-bottom:.6rem;">Parámetros configurables</div>
+      <table class="tabla">
+        <tr><th>Flag</th><th>Descripción</th><th>Default</th></tr>
+        <tr><td>--tc</td><td>Tipo de cambio EUR→ARS <span class="badge b-red" style="font-size:.45rem;">req.</span></td><td style="color:var(--rouge);">—</td></tr>
+        <tr><td>--descuento</td><td>% descuento urgente</td><td>20</td></tr>
+        <tr><td>--tiendanube</td><td>CSV exportado</td><td>tiendanube.csv</td></tr>
+        <tr><td>--vencimientos</td><td>Excel inventario</td><td>Caviaroli_Vencimientos.xlsx</td></tr>
+        <tr><td>--dias-urgente</td><td>Umbral días</td><td>120</td></tr>
+        <tr><td>--dry-run</td><td>Preview sin escribir</td><td>—</td></tr>
+      </table>
+      <div class="nota" style="margin-top:.8rem;">
+        <strong>Sin API key:</strong> el CSV se genera igual con precios correctos. El SEO queda como placeholder para completar después.
+      </div>
+    </div>
   </div>
 </div>
 </section>
 
 
-<!-- ════════════════════════════════════════════════
-     12 · ORDEN DE EJECUCIÓN
-════════════════════════════════════════════════ -->
+<!--==============================================
+    08 · T-04 GOOGLE SHOPPING MOCKUP
+===============================================-->
 <section>
-<div class="slide">
+<div class="S">
+  <div class="eyebrow">T — 04 · Google Shopping</div>
+  <div class="h2">Fichas gratuitas — <em>$0 de inversión.</em></div>
+  <hr class="rule">
+  <div class="cols-60" style="margin-top:.8rem;align-items:center;">
+    <div style="display:flex;justify-content:center;">
+      <div class="browser">
+        <div class="browser-bar">
+          <div class="browser-btns"><div class="browser-btn bb1"></div><div class="browser-btn bb2"></div><div class="browser-btn bb3"></div></div>
+          <div class="browser-url"><span class="browser-url-icon">🔍</span>caviar de aceite argentina</div>
+        </div>
+        <div class="browser-body">
+          <div class="g-tabs">
+            <div class="g-tab">Todo</div>
+            <div class="g-tab g-tab-active">Shopping</div>
+            <div class="g-tab">Imágenes</div>
+          </div>
+          <div class="g-products">
+            <div class="g-prod">
+              <div class="g-prod-img"><div class="g-prod-sphere"></div></div>
+              <div class="g-prod-info">
+                <div class="g-prod-name">Caviaroli Albahaca 200g</div>
+                <div><span class="g-prod-promo">$24.000</span><span class="g-prod-price">$19.200</span></div>
+                <div class="g-prod-store">caviaroli.com.ar</div>
+                <div><span class="g-badge-free">Ficha gratuita</span></div>
+              </div>
+            </div>
+            <div class="g-prod">
+              <div class="g-prod-img"><div class="g-prod-sphere"></div></div>
+              <div class="g-prod-info">
+                <div class="g-prod-name">Caviaroli Aceite Oliva 500g</div>
+                <div><span class="g-prod-price">$32.000</span></div>
+                <div class="g-prod-store">caviaroli.com.ar</div>
+                <div><span class="g-badge-free">Ficha gratuita</span></div>
+              </div>
+            </div>
+            <div class="g-prod">
+              <div class="g-prod-img"><div class="g-prod-sphere"></div></div>
+              <div class="g-prod-info">
+                <div class="g-prod-name">Caviaroli Perlas Vino 100g</div>
+                <div><span class="g-prod-promo">$18.000</span><span class="g-prod-price">$14.400</span></div>
+                <div class="g-prod-store">caviaroli.com.ar</div>
+                <div><span class="g-badge-free">Ficha gratuita</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="label gris" style="margin-bottom:.6rem;">Por qué funciona</div>
+      <div class="cl-item"><div class="cl-box"></div><div class="cl-text"><strong>Nicho sin competencia paga</strong> — "caviar de aceite Argentina" tiene pocas pujas</div></div>
+      <div class="cl-item"><div class="cl-box"></div><div class="cl-text"><strong>Intención de compra alta</strong> — quien busca esto ya quiere comprar</div></div>
+      <div class="cl-item"><div class="cl-box"></div><div class="cl-text"><strong>Precio tachado visible</strong> — el lote urgente aparece con oferta marcada</div></div>
+      <div class="cl-item"><div class="cl-box"></div><div class="cl-text"><strong>SEO de T-03</strong> alimenta el feed de Google directamente</div></div>
+      <div class="nota" style="margin-top:.8rem;">
+        <strong>Activación:</strong> 48 horas desde configuración. Costo: $0.
+      </div>
+      <div class="nota" style="margin-top:.5rem;border-color:var(--rouge);">
+        <strong style="color:var(--rouge);">Prerequisito:</strong> T-03 debe estar importada. Sin precios, Google rechaza todos los productos.
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+
+<!--==============================================
+    09 · T-04 CATEGORÍAS + PASOS
+===============================================-->
+<section>
+<div class="S">
+  <div class="eyebrow">T — 04 · Configuración</div>
+  <div class="h2">Pasos de <em>activación.</em></div>
+  <hr class="rule">
+  <div class="cols2" style="margin-top:.8rem;">
+    <div>
+      <div class="label gris" style="margin-bottom:.6rem;">Checklist Nahuel</div>
+      <div class="cl-item"><div class="cl-box"></div><div class="cl-text"><strong>Crear cuenta</strong> en merchants.google.com</div></div>
+      <div class="cl-item"><div class="cl-box"></div><div class="cl-text"><strong>Verificar</strong> dominio caviaroli.com.ar</div></div>
+      <div class="cl-item"><div class="cl-box"></div><div class="cl-text">Tiendanube → <strong>Canales de venta → Google Shopping</strong> → Conectar</div></div>
+      <div class="cl-item"><div class="cl-box"></div><div class="cl-text">Activar <strong>fichas gratuitas</strong> en Merchant Center → Crecimiento → Gestionar programas</div></div>
+      <div class="cl-item"><div class="cl-box"></div><div class="cl-text"><strong>Mapear categorías</strong> Google Shopping en cada categoría de Tiendanube</div></div>
+      <div class="cl-item"><div class="cl-box"></div><div class="cl-text">Esperar <strong>48 hs</strong> → revisar Productos → Diagnóstico</div></div>
+    </div>
+    <div>
+      <div class="label gris" style="margin-bottom:.6rem;">Mapeo de categorías</div>
+      <table class="tabla">
+        <tr><th>Tiendanube</th><th>Google Shopping</th></tr>
+        <tr><td>Perlas aceite</td><td>Alimentos › Condimentos</td></tr>
+        <tr><td>Aceites</td><td>Alimentos › Aceites</td></tr>
+        <tr><td>Perlas vinagre</td><td>Alimentos › Vinagres</td></tr>
+        <tr><td>Perlas vino</td><td>Alimentos › Condimentos</td></tr>
+        <tr><td>Salsas Oliquida</td><td>Alimentos › Salsas</td></tr>
+        <tr><td>Pinturas</td><td>Alimentos › Condimentos</td></tr>
+        <tr><td>Packs / Kit</td><td>Alimentos › Canastas</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+</section>
+
+
+<!--==============================================
+    10 · ROADMAP TIMELINE
+===============================================-->
+<section>
+<div class="S">
   <div class="eyebrow">Hoja de ruta</div>
-  <div class="titulo titulo--sm">Orden de <em>ejecución.</em></div>
+  <div class="h2">Orden de <em>ejecución.</em></div>
   <hr class="rule">
-  <div class="flujo" style="margin-top:1.2rem;">
-    <div class="flujo-parallel">
-      <div class="flujo-nodo">
-        <div class="flujo-num">T — 01</div>
-        <div class="flujo-label">Imagen IG</div>
-        <div class="flujo-sub">arrancar hoy</div>
+  <div class="timeline">
+    <div class="tl-line"></div>
+    <div class="tl-nodes">
+      <div class="tl-node">
+        <div class="tl-parallel">
+          <div class="tl-circle tl-c-or" style="font-size:.62rem;">T01</div>
+          <div class="tl-circle tl-c-or" style="font-size:.62rem;">T02</div>
+        </div>
+        <div class="tl-label">En paralelo</div>
+        <div class="tl-sub">IG + contenido. Arrancar hoy.</div>
       </div>
-      <div class="flujo-nodo">
-        <div class="flujo-num">T — 02</div>
-        <div class="flujo-label">Feed + video</div>
-        <div class="flujo-sub">arrancar hoy</div>
+      <div class="tl-node" style="opacity:.3;">
+        <div style="font-size:1.2rem;color:var(--gris3);">→</div>
       </div>
-    </div>
-    <div class="flujo-arrow">→</div>
-    <div class="flujo-nodo flujo-nodo--rouge" style="flex:1;">
-      <div class="flujo-num">T — 03</div>
-      <div class="flujo-label">CSV Tiendanube</div>
-      <div class="flujo-sub rouge">falta tipo de cambio</div>
-    </div>
-    <div class="flujo-arrow">→</div>
-    <div class="flujo-nodo flujo-nodo--bleu" style="flex:1;">
-      <div class="flujo-num">T — 04</div>
-      <div class="flujo-label">Google Shopping</div>
-      <div class="flujo-sub" style="color:#8090D0;">tras T-03 · 48 hs</div>
+      <div class="tl-node">
+        <div class="tl-circle tl-c-red" style="font-size:.62rem;">T03</div>
+        <div class="tl-label" style="color:#e07060;">Bloqueado</div>
+        <div class="tl-sub rouge">Espera TC de Esteban</div>
+      </div>
+      <div class="tl-node" style="opacity:.3;">
+        <div style="font-size:1.2rem;color:var(--gris3);">→</div>
+      </div>
+      <div class="tl-node">
+        <div style="text-align:center;margin-bottom:.3rem;">
+          <div class="label gris" style="font-size:.45rem;">importar CSV</div>
+        </div>
+        <div class="tl-circle" style="background:var(--noir4);border:1px solid var(--gris3);color:var(--gris);font-size:.62rem;">🏪</div>
+        <div class="tl-label">Tiendanube</div>
+        <div class="tl-sub">Productos → Importar</div>
+      </div>
+      <div class="tl-node" style="opacity:.3;">
+        <div style="font-size:1.2rem;color:var(--gris3);">→</div>
+      </div>
+      <div class="tl-node">
+        <div class="tl-circle tl-c-blue" style="font-size:.62rem;">T04</div>
+        <div class="tl-label">Google Shopping</div>
+        <div class="tl-sub" style="color:#8090e0;">48 hs · $0</div>
+      </div>
     </div>
   </div>
   <div class="alerta" style="margin-top:1.2rem;">
-    <strong>Acción de Esteban:</strong> confirmar tipo de cambio EUR → ARS.<br>
-    <span style="font-size:.78rem; color:#b05a50;">Con ese dato, T-03 y T-04 se ejecutan en menos de una hora.</span>
+    <strong>Único bloqueante:</strong> Esteban confirma el tipo de cambio EUR → ARS.<br>
+    <span style="font-size:.75rem;color:#b05a50;">Con ese dato, T-03 y T-04 se ejecutan en menos de una hora.</span>
   </div>
   <div class="nota" style="margin-top:.6rem;">
-    T-01 y T-02 no tienen dependencias entre sí. Pueden comenzar en paralelo inmediatamente.
+    T-01 y T-02 no tienen dependencias. Pueden comenzar inmediatamente en paralelo.
   </div>
 </div>
 </section>
 
 
-<!-- ════════════════════════════════════════════════
-     13 · CIERRE
-════════════════════════════════════════════════ -->
+<!--==============================================
+    11 · CIERRE
+===============================================-->
 <section>
-<div class="slide slide--nobar" style="align-items:center; text-align:center;">
-  <div style="width:70px; height:70px; border-radius:50%; background: radial-gradient(circle at 32% 28%, #c8e8c4 0%, #5a9e60 18%, #2d6e34 40%, #1a4a20 65%, #0a1f0d 100%); box-shadow:0 0 60px rgba(45,90,48,.5); margin:0 auto 1.5rem;"></div>
-  <div class="stars-deco">★ ★ ★</div>
-  <div class="titulo" style="text-align:center; font-size:2rem;">Listo para <em>activar.</em></div>
-  <hr class="rule--or" style="margin: 1.2rem auto; width:40%;">
-  <div class="cierre-grid" style="margin-top:1.2rem; max-width:680px; margin-left:auto; margin-right:auto;">
-    <div class="cierre-cell">
-      <div class="cierre-t">T — 01</div>
-      <div class="cierre-n">Imagen IG</div>
-      <div class="cierre-s or">Arrancar hoy</div>
+<div class="S" style="align-items:center;text-align:center;">
+  <div style="margin-bottom:1.4rem;position:relative;display:inline-block;">
+    <div class="sphere-xl" style="width:90px;height:90px;margin:0 auto;"></div>
+    <div style="position:absolute;inset:0;border-radius:50%;box-shadow:0 0 60px rgba(45,110,52,.5);pointer-events:none;"></div>
+  </div>
+  <div style="font-size:.65rem;font-weight:600;letter-spacing:.4rem;text-transform:uppercase;color:rgba(201,168,76,.3);margin-bottom:.6rem;">★ ★ ★</div>
+  <div class="h1" style="text-align:center;font-size:2.2rem;">Listo para <em>activar.</em></div>
+  <hr class="rule rule-or" style="width:200px;margin:1rem auto;">
+  <div class="close-grid" style="max-width:700px;width:100%;">
+    <div class="cg-cell">
+      <div class="cg-num">T — 01</div>
+      <div class="cg-title">Imagen IG</div>
+      <div class="cg-status or">→ Arrancar hoy</div>
     </div>
-    <div class="cierre-cell">
-      <div class="cierre-t">T — 02</div>
-      <div class="cierre-n">Feed + video</div>
-      <div class="cierre-s or">Arrancar hoy</div>
+    <div class="cg-cell">
+      <div class="cg-num">T — 02</div>
+      <div class="cg-title">Feed + video</div>
+      <div class="cg-status or">→ Arrancar hoy</div>
     </div>
-    <div class="cierre-cell" style="background:rgba(155,28,28,.06); border:1px solid rgba(155,28,28,.2);">
-      <div class="cierre-t">T — 03</div>
-      <div class="cierre-n">CSV precios</div>
-      <div class="cierre-s rouge">Falta TC</div>
+    <div class="cg-cell" style="background:rgba(176,28,28,.06);border:1px solid rgba(176,28,28,.2);">
+      <div class="cg-num">T — 03</div>
+      <div class="cg-title">CSV precios</div>
+      <div class="cg-status rouge">⚠ Falta TC</div>
     </div>
-    <div class="cierre-cell" style="background:rgba(60,80,160,.05); border:1px solid rgba(60,80,160,.2);">
-      <div class="cierre-t">T — 04</div>
-      <div class="cierre-n">Google Shopping</div>
-      <div class="cierre-s" style="color:#8090D0;">Tras T-03</div>
+    <div class="cg-cell" style="background:rgba(48,80,176,.05);border:1px solid rgba(48,80,176,.2);">
+      <div class="cg-num">T — 04</div>
+      <div class="cg-title">Google Shopping</div>
+      <div class="cg-status" style="color:#8090e0;">→ Tras T-03</div>
     </div>
   </div>
-  <div style="margin-top:1.5rem; font-family:'Inter',sans-serif; font-size:.55rem; letter-spacing:.18em; color:#333; text-transform:uppercase;">
+  <div style="margin-top:1.2rem;font-size:.52rem;font-weight:400;letter-spacing:.2em;text-transform:uppercase;color:var(--gris2);">
     caviaroli.com.ar &nbsp;·&nbsp; @caviaroli.argentina &nbsp;·&nbsp; Junio 2026
   </div>
 </div>
 </section>
 
 
-</div><!-- /slides -->
-</div><!-- /reveal -->
-
+</div>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
 <script>
 Reveal.initialize({
-  hash: true,
-  controls: true,
-  controlsTutorial: false,
-  progress: true,
-  slideNumber: 'c/t',
-  transition: 'fade',
-  transitionSpeed: 'slow',
-  backgroundTransition: 'fade',
-  width: 1100,
-  height: 618,
-  margin: 0,
-  minScale: 0.4,
-  maxScale: 2.0,
+  hash:true, controls:true, controlsTutorial:false,
+  progress:true, slideNumber:'c/t',
+  transition:'fade', transitionSpeed:'slow',
+  backgroundTransition:'none',
+  width:1100, height:618, margin:0,
+  minScale:.3, maxScale:2,
 });
 </script>
 </body>
