@@ -1,0 +1,21 @@
+# Entorno
+.env
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+env/
+
+# Data local (no commitear inventario ni CSVs de precios)
+data/*.csv
+data/*.xlsx
+data/*.json
+
+# Imágenes procesadas (son pesadas, van por fuera del repo)
+img/outputs/
+*.png.bak
+
+# OS
+.DS_Store
+Thumbs.db

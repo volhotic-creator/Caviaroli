@@ -1,0 +1,19 @@
+# Scraping
+requests==2.31.0
+beautifulsoup4==4.12.3
+lxml==5.2.2
+
+# Data pipeline
+pandas==2.2.2
+openpyxl==3.1.2
+
+# AI — imágenes
+openai==1.30.0
+pillow==10.3.0
+
+# AI — SEO / descripciones
+anthropic==0.26.0
+
+# Utils
+python-dotenv==1.0.1
+tqdm==4.66.4

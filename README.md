@@ -1,107 +1,138 @@
-# Caviaroli — Script de actualización masiva Tiendanube
+# Caviaroli Argentina — Pipeline DTC
 
-## Qué hace
+**Objetivo:** Activar `caviaroli.com.ar` como canal directo al consumidor (DTC) ingiriendo datos de `caviaroli.com`, aplicando rebrand visual con IA y priorizando el lote a vencer con descuento promocional.
 
-Toma el CSV exportado de Tiendanube y el Excel de vencimientos, y genera un CSV listo para importar con:
-
-- **Precios en ARS** convertidos desde EUR con el tipo de cambio que confirmes
-- **Precio promocional** automático para productos con vencimiento próximo (descuento configurable)
-- **Título SEO y Descripción SEO** generados por IA (Claude) para cada producto, orientados a búsqueda argentina
+Referencia estética y de plataforma: [tienda.havanna.com.ar](https://tienda.havanna.com.ar) (mismo stack TiendaNube).
 
 ---
 
-## Instalación
+## Estructura del proyecto
 
-```bash
-pip install pandas openpyxl anthropic
 ```
-
-Configurar la API key de Anthropic:
-
-```bash
-export ANTHROPIC_API_KEY=sk-ant-...
+Caviaroli/
+├── scripts/                        # Pipeline Python
+│   ├── caviaroli_proyecto_completo.py   # Scraper completo caviaroli.com
+│   ├── caviaroli_tiendanube_update.py   # Generador CSV para TiendaNube
+│   ├── rebrand_imagenes.py              # Rebrand batch de fotos (gpt-image-1)
+│   └── rebrand_test.py                  # Test editorial con 4 imágenes
+│
+├── presentaciones/                 # Decks HTML
+│   ├── curso-imagenes-ia-nahuel.html    # Curso de fotografía con IA (10 módulos)
+│   ├── presentacion-proyecto.html       # Deck técnico del proyecto
+│   └── presentacion.html                # Versión anterior
+│
+├── img/                            # Imágenes editoriales AI
+│   └── [imágenes generadas con ChatGPT/gpt-image-1]
+│
+├── data/                           # Archivos de trabajo local (no se commitean)
+│   └── README.md
+│
+├── presentacion-final.html         # ← Deck ejecutivo principal (abrir este)
+├── requirements.txt                # Dependencias Python
+├── .env.example                    # Variables de entorno requeridas
+└── .gitignore
 ```
 
 ---
 
-## Uso básico
+## Setup local
 
 ```bash
-python caviaroli_tiendanube_update.py \
-  --tc 1100 \
-  --tiendanube tiendanube646256...csv \
-  --vencimientos Caviaroli_Vencimientos.xlsx
-```
+# 1. Clonar
+git clone https://github.com/volhotic-creator/Caviaroli.git
+cd Caviaroli
+git checkout claude/wonderful-edison-xuqgyi
 
-Esto genera `caviaroli_actualizado.csv` listo para importar.
+# 2. Entorno virtual
+python -m venv venv
+source venv/bin/activate        # Mac/Linux
+venv\Scripts\activate           # Windows
+
+# 3. Dependencias
+pip install -r requirements.txt
+
+# 4. Variables de entorno
+cp .env.example .env
+# Editar .env con tus API keys reales
+```
 
 ---
 
-## Parámetros
+## Pipeline — 5 fases
+
+### Fase 1 · Scraping de caviaroli.com
+```bash
+python scripts/caviaroli_proyecto_completo.py
+# Output: data/productos_scrapeados.json
+```
+Extrae nombre, descripción, precio EUR, imágenes y variantes de los ~63 productos del sitio global.
+
+### Fase 2 · Rebrand visual con IA
+```bash
+# Test con 4 imágenes editoriales
+python scripts/rebrand_test.py
+
+# Batch completo del catálogo
+python scripts/rebrand_imagenes.py
+```
+Requiere `OPENAI_API_KEY`. Usa `gpt-image-1` para reencuadrar cada foto al estilo catálogo premium (fondo blanco, sombra suave, iluminación de estudio).
+
+### Fase 3 · Generación CSV para TiendaNube
+```bash
+python scripts/caviaroli_tiendanube_update.py \
+  --tc 1200 \
+  --tiendanube data/tiendanube.csv \
+  --vencimientos data/Caviaroli_Vencimientos.xlsx
+# Output: data/caviaroli_actualizado.csv
+```
+Convierte precios EUR → ARS, aplica -20% al lote urgente (≤120 días), genera títulos y descripciones SEO con Claude.
+
+### Fase 4 · Importación en TiendaNube
+1. Panel TiendaNube → **Productos → Importar productos**
+2. Subir `data/caviaroli_actualizado.csv`
+3. Subir imágenes rebranded a cada producto
+
+### Fase 5 · Google Shopping (orgánico)
+- Verificar dominio en Google Search Console
+- Conectar feed en Google Merchant Center
+- 48 hs para que los productos aparezcan en Shopping
+
+---
+
+## Parámetros del script de actualización
 
 | Parámetro | Descripción | Default |
 |---|---|---|
 | `--tc` | Tipo de cambio EUR → ARS **(requerido)** | — |
-| `--descuento` | % descuento para lote urgente | `20` |
-| `--tiendanube` | CSV exportado de Tiendanube | `tiendanube.csv` |
+| `--descuento` | % descuento lote urgente | `20` |
+| `--tiendanube` | CSV exportado de TiendaNube | `tiendanube.csv` |
 | `--vencimientos` | Excel de vencimientos | `Caviaroli_Vencimientos.xlsx` |
 | `--output` | Nombre del CSV de salida | `caviaroli_actualizado.csv` |
-| `--dias-urgente` | Días para marcar como urgente | `120` |
+| `--dias-urgente` | Días para marcar urgente | `120` |
 | `--dry-run` | Preview sin generar archivo | — |
 
 ---
 
-## Ejemplo con todos los parámetros
+## API Keys necesarias
 
-```bash
-python caviaroli_tiendanube_update.py \
-  --tc 1200 \
-  --descuento 25 \
-  --tiendanube tiendanube646256...csv \
-  --vencimientos Caviaroli_Vencimientos.xlsx \
-  --output caviaroli_julio2026.csv \
-  --dias-urgente 90
-```
+| Key | Uso | Dónde obtener |
+|---|---|---|
+| `OPENAI_API_KEY` | Rebrand de imágenes (gpt-image-1) | platform.openai.com/api-keys |
+| `ANTHROPIC_API_KEY` | SEO con IA (Claude) | console.anthropic.com |
+
+Copiar `.env.example` → `.env` y completar. **Nunca commitear el `.env`.**
 
 ---
 
-## Dry run (preview sin generar archivo)
+## Presentación ejecutiva
 
-```bash
-python caviaroli_tiendanube_update.py --tc 1100 --dry-run \
-  --tiendanube tiendanube646256...csv \
-  --vencimientos Caviaroli_Vencimientos.xlsx
-```
+Abrir `presentacion-final.html` en el navegador para ver el deck completo de 10 slides que cubre contexto, urgencia comercial, pipeline técnico y roadmap de 7 días.
 
 ---
 
-## Sin API key (modo placeholder)
+## Urgencia comercial
 
-Si no tenés la API key de Anthropic configurada, el script igual genera el CSV con precios correctos pero con títulos y descripciones SEO de placeholder. Podés completar el SEO después.
-
----
-
-## Importar en Tiendanube
-
-1. Ir a **Productos → Importar productos**
-2. Subir el CSV generado
-3. Confirmar la importación
-4. Esperar 48 hs a que Google Merchant Center sincronice el feed
-
----
-
-## Dependencias entre tasks
-
-```
-Task 03 (este script) → importar CSV en Tiendanube → Task 04 (Google Shopping)
-```
-
-Sin precios cargados, Google rechaza los productos del feed de Shopping.
-
----
-
-## Archivos necesarios
-
-- `tiendanube646256...csv` — exportar desde Tiendanube → Productos → Exportar
-- `Caviaroli_Vencimientos.xlsx` — el Excel de inventario/vencimientos
-- `ANTHROPIC_API_KEY` — en variable de entorno (para SEO con IA)
+Hay un **lote a vencer en ≤120 días**. Estrategia:
+- Precio con **-20% automático** vía precio promocional en TiendaNube
+- Canal DTC directo (sin intermediarios)
+- Activación inmediata sin depender de distribución tradicional
