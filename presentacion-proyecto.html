@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Caviaroli Argentina — Rebrand Express 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --black: #0a0a0a;
+  --white: #f5f4f0;
+  --gray: #e8e6e1;
+  --gray-mid: #c0bdb8;
+  --ink: #1a1a1a;
+  --gold: #c9a96e;
+  --dots: "· · · · · · · · · · · ·";
+}
+
+html { scroll-behavior: smooth; scroll-snap-type: y mandatory; }
+
+body {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  background: var(--black);
+  color: var(--white);
+  overflow-x: hidden;
+}
+
+/* ── SLIDES ── */
+.slide {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  scroll-snap-align: start;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 20px 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  mix-blend-mode: difference;
+}
+.nav-logo {
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #fff;
+  font-weight: 500;
+}
+.nav-tag {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #fff;
+  opacity: 0.5;
+}
+
+/* ── SLIDE COUNTER ── */
+.slide-num {
+  position: absolute;
+  bottom: 32px;
+  right: 48px;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  opacity: 0.35;
+}
+
+/* ── DOTS SEPARATOR ── */
+.dots {
+  display: block;
+  font-size: 18px;
+  letter-spacing: 6px;
+  margin: 20px 0 24px;
+  opacity: 0.35;
+}
+
+/* ══════════════════════════════════════
+   SLIDE 01 — HERO DARK
+══════════════════════════════════════ */
+.s01 {
+  background: var(--black);
+  padding: 120px 48px 80px;
+}
+.s01-eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 32px;
+}
+.s01 h1 {
+  font-size: clamp(3rem, 8vw, 7rem);
+  font-weight: 700;
+  line-height: 0.95;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  max-width: 900px;
+}
+.s01 h1 em {
+  font-style: normal;
+  color: var(--gold);
+}
+.s01-sub {
+  margin-top: 40px;
+  font-size: 15px;
+  color: var(--gray-mid);
+  max-width: 520px;
+  line-height: 1.7;
+  font-weight: 300;
+}
+.s01-meta {
+  margin-top: 48px;
+  display: flex;
+  gap: 48px;
+  flex-wrap: wrap;
+}
+.meta-item { display: flex; flex-direction: column; gap: 4px; }
+.meta-label { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; opacity: 0.4; }
+.meta-val { font-size: 14px; font-weight: 500; }
+
+/* ══════════════════════════════════════
+   SLIDE 02 — FOTO HERO (oscura, texto encima)
+══════════════════════════════════════ */
+.s02 {
+  background: var(--black);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 100svh;
+}
+.s02-text {
+  padding: 120px 48px 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.s02-text h2 {
+  font-size: clamp(2rem, 4vw, 4.5rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+.s02-text h2 strong { color: var(--gold); }
+.s02-text p {
+  margin-top: 24px;
+  font-size: 15px;
+  color: var(--gray-mid);
+  line-height: 1.75;
+  font-weight: 300;
+  max-width: 380px;
+}
+.s02-img {
+  position: relative;
+  overflow: hidden;
+}
+.s02-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.85);
+}
+.s02-img-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, var(--black) 0%, transparent 40%);
+}
+
+/* ══════════════════════════════════════
+   SLIDE 03 — BLANCO, TEXTO GRANDE (estilo Caviaroli.com)
+══════════════════════════════════════ */
+.s03 {
+  background: var(--white);
+  color: var(--ink);
+  padding: 120px 48px 80px;
+}
+.s03 h2 {
+  font-size: clamp(2.5rem, 6vw, 6rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  max-width: 800px;
+}
+.s03 h2 strong { font-weight: 700; }
+.s03 h2 span { font-weight: 300; }
+.s03-body {
+  margin-top: 48px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 32px;
+}
+.s03-col h3 {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #888;
+  margin-bottom: 16px;
+}
+.s03-col p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #333;
+  font-weight: 300;
+}
+.s03-col p strong { color: var(--ink); font-weight: 600; }
+
+/* ══════════════════════════════════════
+   SLIDE 04 — FOTO + OVERLAY TEXTO (blanco)
+══════════════════════════════════════ */
+.s04 {
+  background: var(--white);
+  color: var(--ink);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 100svh;
+}
+.s04-img {
+  position: relative;
+  overflow: hidden;
+  order: -1;
+}
+.s04-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.s04-text {
+  padding: 120px 48px 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.s04-text h2 {
+  font-size: clamp(2rem, 3.5vw, 3.5rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+.s04-text h2 span { font-weight: 300; }
+.s04-text p {
+  margin-top: 24px;
+  font-size: 15px;
+  color: #555;
+  line-height: 1.75;
+  font-weight: 300;
+  max-width: 380px;
+}
+
+/* ══════════════════════════════════════
+   SLIDE 05 — PIPELINE (oscuro, pasos)
+══════════════════════════════════════ */
+.s05 {
+  background: var(--black);
+  padding: 120px 48px 80px;
+}
+.s05 h2 {
+  font-size: clamp(2rem, 4vw, 4rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  margin-bottom: 56px;
+}
+.s05 h2 em { color: var(--gold); font-style: normal; }
+.pipeline {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+}
+.pipe-step {
+  background: #111;
+  padding: 32px 28px;
+  border-top: 2px solid #222;
+  position: relative;
+  transition: border-color 0.3s;
+}
+.pipe-step:hover { border-color: var(--gold); }
+.pipe-num {
+  font-size: 48px;
+  font-weight: 700;
+  color: #222;
+  line-height: 1;
+  margin-bottom: 20px;
+}
+.pipe-title {
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+.pipe-desc {
+  font-size: 13px;
+  color: #666;
+  line-height: 1.65;
+  font-weight: 300;
+}
+.pipe-status {
+  margin-top: 20px;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 2px;
+  display: inline-block;
+}
+.pipe-status.done { background: rgba(74,124,89,0.2); color: #4a7c59; }
+.pipe-status.active { background: rgba(201,169,110,0.15); color: var(--gold); }
+.pipe-status.next { background: #1a1a1a; color: #444; }
+
+/* ══════════════════════════════════════
+   SLIDE 06 — FOTO FULL + TEXTO SUPERPUESTO (estilo Oliquida/Pintura)
+══════════════════════════════════════ */
+.s06 {
+  background: var(--black);
+  position: relative;
+  min-height: 100svh;
+}
+.s06-bg {
+  position: absolute;
+  inset: 0;
+}
+.s06-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.45;
+}
+.s06-content {
+  position: relative;
+  z-index: 2;
+  padding: 120px 48px 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 100svh;
+}
+.s06-content h2 {
+  font-size: clamp(2.5rem, 6vw, 6rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  max-width: 700px;
+}
+.s06-content h2 strong { color: var(--gold); }
+.s06-content p {
+  margin-top: 24px;
+  font-size: 15px;
+  color: rgba(255,255,255,0.65);
+  max-width: 480px;
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+/* ══════════════════════════════════════
+   SLIDE 07 — BLANCO, PRODUCTOS GRID
+══════════════════════════════════════ */
+.s07 {
+  background: var(--white);
+  color: var(--ink);
+  padding: 120px 48px 80px;
+}
+.s07 h2 {
+  font-size: clamp(2rem, 4vw, 4rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  margin-bottom: 48px;
+}
+.s07 h2 span { font-weight: 300; }
+.productos-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+}
+.prod-card {
+  background: #eeecea;
+  aspect-ratio: 3/4;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+}
+.prod-card img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+.prod-card:hover img { transform: scale(1.04); }
+.prod-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 60%);
+}
+.prod-card-label {
+  position: relative;
+  z-index: 2;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #fff;
+  font-weight: 500;
+}
+.prod-card-name {
+  position: relative;
+  z-index: 2;
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.15;
+  margin-top: 4px;
+}
+
+/* ══════════════════════════════════════
+   SLIDE 08 — REBRAND BEFORE/AFTER
+══════════════════════════════════════ */
+.s08 {
+  background: var(--black);
+  padding: 120px 48px 80px;
+}
+.s08 h2 {
+  font-size: clamp(2rem, 4vw, 4rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  margin-bottom: 48px;
+}
+.s08 h2 em { color: var(--gold); font-style: normal; }
+.ba-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+}
+.ba-panel {
+  aspect-ratio: 4/3;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  padding: 24px;
+}
+.ba-panel img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.ba-panel.before img { filter: brightness(0.7) saturate(0.8); }
+.ba-panel-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%);
+}
+.ba-label {
+  position: relative;
+  z-index: 2;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 2px;
+}
+.ba-label.before { background: rgba(255,255,255,0.15); color: rgba(255,255,255,0.6); }
+.ba-label.after { background: var(--gold); color: var(--black); }
+.ba-caption {
+  margin-top: 2px;
+}
+.ba-caption p {
+  padding: 16px 24px;
+  font-size: 13px;
+  color: #555;
+  line-height: 1.6;
+  background: #111;
+}
+.ba-caption p strong { color: var(--white); }
+
+/* ══════════════════════════════════════
+   SLIDE 09 — TIENDANUBE / OBJETIVO (blanco)
+══════════════════════════════════════ */
+.s09 {
+  background: var(--white);
+  color: var(--ink);
+  padding: 120px 48px 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.s09 h2 {
+  font-size: clamp(2.5rem, 6vw, 6rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  max-width: 700px;
+}
+.s09 h2 span { font-weight: 300; }
+.s09-metrics {
+  margin-top: 56px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+}
+.metric-card {
+  background: var(--gray);
+  padding: 28px 24px;
+  border-top: 3px solid var(--ink);
+}
+.metric-num {
+  font-size: clamp(2rem, 3vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.metric-label {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #888;
+  margin-top: 8px;
+}
+
+/* ══════════════════════════════════════
+   SLIDE 10 — ROADMAP (oscuro)
+══════════════════════════════════════ */
+.s10 {
+  background: var(--black);
+  padding: 120px 48px 80px;
+}
+.s10 h2 {
+  font-size: clamp(2rem, 4vw, 4rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  margin-bottom: 56px;
+}
+.s10 h2 em { color: var(--gold); font-style: normal; }
+.roadmap {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.road-row {
+  display: grid;
+  grid-template-columns: 120px 1fr 180px;
+  align-items: center;
+  background: #0f0f0f;
+  padding: 20px 28px;
+  gap: 32px;
+  border-left: 3px solid transparent;
+  transition: border-color 0.2s;
+}
+.road-row:hover { border-color: var(--gold); }
+.road-row.done { border-color: #2d4d36; }
+.road-row.active { border-color: var(--gold); background: #111008; }
+.road-phase {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #444;
+}
+.road-title {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--white);
+}
+.road-title span { color: #555; font-weight: 300; font-size: 13px; display: block; margin-top: 2px; }
+.road-badge {
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 2px;
+  text-align: center;
+  justify-self: end;
+}
+.road-badge.done { background: rgba(74,124,89,0.2); color: #4a7c59; }
+.road-badge.active { background: rgba(201,169,110,0.15); color: var(--gold); }
+.road-badge.pending { background: #1a1a1a; color: #444; }
+
+/* ══════════════════════════════════════
+   SLIDE 11 — CIERRE (oscuro + grande)
+══════════════════════════════════════ */
+.s11 {
+  background: var(--black);
+  padding: 120px 48px 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.s11::before {
+  content: 'CAVIAROLI';
+  position: absolute;
+  font-size: 20vw;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  color: #111;
+  text-transform: uppercase;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+}
+.s11-content {
+  position: relative;
+  z-index: 2;
+}
+.s11 h2 {
+  font-size: clamp(2rem, 5vw, 5rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  max-width: 700px;
+  margin-bottom: 32px;
+}
+.s11 h2 em { color: var(--gold); font-style: normal; }
+.s11-note {
+  font-size: 13px;
+  color: #555;
+  font-weight: 300;
+  letter-spacing: 0.04em;
+}
+.s11-note strong { color: #888; font-weight: 500; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  nav { padding: 16px 24px; }
+  .s01, .s03, .s05, .s07, .s08, .s09, .s10, .s11 { padding: 100px 24px 60px; }
+  .s02, .s04 { grid-template-columns: 1fr; }
+  .s02-img, .s04-img { height: 50vw; min-height: 280px; order: 0; }
+  .s02-text, .s04-text { padding: 40px 24px; }
+  .s02-img-overlay { background: linear-gradient(to bottom, transparent 0%, var(--black) 90%); }
+  .pipeline { grid-template-columns: 1fr 1fr; }
+  .productos-grid { grid-template-columns: 1fr 1fr; }
+  .s09-metrics { grid-template-columns: 1fr 1fr; }
+  .road-row { grid-template-columns: 80px 1fr; }
+  .road-badge { display: none; }
+  .s06-content { padding: 100px 24px 60px; }
+}
+
+@media (max-width: 600px) {
+  .pipeline { grid-template-columns: 1fr; }
+  .productos-grid { grid-template-columns: 1fr; }
+  .ba-grid { grid-template-columns: 1fr; }
+  .s09-metrics { grid-template-columns: 1fr 1fr; }
+  .s03-body { grid-template-columns: 1fr; }
+}
+
+/* ── SCROLL INDICATOR ── */
+.scroll-hint {
+  position: absolute;
+  bottom: 32px;
+  left: 48px;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.3;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.scroll-hint::before {
+  content: '';
+  display: block;
+  width: 1px;
+  height: 32px;
+  background: currentColor;
+  animation: scrollLine 2s ease-in-out infinite;
+}
+@keyframes scrollLine {
+  0%, 100% { transform: scaleY(1); opacity: 0.3; }
+  50% { transform: scaleY(0.4); opacity: 0.8; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-logo">Caviaroli · Argentina</span>
+  <span class="nav-tag">Proyecto Digital 2026</span>
+</nav>
+
+<!-- ══ S01 — HERO ══ -->
+<section class="slide s01">
+  <p class="s01-eyebrow">Volhotic — Estrategia Digital</p>
+  <h1>Rebrand<br><em>Express.</em><br>DTC.</h1>
+  <p class="s01-sub">Activación de tienda Caviaroli Argentina para venta directa al consumidor final — fotos reales escaladas con IA, TiendaNube reactivada, Google Shopping conectado.</p>
+  <div class="s01-meta">
+    <div class="meta-item">
+      <span class="meta-label">Canal</span>
+      <span class="meta-val">TiendaNube DTC</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Motor</span>
+      <span class="meta-val">IA Generativa</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Referencia</span>
+      <span class="meta-val">Havanna.com.ar</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Urgencia</span>
+      <span class="meta-val">Lote a vencer</span>
+    </div>
+  </div>
+  <div class="scroll-hint">scroll</div>
+  <span class="slide-num">01 / 11</span>
+</section>
+
+<!-- ══ S02 — EL PROBLEMA ══ -->
+<section class="slide s02">
+  <div class="s02-text">
+    <p class="dots">· · · · · · · · · · · ·</p>
+    <h2>EL<br><strong>PROBLEMA</strong><br>HOY.</h2>
+    <p>Caviaroli Argentina tiene stock real, producto premium europeo y una tienda TiendaNube — pero está <strong style="color:#fff">inactiva</strong>. Las fotos actuales no comunican la calidad del producto. El consumidor final no llega.</p>
+    <p style="margin-top:16px;">Con un lote próximo a vencer, la urgencia comercial es real y el momento de actuar es ahora.</p>
+  </div>
+  <div class="s02-img">
+    <img src="img/caviaroli-perlas-mango.jpg" alt="Caviaroli Perlas de Mango" onerror="this.style.background='#1a1a1a';this.style.display='block'">
+    <div class="s02-img-overlay"></div>
+  </div>
+  <span class="slide-num" style="color:#fff">02 / 11</span>
+</section>
+
+<!-- ══ S03 — CONTEXTO (blanco) ══ -->
+<section class="slide s03">
+  <h2><span>El</span> <strong>producto</strong><br><span>ya existe.</span><br><strong>La tienda</strong><br><span>también.</span></h2>
+  <div class="s03-body">
+    <div class="s03-col">
+      <h3>Stock disponible</h3>
+      <p>Perlas de aceite de oliva, mango, nectar, chocolate, wasabi y más. Producto gourmet importado de España, listo para despachar.</p>
+    </div>
+    <div class="s03-col">
+      <h3>TiendaNube activa</h3>
+      <p>La infraestructura ya existe. Solo necesita <strong>fotos profesionales, precios en ARS y SEO</strong> para empezar a vender hoy.</p>
+    </div>
+    <div class="s03-col">
+      <h3>El gap visual</h3>
+      <p>Las fotos actuales no están optimizadas para venta online argentina. <strong>Eso es lo que resuelve este proyecto.</strong></p>
+    </div>
+  </div>
+  <span class="slide-num" style="color:#aaa">03 / 11</span>
+</section>
+
+<!-- ══ S04 — LA SOLUCIÓN (blanco + foto) ══ -->
+<section class="slide s04">
+  <div class="s04-img">
+    <img src="img/caviaroli-peras.jpg" alt="Caviaroli lifestyle" onerror="this.style.background='#ddd';this.style.display='block'">
+  </div>
+  <div class="s04-text">
+    <p class="dots" style="color:#bbb">· · · · · · · · · · · ·</p>
+    <h2>FOTOS<br><span>REALES.</span><br>ESCALADAS<br><span>CON</span> IA.</h2>
+    <p>Tomamos las fotos reales scrapeadas de caviaroli.com — fotos de producción profesional — y las procesamos con motores IA para adaptarlas al estilo de catálogo DTC.</p>
+    <p style="margin-top:16px;">Referencia: <strong>tienda.havanna.com.ar</strong> — fondo limpio, producto centrado, look premium de tienda online.</p>
+  </div>
+  <span class="slide-num" style="color:#aaa">04 / 11</span>
+</section>
+
+<!-- ══ S05 — PIPELINE ══ -->
+<section class="slide s05">
+  <h2>El pipeline<br><em>de 4 pasos.</em></h2>
+  <div class="pipeline">
+    <div class="pipe-step">
+      <div class="pipe-num">01</div>
+      <div class="pipe-title">Scraping</div>
+      <p class="pipe-desc">Descarga automática de todas las fotos reales de caviaroli.com con metadatos de producto.</p>
+      <span class="pipe-status done">Completado</span>
+    </div>
+    <div class="pipe-step">
+      <div class="pipe-num">02</div>
+      <div class="pipe-title">Rebrand IA</div>
+      <p class="pipe-desc">Pipeline Python con API OpenAI — procesa cada foto aplicando el prompt de rebrand estilo catálogo premium en batch.</p>
+      <span class="pipe-status active">En proceso</span>
+    </div>
+    <div class="pipe-step">
+      <div class="pipe-num">03</div>
+      <div class="pipe-title">Precios + SEO</div>
+      <p class="pipe-desc">Conversión EUR→ARS, aplicación de descuentos urgentes y generación de descripciones SEO por IA por producto.</p>
+      <span class="pipe-status active">En proceso</span>
+    </div>
+    <div class="pipe-step">
+      <div class="pipe-num">04</div>
+      <div class="pipe-title">TiendaNube Live</div>
+      <p class="pipe-desc">Importación CSV masiva, imágenes subidas, Google Shopping conectado. Tienda activa para venta DTC.</p>
+      <span class="pipe-status next">Próximo</span>
+    </div>
+  </div>
+  <span class="slide-num">05 / 11</span>
+</section>
+
+<!-- ══ S06 — FOTO FULL PANTALLA ══ -->
+<section class="slide s06">
+  <div class="s06-bg">
+    <img src="img/caviaroli-torta.jpg" alt="Caviaroli lifestyle" onerror="this.style.background='#111';this.style.display='block'">
+  </div>
+  <div class="s06-content">
+    <p class="dots">· · · · · · · · · · · ·</p>
+    <h2>EL <strong>APERITIVO</strong><br>DEFINITIVO.</h2>
+    <p>Perlas de aceite de oliva virgen extra. Producto de alta cocina que llega ahora al consumidor final argentino.</p>
+  </div>
+  <span class="slide-num">06 / 11</span>
+</section>
+
+<!-- ══ S07 — CATÁLOGO DE PRODUCTOS ══ -->
+<section class="slide s07">
+  <h2>El <strong>catálogo.</strong><br><span>Antes → Después.</span></h2>
+  <div class="productos-grid">
+    <div class="prod-card">
+      <img src="img/caviaroli-perlas-mango.jpg" alt="Perlas de Mango" onerror="this.parentElement.style.background='#ccc'">
+      <div class="prod-card-overlay"></div>
+      <div class="prod-card-label">Perlas de</div>
+      <div class="prod-card-name">Mango</div>
+    </div>
+    <div class="prod-card">
+      <img src="img/caviaroli-peras.jpg" alt="Perlas de Nectar" onerror="this.parentElement.style.background='#aaa'">
+      <div class="prod-card-overlay"></div>
+      <div class="prod-card-label">Perlas de</div>
+      <div class="prod-card-name">Nectar</div>
+    </div>
+    <div class="prod-card">
+      <img src="img/caviaroli-pasta.jpg" alt="Aceite de Oliva" onerror="this.parentElement.style.background='#bbb'">
+      <div class="prod-card-overlay"></div>
+      <div class="prod-card-label">Caviar de</div>
+      <div class="prod-card-name">Aceite de Oliva</div>
+    </div>
+  </div>
+  <span class="slide-num" style="color:#aaa">07 / 11</span>
+</section>
+
+<!-- ══ S08 — BEFORE / AFTER ══ -->
+<section class="slide s08">
+  <h2>Foto real →<br><em>Catálogo.</em></h2>
+  <div class="ba-grid">
+    <div>
+      <div class="ba-panel before">
+        <img src="img/caviaroli-peras.jpg" alt="Antes" onerror="this.parentElement.style.background='#1a1a1a'">
+        <div class="ba-panel-overlay"></div>
+        <span class="ba-label before">Foto original</span>
+      </div>
+      <div class="ba-caption">
+        <p>Foto de producción real, estilo editorial gastronómico. <strong>Perfecta para redes sociales</strong> — no optimizada para tienda online.</p>
+      </div>
+    </div>
+    <div>
+      <div class="ba-panel after">
+        <img src="img/caviaroli-perlas-mango.jpg" alt="Después" onerror="this.parentElement.style.background='#0f1a0f'">
+        <div class="ba-panel-overlay"></div>
+        <span class="ba-label after">Versión catálogo</span>
+      </div>
+      <div class="ba-caption">
+        <p>Procesada con IA: fondo blanco limpio, sombra suave, producto centrado. <strong>Lista para TiendaNube y Google Shopping.</strong></p>
+      </div>
+    </div>
+  </div>
+  <span class="slide-num">08 / 11</span>
+</section>
+
+<!-- ══ S09 — OBJETIVO / MÉTRICAS ══ -->
+<section class="slide s09">
+  <h2><strong>Objetivo:</strong><br><span>tienda</span><br><strong>activa</strong><br><span>en 7 días.</span></h2>
+  <div class="s09-metrics">
+    <div class="metric-card">
+      <div class="metric-num">100%</div>
+      <div class="metric-label">Fotos procesadas</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-num">$0</div>
+      <div class="metric-label">Inversión en ads</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-num">7</div>
+      <div class="metric-label">Días al lanzamiento</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-num">DTC</div>
+      <div class="metric-label">Canal directo</div>
+    </div>
+  </div>
+  <span class="slide-num" style="color:#aaa">09 / 11</span>
+</section>
+
+<!-- ══ S10 — ROADMAP ══ -->
+<section class="slide s10">
+  <h2>Roadmap<br><em>completo.</em></h2>
+  <div class="roadmap">
+    <div class="road-row done">
+      <div class="road-phase">Fase 01</div>
+      <div class="road-title">Scraping de imágenes
+        <span>Descarga de todas las fotos reales de caviaroli.com con metadatos</span>
+      </div>
+      <div class="road-badge done">Listo</div>
+    </div>
+    <div class="road-row active">
+      <div class="road-phase">Fase 02</div>
+      <div class="road-title">Pipeline IA — Rebrand visual
+        <span>API OpenAI · procesamiento batch · estilo catálogo Havanna</span>
+      </div>
+      <div class="road-badge active">En curso</div>
+    </div>
+    <div class="road-row active">
+      <div class="road-phase">Fase 03</div>
+      <div class="road-title">CSV TiendaNube — Precios + SEO
+        <span>Conversión EUR→ARS · descuentos lote urgente · descripciones IA</span>
+      </div>
+      <div class="road-badge active">En curso</div>
+    </div>
+    <div class="road-row">
+      <div class="road-phase">Fase 04</div>
+      <div class="road-title">Importación masiva TiendaNube
+        <span>Subida de fotos procesadas · importación CSV · verificación</span>
+      </div>
+      <div class="road-badge pending">Próximo</div>
+    </div>
+    <div class="road-row">
+      <div class="road-phase">Fase 05</div>
+      <div class="road-title">Google Shopping — Orgánico
+        <span>Feed de productos · sincronización automática · sin ads</span>
+      </div>
+      <div class="road-badge pending">Próximo</div>
+    </div>
+    <div class="road-row">
+      <div class="road-phase">Fase 06</div>
+      <div class="road-title">Contenido IG + Stories
+        <span>Feed rebrandeado · prompts de producto · urgencia lote</span>
+      </div>
+      <div class="road-badge pending">Próximo</div>
+    </div>
+  </div>
+  <span class="slide-num">10 / 11</span>
+</section>
+
+<!-- ══ S11 — CIERRE ══ -->
+<section class="slide s11">
+  <div class="s11-content">
+    <p class="dots">· · · · · · · · · · · ·</p>
+    <h2>Producto real.<br><em>Tienda real.</em><br>Consumidor<br>final.</h2>
+    <p class="s11-note" style="margin-top:40px;">
+      <strong>Nahuel · VOLHOTIC</strong> — Jun 2026<br>
+      Caviaroli Argentina · Rebrand Express · TiendaNube DTC
+    </p>
+  </div>
+  <span class="slide-num">11 / 11</span>
+</section>
+
+<script>
+  // Animación de entrada para slides
+  const slides = document.querySelectorAll('.slide');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'none';
+      }
+    });
+  }, { threshold: 0.15 });
+
+  slides.forEach(s => {
+    s.style.opacity = '0';
+    s.style.transform = 'translateY(20px)';
+    s.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
+    io.observe(s);
+  });
+
+  // Primera slide siempre visible
+  slides[0].style.opacity = '1';
+  slides[0].style.transform = 'none';
+</script>
+</body>
+</html>
