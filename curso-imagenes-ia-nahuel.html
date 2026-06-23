@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Curso IA Visual — Nahuel</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;600&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0a0a0a;
+    --surface: #111111;
+    --surface2: #181818;
+    --border: rgba(255,255,255,0.07);
+    --border-strong: rgba(255,255,255,0.14);
+    --ink: #f0ede8;
+    --ink-muted: #8a8580;
+    --ink-faint: #3a3835;
+    --gold: #c9a96e;
+    --gold-dim: rgba(201,169,110,0.15);
+    --gold-dim2: rgba(201,169,110,0.08);
+    --green: #4a7c59;
+    --green-dim: rgba(74,124,89,0.15);
+    --radius: 8px;
+    --radius-lg: 14px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10,10,10,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+  }
+  .nav-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    color: var(--gold);
+    letter-spacing: 0.06em;
+  }
+  .nav-progress {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .nav-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--ink-faint);
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .nav-dot.active { background: var(--gold); }
+  .nav-dot.done { background: var(--green); }
+
+  /* HERO */
+  .hero {
+    padding: 96px 2rem 80px;
+    max-width: 760px;
+    margin: 0 auto;
+  }
+  .hero-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+    font-weight: 400;
+    line-height: 1.18;
+    color: var(--ink);
+    margin-bottom: 20px;
+    text-wrap: balance;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+  .hero-sub {
+    font-size: 16px;
+    color: var(--ink-muted);
+    max-width: 520px;
+    line-height: 1.65;
+    margin-bottom: 40px;
+  }
+  .hero-meta {
+    display: flex;
+    gap: 28px;
+    flex-wrap: wrap;
+  }
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .meta-label {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .meta-val {
+    font-size: 14px;
+    color: var(--ink-muted);
+  }
+
+  /* MAIN LAYOUT */
+  .wrapper {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 2rem 120px;
+  }
+
+  /* MODULE */
+  .module {
+    margin-bottom: 64px;
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .module.visible { opacity: 1; transform: translateY(0); }
+
+  .module-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .module-num {
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    color: var(--gold);
+    text-transform: uppercase;
+    padding-top: 4px;
+    min-width: 64px;
+    flex-shrink: 0;
+  }
+  .module-title-wrap h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .module-title-wrap p {
+    font-size: 13px;
+    color: var(--ink-muted);
+  }
+
+  .module-body { padding-left: 84px; }
+
+  /* PROSE */
+  .prose p { color: var(--ink-muted); margin-bottom: 14px; }
+  .prose strong { color: var(--ink); font-weight: 500; }
+  .prose ul { list-style: none; margin-bottom: 14px; }
+  .prose ul li {
+    color: var(--ink-muted);
+    padding: 4px 0 4px 16px;
+    position: relative;
+  }
+  .prose ul li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-size: 12px;
+  }
+
+  /* CALLOUT */
+  .callout {
+    background: var(--gold-dim2);
+    border: 1px solid rgba(201,169,110,0.2);
+    border-radius: var(--radius);
+    padding: 16px 20px;
+    margin: 20px 0;
+    font-size: 14px;
+    color: var(--ink-muted);
+  }
+  .callout strong { color: var(--gold); }
+
+  /* PROMPT BLOCK */
+  .prompt-block {
+    background: var(--surface);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-lg);
+    margin: 20px 0;
+    overflow: hidden;
+  }
+  .prompt-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface2);
+  }
+  .prompt-tag {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .copy-btn {
+    font-size: 11px;
+    color: var(--ink-muted);
+    background: none;
+    border: 1px solid var(--border-strong);
+    border-radius: 4px;
+    padding: 3px 10px;
+    cursor: pointer;
+    transition: color 0.15s, border-color 0.15s;
+    font-family: inherit;
+  }
+  .copy-btn:hover { color: var(--gold); border-color: var(--gold); }
+  .copy-btn.copied { color: var(--green); border-color: var(--green); }
+  .prompt-text {
+    padding: 16px 20px;
+    font-size: 13.5px;
+    color: var(--ink);
+    line-height: 1.65;
+    font-style: italic;
+  }
+
+  /* CASO CARD */
+  .casos-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 20px 0;
+  }
+  .caso-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+  .caso-card:hover { border-color: var(--border-strong); }
+  .caso-card.open { border-color: rgba(201,169,110,0.3); }
+  .caso-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+  }
+  .caso-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .caso-num {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: var(--gold-dim);
+    color: var(--gold);
+    font-size: 12px;
+    font-weight: 500;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .caso-title { font-size: 14px; font-weight: 500; color: var(--ink); }
+  .caso-when { font-size: 12px; color: var(--ink-muted); }
+  .caso-chevron {
+    color: var(--ink-faint);
+    font-size: 16px;
+    transition: transform 0.25s;
+    flex-shrink: 0;
+  }
+  .caso-card.open .caso-chevron { transform: rotate(180deg); color: var(--gold); }
+  .caso-body {
+    display: none;
+    padding: 0 20px 20px;
+    border-top: 1px solid var(--border);
+  }
+  .caso-card.open .caso-body { display: block; }
+
+  /* FLUJO STEPS */
+  .steps { display: flex; flex-direction: column; gap: 0; margin: 20px 0; }
+  .step {
+    display: flex;
+    gap: 20px;
+    position: relative;
+  }
+  .step-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .step-dot {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: var(--surface2);
+    border: 1px solid var(--border-strong);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--gold);
+    flex-shrink: 0;
+  }
+  .step-line {
+    width: 1px;
+    flex: 1;
+    background: var(--border);
+    margin: 4px 0;
+    min-height: 24px;
+  }
+  .step:last-child .step-line { display: none; }
+  .step-content {
+    padding: 4px 0 28px;
+  }
+  .step-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .step-desc {
+    font-size: 13px;
+    color: var(--ink-muted);
+    line-height: 1.6;
+  }
+
+  /* ERRORES */
+  .errores { display: flex; flex-direction: column; gap: 10px; margin: 20px 0; }
+  .error-row {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 18px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    align-items: start;
+  }
+  .error-label {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .error-label.bad { color: #c47a6a; }
+  .error-label.good { color: var(--green); }
+  .error-text { font-size: 13px; color: var(--ink-muted); line-height: 1.5; }
+  .error-divider {
+    width: 1px;
+    background: var(--border);
+    display: none;
+  }
+
+  /* CHECKLIST */
+  .checklist { display: flex; flex-direction: column; gap: 2px; margin: 20px 0; }
+  .check-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: background 0.15s;
+    user-select: none;
+  }
+  .check-item:hover { background: var(--surface); }
+  .check-item.checked { opacity: 0.5; }
+  .check-box {
+    width: 18px; height: 18px;
+    border-radius: 4px;
+    border: 1px solid var(--border-strong);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .check-item.checked .check-box {
+    background: var(--green);
+    border-color: var(--green);
+  }
+  .check-tick { display: none; color: #fff; font-size: 11px; }
+  .check-item.checked .check-tick { display: block; }
+  .check-text { font-size: 14px; color: var(--ink-muted); }
+  .check-item.checked .check-text { text-decoration: line-through; }
+
+  /* BONUS GRID */
+  .bonus-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 20px 0;
+  }
+  @media (max-width: 600px) { .bonus-grid { grid-template-columns: 1fr; } }
+  .bonus-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 16px;
+  }
+  .bonus-title {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--gold);
+    margin-bottom: 8px;
+    letter-spacing: 0.04em;
+  }
+  .bonus-prompt {
+    font-size: 12.5px;
+    color: var(--ink-muted);
+    line-height: 1.55;
+    font-style: italic;
+    margin-bottom: 10px;
+  }
+
+  /* PROGRESS BAR */
+  .progress-bar-wrap {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--border);
+    z-index: 200;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: var(--gold);
+    width: 0%;
+    transition: width 0.3s ease;
+  }
+
+  /* SECTION DIVIDER */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 56px 0 48px;
+    color: var(--ink-faint);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 640px) {
+    .module-body { padding-left: 0; }
+    .module-header { flex-direction: column; gap: 8px; }
+    .error-row { grid-template-columns: 1fr; }
+    .hero { padding: 64px 1.5rem 56px; }
+    .wrapper { padding: 0 1.5rem 100px; }
+    nav { padding: 0 1.5rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .module { opacity: 1; transform: none; transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-brand">Curso IA Visual</span>
+  <div class="nav-progress" id="navDots"></div>
+</nav>
+
+<div class="progress-bar-wrap">
+  <div class="progress-bar-fill" id="progressBar"></div>
+</div>
+
+<section class="hero">
+  <p class="hero-eyebrow">Para Nahuel · VOLHOTIC</p>
+  <h1>Fotos reales.<br><em>Imágenes de catálogo.</em></h1>
+  <p class="hero-sub">Cómo usar ChatGPT para transformar cualquier foto tuya en imagen de marca premium — para redes sociales y catálogo de producto en Argentina.</p>
+  <div class="hero-meta">
+    <div class="meta-item">
+      <span class="meta-label">Nivel</span>
+      <span class="meta-val">Básico → Profesional</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Herramienta</span>
+      <span class="meta-val">ChatGPT Plus</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Módulos</span>
+      <span class="meta-val">8 + Bonus</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Referencia</span>
+      <span class="meta-val">Caviaroli — premium gourmet</span>
+    </div>
+  </div>
+</section>
+
+<div class="wrapper">
+
+  <!-- M1 -->
+  <div class="module" id="mod0" data-module="0">
+    <div class="module-header">
+      <span class="module-num">Módulo 01</span>
+      <div class="module-title-wrap">
+        <h2>Entender la herramienta</h2>
+        <p>Qué es GPT Image 2 y por qué cambia todo</p>
+      </div>
+    </div>
+    <div class="module-body prose">
+      <p>No es un filtro de Instagram. GPT Image 2 es un modelo que <strong>entiende tu foto</strong> y puede transformarla — cambiarle el fondo, el ambiente, la iluminación, el estilo — manteniendo el producto real tal como es.</p>
+      <p>La diferencia clave con otras IAs: podés <strong>conversar</strong> con él. Si el resultado no te gusta, le decís qué cambiar y lo ajusta. No tenés que empezar de cero cada vez. Es como trabajar con un fotógrafo que entiende lo que pedís.</p>
+      <div class="callout">
+        <strong>Cómo accedés:</strong> ChatGPT Plus → ícono de adjunto (clip) → seleccionás tu foto → escribís el prompt debajo.
+      </div>
+      <p>Lo que podés lograr: fotos de catálogo con fondo blanco, imágenes lifestyle con ambiente, flat lays, variaciones de packaging, formatos para Stories — todo partiendo de una foto simple con el celular.</p>
+    </div>
+  </div>
+
+  <!-- M2 -->
+  <div class="module" id="mod1" data-module="1">
+    <div class="module-header">
+      <span class="module-num">Módulo 02</span>
+      <div class="module-title-wrap">
+        <h2>La foto de partida</h2>
+        <p>Lo más importante del proceso</p>
+      </div>
+    </div>
+    <div class="module-body prose">
+      <p>La IA no hace milagros con una foto mala. Mientras mejor sea la foto original, mejor el resultado final. Pero tampoco necesitás un estudio fotográfico — el celular alcanza.</p>
+      <p><strong>Qué necesitás en la foto original:</strong></p>
+      <ul>
+        <li>Producto enfocado y bien iluminado (luz natural de ventana funciona perfecto)</li>
+        <li>Fondo simple — blanco, gris, madera, tela. Nada con objetos que distraigan</li>
+        <li>Foto horizontal o cuadrada, mínimo 1000px</li>
+        <li>Sin sombras duras encima del producto</li>
+      </ul>
+      <p><strong>Lo que NO importa tanto:</strong></p>
+      <ul>
+        <li>No necesita ser perfecta. Fondo desprolijo, un poco oscura — la IA puede compensar</li>
+        <li>No necesita ser de cámara profesional. El celular sirve</li>
+        <li>El ángulo no tiene que ser perfecto</li>
+      </ul>
+      <div class="callout">
+        <strong>Ejercicio práctico:</strong> Tomá una foto del producto en tu mesa con luz de ventana de día. Eso es suficiente para arrancar. Hacé 3 fotos distintas y usá la más nítida.
+      </div>
+    </div>
+  </div>
+
+  <!-- M3 -->
+  <div class="module" id="mod2" data-module="2">
+    <div class="module-header">
+      <span class="module-num">Módulo 03</span>
+      <div class="module-title-wrap">
+        <h2>Estructura del prompt perfecto</h2>
+        <p>La fórmula que funciona siempre</p>
+      </div>
+    </div>
+    <div class="module-body prose">
+      <p>Un prompt bien armado tiene 4 partes:</p>
+      <div class="callout">
+        <strong>[QUÉ HACER con la foto]</strong> + <strong>[ESTILO visual]</strong> + <strong>[AMBIENTE / fondo]</strong> + <strong>[DETALLES técnicos]</strong>
+      </div>
+      <p>Ejemplo real para un producto gourmet:</p>
+      <div class="prompt-block">
+        <div class="prompt-header">
+          <span class="prompt-tag">Prompt modelo</span>
+          <button class="copy-btn" onclick="copyPrompt(this)">Copiar</button>
+        </div>
+        <div class="prompt-text">"Usá esta foto del producto como referencia. Mantenelo exactamente igual — mismo envase, misma etiqueta, mismos colores. Colocalo sobre una superficie de mármol blanco con fondo neutro claro. Iluminación de estudio suave, luz lateral que genere profundidad. Estilo fotografía de producto gourmet premium, editorial, limpio. Sin elementos extra, sin personas."</div>
+      </div>
+      <p><strong>Las palabras clave que más funcionan:</strong></p>
+      <ul>
+        <li><strong>mantenelo exactamente igual</strong> — para que no invente el producto</li>
+        <li><strong>fotografía de producto editorial</strong> — para el estilo</li>
+        <li><strong>iluminación de estudio suave</strong> — para que no quede flat</li>
+        <li><strong>fondo neutro / superficie de mármol / madera natural</strong> — para el ambiente</li>
+        <li><strong>sin elementos extra</strong> — para que no agregue cosas raras</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="divider">casos de uso</div>
+
+  <!-- M4 -->
+  <div class="module" id="mod3" data-module="3">
+    <div class="module-header">
+      <span class="module-num">Módulo 04</span>
+      <div class="module-title-wrap">
+        <h2>Los 5 casos de uso</h2>
+        <p>Tocá cada caso para ver el prompt</p>
+      </div>
+    </div>
+    <div class="module-body">
+      <div class="casos-grid">
+
+        <div class="caso-card" onclick="toggleCaso(this)">
+          <div class="caso-header">
+            <div class="caso-label">
+              <div class="caso-num">1</div>
+              <div>
+                <div class="caso-title">Fondo limpio para catálogo</div>
+                <div class="caso-when">Para publicación o tienda</div>
+              </div>
+            </div>
+            <span class="caso-chevron">↓</span>
+          </div>
+          <div class="caso-body">
+            <div class="prompt-block" style="margin-top:12px;">
+              <div class="prompt-header">
+                <span class="prompt-tag">Prompt</span>
+                <button class="copy-btn" onclick="copyPrompt(this);event.stopPropagation()">Copiar</button>
+              </div>
+              <div class="prompt-text">"Extraé el producto de esta foto y colocalo sobre fondo blanco puro. Sombra difusa suave debajo. Iluminación pareja de estudio. Resultado limpio para catálogo de producto."</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="caso-card" onclick="toggleCaso(this)">
+          <div class="caso-header">
+            <div class="caso-label">
+              <div class="caso-num">2</div>
+              <div>
+                <div class="caso-title">Ambiente premium para redes</div>
+                <div class="caso-when">Post de Instagram, Stories</div>
+              </div>
+            </div>
+            <span class="caso-chevron">↓</span>
+          </div>
+          <div class="caso-body">
+            <div class="prompt-block" style="margin-top:12px;">
+              <div class="prompt-header">
+                <span class="prompt-tag">Prompt</span>
+                <button class="copy-btn" onclick="copyPrompt(this);event.stopPropagation()">Copiar</button>
+              </div>
+              <div class="prompt-text">"Tomá el producto de esta foto y ubicalo en un ambiente de cocina o mesa gourmet. Superficie de piedra oscura, hierbas frescas alrededor, luz cálida natural. Estilo fotografía editorial gastronómica, revista de alta cocina. Mantené el producto fiel al original."</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="caso-card" onclick="toggleCaso(this)">
+          <div class="caso-header">
+            <div class="caso-label">
+              <div class="caso-num">3</div>
+              <div>
+                <div class="caso-title">Flat lay (vista desde arriba)</div>
+                <div class="caso-when">Post cuadrado, composición</div>
+              </div>
+            </div>
+            <span class="caso-chevron">↓</span>
+          </div>
+          <div class="caso-body">
+            <div class="prompt-block" style="margin-top:12px;">
+              <div class="prompt-header">
+                <span class="prompt-tag">Prompt</span>
+                <button class="copy-btn" onclick="copyPrompt(this);event.stopPropagation()">Copiar</button>
+              </div>
+              <div class="prompt-text">"Creá una composición flat lay con el producto de la foto. Vista desde arriba 90°. Superficie de madera clara. Agregá elementos complementarios simples: una hoja de olivo, sal gruesa, servilleta de lino. Paleta de colores neutros y naturales. Estilo minimalista editorial."</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="caso-card" onclick="toggleCaso(this)">
+          <div class="caso-header">
+            <div class="caso-label">
+              <div class="caso-num">4</div>
+              <div>
+                <div class="caso-title">Variación dark & premium</div>
+                <div class="caso-when">Packaging de lujo, versión oscura</div>
+              </div>
+            </div>
+            <span class="caso-chevron">↓</span>
+          </div>
+          <div class="caso-body">
+            <div class="prompt-block" style="margin-top:12px;">
+              <div class="prompt-header">
+                <span class="prompt-tag">Prompt</span>
+                <button class="copy-btn" onclick="copyPrompt(this);event.stopPropagation()">Copiar</button>
+              </div>
+              <div class="prompt-text">"Usá este producto como base. Colocalo sobre superficie de pizarra oscura. Fondo negro mate. Iluminación puntual lateral que genere brillo en el envase. Estilo lujo, elegante, minimalista. Mantené la etiqueta y colores del producto exactos."</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="caso-card" onclick="toggleCaso(this)">
+          <div class="caso-header">
+            <div class="caso-label">
+              <div class="caso-num">5</div>
+              <div>
+                <div class="caso-title">Historia vertical 9:16</div>
+                <div class="caso-when">Instagram Stories, TikTok</div>
+              </div>
+            </div>
+            <span class="caso-chevron">↓</span>
+          </div>
+          <div class="caso-body">
+            <div class="prompt-block" style="margin-top:12px;">
+              <div class="prompt-header">
+                <span class="prompt-tag">Prompt</span>
+                <button class="copy-btn" onclick="copyPrompt(this);event.stopPropagation()">Copiar</button>
+              </div>
+              <div class="prompt-text">"Adaptá esta imagen del producto a formato vertical 9:16 para Instagram Stories. El producto en el tercio inferior, espacio arriba para texto. Fondo con degradado sutil de blanco a gris claro. Estilo limpio y moderno."</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="divider">flujo de trabajo</div>
+
+  <!-- M5 -->
+  <div class="module" id="mod4" data-module="4">
+    <div class="module-header">
+      <span class="module-num">Módulo 05</span>
+      <div class="module-title-wrap">
+        <h2>El flujo de trabajo real</h2>
+        <p>Los 5 pasos que usás siempre</p>
+      </div>
+    </div>
+    <div class="module-body">
+      <div class="steps">
+        <div class="step">
+          <div class="step-left"><div class="step-dot">1</div><div class="step-line"></div></div>
+          <div class="step-content">
+            <div class="step-title">Tomás la foto</div>
+            <div class="step-desc">Producto sobre superficie simple, buena luz natural. 2 minutos. Hacé 3 versiones y usá la más nítida.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-left"><div class="step-dot">2</div><div class="step-line"></div></div>
+          <div class="step-content">
+            <div class="step-title">Abrís ChatGPT y subís la foto</div>
+            <div class="step-desc">Ícono de clip (adjunto) → seleccionás la foto. Esperás a que cargue antes de escribir.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-left"><div class="step-dot">3</div><div class="step-line"></div></div>
+          <div class="step-content">
+            <div class="step-title">Primer prompt</div>
+            <div class="step-desc">Usás la estructura del Módulo 3. Pedís la versión base. No seas vago — cuanto más específico, mejor el resultado.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-left"><div class="step-dot">4</div><div class="step-line"></div></div>
+          <div class="step-content">
+            <div class="step-title">Iterás en la conversación</div>
+            <div class="step-desc">Si algo no quedó bien, le decís exactamente qué: "la iluminación quedó muy dura, suavizala" / "el fondo tiene que ser más oscuro" / "el producto se deformó, mantenelo fiel a la foto original".</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-left"><div class="step-dot">5</div><div class="step-line"></div></div>
+          <div class="step-content">
+            <div class="step-title">Descargás y usás</div>
+            <div class="step-desc">Click derecho sobre la imagen → guardar. Lista para publicar. Mínimo 1080px para redes.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- M6 -->
+  <div class="module" id="mod5" data-module="5">
+    <div class="module-header">
+      <span class="module-num">Módulo 06</span>
+      <div class="module-title-wrap">
+        <h2>Errores comunes</h2>
+        <p>Qué falla y cómo corregirlo</p>
+      </div>
+    </div>
+    <div class="module-body">
+      <div class="errores">
+
+        <div class="error-row">
+          <div>
+            <div class="error-label bad">El problema</div>
+            <div class="error-text">El producto se deforma o cambia — la IA inventa la etiqueta</div>
+          </div>
+          <div>
+            <div class="error-label good">La solución</div>
+            <div class="error-text">Agregá: <em>"mantené el producto exactamente igual a la foto, no modifiques la etiqueta ni los colores del envase"</em></div>
+          </div>
+        </div>
+
+        <div class="error-row">
+          <div>
+            <div class="error-label bad">El problema</div>
+            <div class="error-text">El resultado parece artificial o generado por computadora</div>
+          </div>
+          <div>
+            <div class="error-label good">La solución</div>
+            <div class="error-text">Siempre usá <em>"fotografía realista"</em> en el prompt. Evitá pedir estilos muy fantasiosos.</div>
+          </div>
+        </div>
+
+        <div class="error-row">
+          <div>
+            <div class="error-label bad">El problema</div>
+            <div class="error-text">La imagen queda genérica, sin identidad</div>
+          </div>
+          <div>
+            <div class="error-label good">La solución</div>
+            <div class="error-text">Mencioná una referencia específica: <em>"estilo Caviaroli, producto gourmet premium"</em> o <em>"estilo revista Vogue gastronómica"</em></div>
+          </div>
+        </div>
+
+        <div class="error-row">
+          <div>
+            <div class="error-label bad">El problema</div>
+            <div class="error-text">El fondo se ve falso, composición digital obvia</div>
+          </div>
+          <div>
+            <div class="error-label good">La solución</div>
+            <div class="error-text">Pedí: <em>"integración natural del producto con el ambiente, no composición digital"</em></div>
+          </div>
+        </div>
+
+        <div class="error-row">
+          <div>
+            <div class="error-label bad">El problema</div>
+            <div class="error-text">Querés lo mismo pero con diferente fondo</div>
+          </div>
+          <div>
+            <div class="error-label good">La solución</div>
+            <div class="error-text">Dentro de la misma conversación: <em>"todo igual que la imagen anterior pero cambiá el fondo a negro mate"</em></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="divider">contexto local</div>
+
+  <!-- M7 -->
+  <div class="module" id="mod6" data-module="6">
+    <div class="module-header">
+      <span class="module-num">Módulo 07</span>
+      <div class="module-title-wrap">
+        <h2>Prompts para marca Argentina</h2>
+        <p>Adaptados al mercado local y al consumidor porteño</p>
+      </div>
+    </div>
+    <div class="module-body">
+      <div class="prompt-block">
+        <div class="prompt-header">
+          <span class="prompt-tag">Origen y autenticidad</span>
+          <button class="copy-btn" onclick="copyPrompt(this)">Copiar</button>
+        </div>
+        <div class="prompt-text">"Fotografía de producto gourmet importado. Ambiente de almacén gourmet porteño, madera oscura, iluminación cálida. Estilo Palermo Soho, tienda gourmet premium. El producto protagonista, fondo desenfocado."</div>
+      </div>
+      <div class="prompt-block">
+        <div class="prompt-header">
+          <span class="prompt-tag">Temporada / estación</span>
+          <button class="copy-btn" onclick="copyPrompt(this)">Copiar</button>
+        </div>
+        <div class="prompt-text">"El producto en un ambiente de otoño porteño. Mesa de madera con hojas secas, luz cálida de tarde. Paleta de colores tierra y borravino. Estilo editorial gastronómico."</div>
+      </div>
+      <div class="prompt-block">
+        <div class="prompt-header">
+          <span class="prompt-tag">Regalo premium</span>
+          <button class="copy-btn" onclick="copyPrompt(this)">Copiar</button>
+        </div>
+        <div class="prompt-text">"El producto como regalo premium. Sobre papel tissue negro, lazo dorado al costado. Fondo oscuro elegante. Iluminación dramática lateral. Estilo lujo accesible."</div>
+      </div>
+      <div class="prompt-block">
+        <div class="prompt-header">
+          <span class="prompt-tag">Lifestyle brunch porteño</span>
+          <button class="copy-btn" onclick="copyPrompt(this)">Copiar</button>
+        </div>
+        <div class="prompt-text">"Producto en mesa exterior al aire libre. Luz de mediodía suave. Mantel blanco de lino, vajilla simple. Estilo brunch porteño premium, Palermo, domingo."</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- M8 CHECKLIST -->
+  <div class="module" id="mod7" data-module="7">
+    <div class="module-header">
+      <span class="module-num">Módulo 08</span>
+      <div class="module-title-wrap">
+        <h2>Checklist antes de publicar</h2>
+        <p>Tocá cada ítem para marcarlo</p>
+      </div>
+    </div>
+    <div class="module-body">
+      <div class="checklist" id="checklist">
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"><span class="check-tick">✓</span></div>
+          <span class="check-text">El producto se ve fiel al original (etiqueta, colores, forma)</span>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"><span class="check-tick">✓</span></div>
+          <span class="check-text">No hay elementos raros o inventados por la IA</span>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"><span class="check-tick">✓</span></div>
+          <span class="check-text">La iluminación se ve natural, no artificial</span>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"><span class="check-tick">✓</span></div>
+          <span class="check-text">La resolución es suficiente (mínimo 1080px)</span>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"><span class="check-tick">✓</span></div>
+          <span class="check-text">El estilo es consistente con las otras imágenes de la marca</span>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"><span class="check-tick">✓</span></div>
+          <span class="check-text">No tiene texto generado por IA que esté mal escrito</span>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)">
+          <div class="check-box"><span class="check-tick">✓</span></div>
+          <span class="check-text">La imagen comunica lo que querés comunicar en 2 segundos</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider">automatización con api</div>
+
+  <!-- M9 API KEY -->
+  <div class="module" id="mod8" data-module="8">
+    <div class="module-header">
+      <span class="module-num">Módulo 09</span>
+      <div class="module-title-wrap">
+        <h2>Procesar todo el catálogo en batch</h2>
+        <p>De manual a automático — API de OpenAI</p>
+      </div>
+    </div>
+    <div class="module-body prose">
+      <p>Hacer las fotos una por una en ChatGPT funciona para 10–15 imágenes. Para procesar todo el catálogo de Caviaroli de una sola vez, usamos la <strong>API de OpenAI</strong> — un script en Python que toma todas las fotos y las transforma automáticamente.</p>
+      <div class="callout">
+        <strong>Costo real:</strong> $5–10 USD alcanza para procesar 50–100 fotos con rebrand completo. Una sola vez.
+      </div>
+      <p><strong>Cómo conseguir la API Key — 5 pasos:</strong></p>
+    </div>
+    <div class="module-body" style="padding-top: 8px;">
+      <div class="steps">
+        <div class="step">
+          <div class="step-left"><div class="step-dot">1</div><div class="step-line"></div></div>
+          <div class="step-content">
+            <div class="step-title">Crear cuenta en OpenAI</div>
+            <div class="step-desc">Entrás a <strong style="color:var(--ink)">platform.openai.com</strong> → "Sign up" con tu email o cuenta de Google.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-left"><div class="step-dot">2</div><div class="step-line"></div></div>
+          <div class="step-content">
+            <div class="step-title">Cargar crédito mínimo</div>
+            <div class="step-desc">Menú izquierdo → <strong style="color:var(--ink)">Billing</strong> → "Add payment details". Cargás $5 USD con tarjeta Visa/Mastercard (débito funciona).</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-left"><div class="step-dot">3</div><div class="step-line"></div></div>
+          <div class="step-content">
+            <div class="step-title">Crear la API Key</div>
+            <div class="step-desc">Menú izquierdo → <strong style="color:var(--ink)">API Keys</strong> → "Create new secret key". Nombre sugerido: <em>caviaroli-rebrand</em>.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-left"><div class="step-dot">4</div><div class="step-line"></div></div>
+          <div class="step-content">
+            <div class="step-title">Guardar la key</div>
+            <div class="step-desc">Copiás el código que empieza con <strong style="color:var(--gold)">sk-...</strong> — solo se muestra una vez. Guardalo antes de cerrar la pantalla.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-left"><div class="step-dot">5</div><div class="step-line"></div></div>
+          <div class="step-content">
+            <div class="step-title">Ejecutar el script de rebrand</div>
+            <div class="step-desc">El script lee todas las fotos scrapeadas, aplica el prompt de rebrand y guarda las imágenes listas para subir a TiendaNube.</div>
+          </div>
+        </div>
+      </div>
+      <div class="callout">
+        <strong>Referencia visual objetivo:</strong> tienda.havanna.com.ar — fondo blanco limpio, producto centrado, sombra suave. Ese es el resultado para el catálogo de Caviaroli.
+      </div>
+      <div class="prompt-block">
+        <div class="prompt-header">
+          <span class="prompt-tag">Prompt de rebrand — Havanna style</span>
+          <button class="copy-btn" onclick="copyPrompt(this)">Copiar</button>
+        </div>
+        <div class="prompt-text">"Tomá este producto y colocalo sobre fondo blanco puro. Sombra difusa suave debajo. Iluminación pareja de estudio, sin sombras duras. Mantené el producto exactamente igual — mismo envase, misma etiqueta, mismos colores. Resultado limpio para catálogo de tienda online, estilo tienda gourmet premium. Sin elementos extra, sin personas, sin texto adicional."</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider">banco de prompts</div>
+
+  <!-- BONUS -->
+  <div class="module" id="mod9" data-module="9">
+    <div class="module-header">
+      <span class="module-num">Bonus</span>
+      <div class="module-title-wrap">
+        <h2>Prompts para copiar y pegar</h2>
+        <p>Guardá estos — los vas a usar siempre</p>
+      </div>
+    </div>
+    <div class="module-body">
+      <div class="bonus-grid">
+
+        <div class="bonus-card">
+          <div class="bonus-title">Fondo blanco limpio</div>
+          <div class="bonus-prompt">"Extraé el producto de esta imagen y colocalo sobre fondo blanco puro. Sombra difusa suave. Iluminación pareja. Para catálogo."</div>
+          <button class="copy-btn" onclick="copyPrompt(this)">Copiar prompt</button>
+        </div>
+
+        <div class="bonus-card">
+          <div class="bonus-title">Ambiente gourmet</div>
+          <div class="bonus-prompt">"Producto sobre superficie de mármol blanco. Fondo beige claro desenfocado. Luz natural lateral suave. Estilo fotografía gourmet editorial premium."</div>
+          <button class="copy-btn" onclick="copyPrompt(this)">Copiar prompt</button>
+        </div>
+
+        <div class="bonus-card">
+          <div class="bonus-title">Dark & premium</div>
+          <div class="bonus-prompt">"Producto sobre superficie de pizarra oscura. Fondo negro. Iluminación puntual lateral que genere brillo en el envase. Estilo lujo, elegante, minimalista."</div>
+          <button class="copy-btn" onclick="copyPrompt(this)">Copiar prompt</button>
+        </div>
+
+        <div class="bonus-card">
+          <div class="bonus-title">Lifestyle verano</div>
+          <div class="bonus-prompt">"Producto en mesa exterior al aire libre. Luz de mediodía suave. Mantel blanco de lino, vajilla simple. Estilo brunch porteño premium."</div>
+          <button class="copy-btn" onclick="copyPrompt(this)">Copiar prompt</button>
+        </div>
+
+        <div class="bonus-card">
+          <div class="bonus-title">Historia vertical</div>
+          <div class="bonus-prompt">"Formato vertical 9:16. Producto centrado en el tercio inferior. Fondo degradado de blanco a gris. Espacio superior para agregar texto. Limpio y moderno."</div>
+          <button class="copy-btn" onclick="copyPrompt(this)">Copiar prompt</button>
+        </div>
+
+        <div class="bonus-card">
+          <div class="bonus-title">Flat lay minimalista</div>
+          <div class="bonus-prompt">"Vista desde arriba 90°. Superficie de madera clara. Producto centrado. Elementos mínimos alrededor. Paleta neutra. Estilo editorial minimalista."</div>
+          <button class="copy-btn" onclick="copyPrompt(this)">Copiar prompt</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div><!-- /wrapper -->
+
+<script>
+  // NAV DOTS
+  const totalMods = 10;
+  const dotsEl = document.getElementById('navDots');
+  for (let i = 0; i < totalMods; i++) {
+    const d = document.createElement('div');
+    d.className = 'nav-dot';
+    d.title = 'Módulo ' + (i + 1);
+    d.onclick = () => {
+      const m = document.getElementById('mod' + i);
+      if (m) m.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
+    dotsEl.appendChild(d);
+  }
+
+  // INTERSECTION OBSERVER
+  const modules = document.querySelectorAll('.module');
+  const dots = document.querySelectorAll('.nav-dot');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const idx = parseInt(entry.target.dataset.module);
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        dots.forEach((d, i) => {
+          d.classList.remove('active');
+          if (i < idx) d.classList.add('done');
+          else d.classList.remove('done');
+        });
+        if (dots[idx]) dots[idx].classList.add('active');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  modules.forEach(m => observer.observe(m));
+
+  // PROGRESS BAR
+  const bar = document.getElementById('progressBar');
+  window.addEventListener('scroll', () => {
+    const total = document.body.scrollHeight - window.innerHeight;
+    const pct = total > 0 ? Math.round((window.scrollY / total) * 100) : 0;
+    bar.style.width = pct + '%';
+  });
+
+  // TOGGLE CASO
+  function toggleCaso(card) {
+    const isOpen = card.classList.contains('open');
+    document.querySelectorAll('.caso-card.open').forEach(c => c.classList.remove('open'));
+    if (!isOpen) card.classList.add('open');
+  }
+
+  // COPY PROMPT
+  function copyPrompt(btn) {
+    const block = btn.closest('.prompt-block') || btn.closest('.bonus-card');
+    const textEl = block.querySelector('.prompt-text, .bonus-prompt');
+    if (!textEl) return;
+    const text = textEl.textContent.trim().replace(/^"|"$/g, '');
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = '¡Copiado!';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = btn.classList.contains('copy-btn') && btn.textContent !== 'Copiar prompt' ? 'Copiar' : 'Copiar prompt';
+        if (block.querySelector('.prompt-text')) btn.textContent = 'Copiar';
+        btn.classList.remove('copied');
+      }, 1800);
+    });
+  }
+
+  // CHECKLIST
+  function toggleCheck(item) {
+    item.classList.toggle('checked');
+    const total = document.querySelectorAll('.check-item').length;
+    const done = document.querySelectorAll('.check-item.checked').length;
+    if (done === total) {
+      setTimeout(() => alert('¡Listo para publicar! ✓'), 200);
+    }
+  }
+</script>
+</body>
+</html>
