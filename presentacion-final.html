@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Caviaroli Argentina — Estrategia Digital 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --black:  #080808;
+  --white:  #f4f3ef;
+  --gray:   #e8e6e0;
+  --gold:   #c9a230;
+  --red:    #c0392b;
+  --ink:    #111111;
+  --muted:  #888888;
+  --green:  #2d6a4f;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Hanken Grotesk', system-ui, sans-serif;
+  background: var(--black);
+  color: var(--white);
+  overflow-x: hidden;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  padding: 22px 52px;
+  display: flex; justify-content: space-between; align-items: center;
+  mix-blend-mode: difference;
+}
+.nav-logo { font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: #fff; font-weight: 700; }
+.nav-tag  { font-size: 10px; letter-spacing: 0.2em;  text-transform: uppercase; color: #fff; opacity: 0.4; }
+
+/* ── SLIDE BASE ── */
+.slide {
+  min-height: 100vh; position: relative; overflow: hidden;
+  display: flex; flex-direction: column;
+  opacity: 0; transform: translateY(20px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.slide.vis { opacity: 1; transform: none; }
+
+.sn {
+  position: absolute; bottom: 32px; right: 52px;
+  font-size: 10px; letter-spacing: 0.2em; opacity: 0.2; z-index: 10;
+}
+
+.dots {
+  display: block; font-size: 18px; letter-spacing: 6px;
+  margin: 20px 0 24px; opacity: 0.3; color: currentColor;
+}
+
+/* ════════════════════════════════════
+   S01 — HERO: ESFERAS + TÍTULO
+════════════════════════════════════ */
+.s01 { background: var(--black); display: grid; grid-template-columns: 1fr 1fr; }
+
+.s01-left {
+  padding: 140px 52px 80px;
+  display: flex; flex-direction: column; justify-content: center; z-index: 2;
+}
+.s01-eye  { font-size: 10px; letter-spacing: 0.26em; text-transform: uppercase; color: var(--gold); margin-bottom: 28px; }
+.s01 h1   { font-size: clamp(3rem,5.5vw,6.5rem); font-weight: 900; text-transform: uppercase; line-height: 0.92; letter-spacing: -0.03em; }
+.s01 h1 span { font-weight: 300; display: block; }
+.s01 h1 em   { font-style: normal; color: var(--gold); display: block; }
+.s01-sub  { margin-top: 36px; font-size: 14px; color: rgba(255,255,255,0.4); line-height: 1.8; font-weight: 300; max-width: 340px; }
+
+.s01-right { position: relative; overflow: hidden; }
+.s01-right img { width: 100%; height: 100%; object-fit: cover; }
+.s01-right::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to right, var(--black) 0%, transparent 35%);
+  z-index: 1;
+}
+
+/* ════════════════════════════════════
+   S02 — EL CONTEXTO (negro grande)
+════════════════════════════════════ */
+.s02 { background: var(--black); padding: 140px 52px 100px; justify-content: center; }
+.s02 h2 {
+  font-size: clamp(2.5rem,6.5vw,8rem); font-weight: 900;
+  text-transform: uppercase; line-height: 0.92; letter-spacing: -0.03em; max-width: 1000px;
+}
+.s02 h2 span { font-weight: 300; }
+.s02 h2 em   { font-style: normal; color: var(--gold); }
+.s02-cols {
+  margin-top: 56px; display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; max-width: 960px;
+}
+.s02-col { background: #0e0e0e; padding: 28px 24px; border-top: 1px solid #1e1e1e; }
+.s02-col h3 { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+.s02-col p  { font-size: 13px; color: rgba(255,255,255,0.4); line-height: 1.7; font-weight: 300; }
+.s02-col p strong { color: rgba(255,255,255,0.75); font-weight: 600; }
+
+/* ════════════════════════════════════
+   S03 — URGENCIA: LOTE A VENCER (rojo)
+════════════════════════════════════ */
+.s03 { background: #0e0404; padding: 140px 52px 100px; justify-content: center; }
+.s03-tag { font-size: 10px; letter-spacing: 0.26em; text-transform: uppercase; color: #e05a4a; margin-bottom: 28px; }
+.s03 h2 {
+  font-size: clamp(2.5rem,6vw,7.5rem); font-weight: 900;
+  text-transform: uppercase; line-height: 0.92; letter-spacing: -0.03em; max-width: 900px;
+}
+.s03 h2 span { font-weight: 300; }
+.s03 h2 em   { font-style: normal; color: #e05a4a; }
+.urgencia-grid {
+  margin-top: 52px; display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; max-width: 900px;
+}
+.urg-card { background: #130606; padding: 28px 24px; border-top: 2px solid #3a1010; }
+.urg-card h3 { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: #e05a4a; margin-bottom: 10px; }
+.urg-card .big { font-size: 2.5rem; font-weight: 900; color: #fff; line-height: 1; letter-spacing: -0.02em; }
+.urg-card p { font-size: 13px; color: rgba(255,255,255,0.4); line-height: 1.65; margin-top: 8px; font-weight: 300; }
+.urg-card p strong { color: rgba(255,255,255,0.75); }
+
+/* ════════════════════════════════════
+   S04 — FOTO TOMATE (blanco, editorial)
+════════════════════════════════════ */
+.s04 { background: var(--white); color: var(--ink); display: grid; grid-template-columns: 1fr 1fr; }
+.s04-img { position: relative; overflow: hidden; background: #e8e4dc; }
+.s04-img img { width: 100%; height: 100%; object-fit: cover; }
+.s04-text { padding: 140px 52px 80px; display: flex; flex-direction: column; justify-content: center; }
+.s04-text h2 {
+  font-size: clamp(2rem,3.5vw,4.5rem); font-weight: 900;
+  text-transform: uppercase; line-height: 0.95; letter-spacing: -0.02em;
+}
+.s04-text h2 span { font-weight: 300; }
+.s04-text p { margin-top: 28px; font-size: 15px; color: #555; line-height: 1.75; font-weight: 300; max-width: 360px; }
+.s04-text .tecnico {
+  margin-top: 28px; background: #f0ede8; border-left: 3px solid var(--ink);
+  padding: 14px 18px; font-size: 12px; color: #555; line-height: 1.65;
+}
+.s04-text .tecnico strong { color: var(--ink); font-weight: 700; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; display: block; margin-bottom: 6px; }
+
+/* ════════════════════════════════════
+   S05 — ESFERAS FULL SCREEN HERO
+════════════════════════════════════ */
+.s05 { background: var(--black); position: relative; }
+.s05-bg { position: absolute; inset: 0; }
+.s05-bg img { width: 100%; height: 100%; object-fit: cover; object-position: center; opacity: 0.7; }
+.s05-bg::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to bottom, rgba(8,8,8,0.15) 0%, rgba(8,8,8,0.85) 100%);
+}
+.s05-content {
+  position: relative; z-index: 2;
+  padding: 140px 52px 80px;
+  display: flex; flex-direction: column; justify-content: flex-end; min-height: 100vh;
+}
+.s05-content h2 {
+  font-size: clamp(3rem,7vw,9rem); font-weight: 900;
+  text-transform: uppercase; line-height: 0.92; letter-spacing: -0.03em; max-width: 800px;
+}
+.s05-content h2 em    { font-style: normal; color: var(--gold); }
+.s05-content h2 span  { font-weight: 300; }
+.s05-content p { margin-top: 24px; font-size: 15px; color: rgba(255,255,255,0.5); max-width: 460px; line-height: 1.75; font-weight: 300; }
+
+/* ════════════════════════════════════
+   S06 — LA ESTRATEGIA TÉCNICA (negro)
+════════════════════════════════════ */
+.s06 { background: var(--black); padding: 140px 52px 100px; justify-content: center; }
+.s06 h2 {
+  font-size: clamp(2rem,4vw,5rem); font-weight: 900;
+  text-transform: uppercase; line-height: 0.95; letter-spacing: -0.02em; margin-bottom: 52px;
+}
+.s06 h2 em { font-style: normal; color: var(--gold); }
+
+.pipeline {
+  display: grid; grid-template-columns: repeat(4,1fr); gap: 2px;
+}
+.pipe { background: #0c0c0c; padding: 32px 26px; border-top: 2px solid #1a1a1a; transition: border-color 0.3s; }
+.pipe:hover { border-color: var(--gold); }
+.pipe-n { font-size: 52px; font-weight: 900; color: #1c1c1c; line-height: 1; margin-bottom: 18px; letter-spacing: -0.03em; }
+.pipe-t { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+.pipe-d { font-size: 13px; color: rgba(255,255,255,0.35); line-height: 1.65; font-weight: 300; }
+.pipe-tech { margin-top: 12px; font-size: 10px; color: #333; font-weight: 500; letter-spacing: 0.08em; font-family: monospace; }
+.badge {
+  display: inline-block; margin-top: 18px;
+  font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase;
+  padding: 4px 10px; border-radius: 2px;
+}
+.badge.done { background: rgba(45,106,79,0.2); color: #4a9c6a; }
+.badge.now  { background: rgba(201,162,48,0.15); color: var(--gold); }
+.badge.next { background: #131313; color: #333; }
+
+/* ════════════════════════════════════
+   S07 — REFERENCIA HAVANNA (blanco)
+════════════════════════════════════ */
+.s07 { background: var(--white); color: var(--ink); padding: 140px 52px 100px; justify-content: center; }
+.s07 h2 {
+  font-size: clamp(2rem,4vw,5rem); font-weight: 900;
+  text-transform: uppercase; line-height: 0.95; letter-spacing: -0.02em; margin-bottom: 16px;
+}
+.s07 h2 span { font-weight: 300; }
+.s07-sub { font-size: 14px; color: #888; margin-bottom: 48px; font-weight: 300; }
+.havanna-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; }
+.hav-card { background: var(--gray); padding: 32px 28px; }
+.hav-card h3 { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
+.hav-num { font-size: 3rem; font-weight: 900; line-height: 1; letter-spacing: -0.03em; margin-bottom: 8px; }
+.hav-card p { font-size: 13px; color: #666; line-height: 1.7; font-weight: 300; }
+.hav-card p strong { color: var(--ink); font-weight: 700; }
+
+/* ════════════════════════════════════
+   S08 — ROADMAP (negro)
+════════════════════════════════════ */
+.s08 { background: var(--black); padding: 140px 52px 100px; justify-content: center; }
+.s08 h2 {
+  font-size: clamp(2rem,4vw,5rem); font-weight: 900;
+  text-transform: uppercase; line-height: 0.95; letter-spacing: -0.02em; margin-bottom: 52px;
+}
+.s08 h2 em { font-style: normal; color: var(--gold); }
+.roadmap { display: flex; flex-direction: column; gap: 2px; }
+.road {
+  display: grid; grid-template-columns: 100px 1fr 140px;
+  align-items: center; background: #0c0c0c; padding: 20px 28px; gap: 28px;
+  border-left: 3px solid transparent; transition: border-color 0.2s, background 0.2s;
+}
+.road:hover { background: #0f0f0a; border-color: var(--gold); }
+.road.done   { border-color: #1e3a26; }
+.road.active { border-color: var(--gold); background: #0f0e08; }
+.road-ph     { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: #333; }
+.road-title  { font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.85); }
+.road-sub    { font-size: 12px; color: #444; font-weight: 300; margin-top: 3px; }
+.road-badge  {
+  font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase;
+  padding: 5px 12px; border-radius: 2px; text-align: center; justify-self: end;
+}
+.road-badge.done    { background: rgba(45,106,79,0.2); color: #4a9c6a; }
+.road-badge.active  { background: rgba(201,162,48,0.15); color: var(--gold); }
+.road-badge.pending { background: #131313; color: #333; }
+
+/* ════════════════════════════════════
+   S09 — FOTO TOMATE 2 / ACEITE (blanco)
+════════════════════════════════════ */
+.s09 { background: var(--white); color: var(--ink); display: grid; grid-template-columns: 1fr 1fr; }
+.s09-text { padding: 140px 52px 80px; display: flex; flex-direction: column; justify-content: center; }
+.s09-text h2 {
+  font-size: clamp(2rem,3.5vw,4.5rem); font-weight: 900;
+  text-transform: uppercase; line-height: 0.95; letter-spacing: -0.02em;
+}
+.s09-text h2 span { font-weight: 300; }
+.s09-text p { margin-top: 24px; font-size: 15px; color: #555; line-height: 1.75; font-weight: 300; max-width: 360px; }
+.s09-img { position: relative; overflow: hidden; background: #e8e0d4; }
+.s09-img img { width: 100%; height: 100%; object-fit: cover; }
+
+/* ════════════════════════════════════
+   S10 — CIERRE NEGRO
+════════════════════════════════════ */
+.s10 {
+  background: var(--black); padding: 140px 52px 100px;
+  justify-content: center; position: relative; overflow: hidden;
+}
+.s10::before {
+  content: 'CAVIAROLI'; position: absolute;
+  font-size: 17vw; font-weight: 900; letter-spacing: -0.04em;
+  color: #0f0f0f; text-transform: uppercase;
+  top: 50%; left: 50%; transform: translate(-50%,-50%);
+  white-space: nowrap; pointer-events: none; user-select: none;
+}
+.s10-inner { position: relative; z-index: 2; }
+.s10 h2 {
+  font-size: clamp(2.5rem,6vw,7.5rem); font-weight: 900;
+  text-transform: uppercase; line-height: 0.92; letter-spacing: -0.03em; max-width: 700px;
+}
+.s10 h2 em    { font-style: normal; color: var(--gold); }
+.s10 h2 span  { font-weight: 300; }
+.s10-footer   { margin-top: 48px; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(255,255,255,0.18); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  nav { padding: 16px 24px; }
+  .s01, .s04, .s09 { grid-template-columns: 1fr; }
+  .s01-right, .s04-img, .s09-img { min-height: 55vw; }
+  .s01-left, .s02, .s03, .s04-text, .s05-content, .s06, .s07, .s08, .s09-text, .s10 { padding: 100px 24px 60px; }
+  .pipeline { grid-template-columns: 1fr 1fr; }
+  .havanna-grid { grid-template-columns: 1fr; }
+  .urgencia-grid { grid-template-columns: 1fr; }
+  .s02-cols { grid-template-columns: 1fr; }
+  .road { grid-template-columns: 80px 1fr; }
+  .road-badge { display: none; }
+}
+@media (max-width: 600px) {
+  .pipeline { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-logo">Caviaroli · Argentina</span>
+  <span class="nav-tag">Estrategia Digital 2026</span>
+</nav>
+
+<!-- ══ S01 HERO ══ -->
+<section class="slide s01">
+  <div class="s01-left">
+    <p class="s01-eye">Volhotic — Nahuel · Jun 2026</p>
+    <h1>
+      <span>Rebrand</span>
+      <em>Express.</em>
+      <span>DTC.</span>
+    </h1>
+    <p class="s01-sub">Scraping de caviaroli.com · ingesta de datos en caviaroli.com.ar · activación de canal directo al consumidor final con urgencia comercial por lote a vencer.</p>
+  </div>
+  <div class="s01-right">
+    <img src="img/esferas-negro.jpg" alt="Caviaroli — esferas de aceite de oliva"
+         onerror="this.style.display='none';this.parentElement.style.background='radial-gradient(ellipse at 65% 40%, #3a2800 0%, #080808 65%)'">
+  </div>
+  <span class="sn">01 / 10</span>
+</section>
+
+<!-- ══ S02 EL CONTEXTO ══ -->
+<section class="slide s02">
+  <h2>
+    <span>El</span>
+    <em>producto</em>
+    <span>existe.</span><br>
+    <span>La tienda</span>
+    <em>no.</em>
+  </h2>
+  <span class="dots">· · · · · · · · · · · ·</span>
+  <div class="s02-cols">
+    <div class="s02-col">
+      <h3>Stock real</h3>
+      <p><strong>63 productos</strong> disponibles en Argentina. Perlas de aceite de oliva, trufa blanca, albahaca, guindilla, mango, néctar, chocolate y más. Listo para despachar hoy.</p>
+    </div>
+    <div class="s02-col">
+      <h3>El problema</h3>
+      <p>TiendaNube <strong>inactiva</strong>. Sin precios en ARS. Sin fotos optimizadas para e-commerce. Sin SEO de producto. El consumidor final no tiene acceso.</p>
+    </div>
+    <div class="s02-col">
+      <h3>La solución</h3>
+      <p>Pipeline de <strong>scraping → ingesta → rebrand visual IA → activación</strong>. Todo en 7 días. Sin producción fotográfica. Sin agencia. Con IA.</p>
+    </div>
+  </div>
+  <span class="sn">02 / 10</span>
+</section>
+
+<!-- ══ S03 URGENCIA LOTE ══ -->
+<section class="slide s03">
+  <p class="s03-tag">⚠ Urgencia comercial</p>
+  <h2>
+    HAY<br>
+    <span>un</span>
+    <em>lote</em><br>
+    <span>a</span>
+    <em>vencer.</em>
+  </h2>
+  <span class="dots" style="color:#e05a4a">· · · · · · · · · · · ·</span>
+  <div class="urgencia-grid">
+    <div class="urg-card">
+      <h3>Situación</h3>
+      <div class="big">120</div>
+      <p>días o menos de vida útil en parte del stock. <strong>Margen de acción: ahora.</strong></p>
+    </div>
+    <div class="urg-card">
+      <h3>Estrategia</h3>
+      <div class="big">-20%</div>
+      <p>Descuento automático sobre lote urgente. Calculado por script sobre tipo de cambio EUR→ARS. <strong>CSV listo para importar.</strong></p>
+    </div>
+    <div class="urg-card">
+      <h3>Canal</h3>
+      <div class="big">DTC</div>
+      <p>Venta directa al consumidor final via TiendaNube + Google Shopping orgánico. <strong>Sin intermediarios. Sin ads pagos.</strong></p>
+    </div>
+  </div>
+  <span class="sn">03 / 10</span>
+</section>
+
+<!-- ══ S04 FOTO TOMATE EDITORIAL (blanco) ══ -->
+<section class="slide s04">
+  <div class="s04-img">
+    <img src="img/tomate-aceite.jpg" alt="Aceite de oliva sobre tomate"
+         onerror="this.style.display='none'">
+  </div>
+  <div class="s04-text">
+    <span class="dots" style="color:#bbb">· · · · · · · · · · · ·</span>
+    <h2>
+      SCRAPING<br>
+      <span>DE</span><br>
+      CAVIAROLI.COM<br>
+      <span>A</span><br>
+      CAVIAROLI.COM.AR
+    </h2>
+    <p>Extracción automatizada de datos de producto, imágenes y metadatos del sitio global para alimentar el sitio Argentina.</p>
+    <div class="tecnico">
+      <strong>Pipeline técnico</strong>
+      Web scraping (Python + requests/BeautifulSoup) → extracción de imágenes, nombres, descripciones y SKUs → normalización de datos → ingesta masiva en TiendaNube via CSV + API.
+    </div>
+  </div>
+  <span class="sn" style="color:#aaa">04 / 10</span>
+</section>
+
+<!-- ══ S05 ESFERAS HERO FULL ══ -->
+<section class="slide s05">
+  <div class="s05-bg">
+    <img src="img/esferas-negro.jpg" alt="Esferas Caviaroli fondo negro"
+         onerror="this.style.display='none';this.parentElement.style.background='#0a0800'">
+  </div>
+  <div class="s05-content">
+    <span class="dots">· · · · · · · · · · · ·</span>
+    <h2>
+      EL <em>APERITIVO</em><br>
+      <span>DEFINITIVO.</span>
+    </h2>
+    <p>Perlas de aceite de oliva virgen extra. El producto de alta cocina que llega ahora al consumidor final argentino — directamente, sin intermediarios.</p>
+  </div>
+  <span class="sn">05 / 10</span>
+</section>
+
+<!-- ══ S06 PIPELINE TÉCNICO ══ -->
+<section class="slide s06">
+  <h2>Pipeline<br><em>técnico.</em></h2>
+  <div class="pipeline">
+    <div class="pipe">
+      <div class="pipe-n">01</div>
+      <div class="pipe-t">Web Scraping</div>
+      <p class="pipe-d">Extracción de imágenes, nombres, SKUs y descripciones de caviaroli.com. 63 carpetas de producto descargadas.</p>
+      <div class="pipe-tech">Python · requests · BeautifulSoup</div>
+      <span class="badge done">Completado</span>
+    </div>
+    <div class="pipe">
+      <div class="pipe-n">02</div>
+      <div class="pipe-t">Rebrand Visual IA</div>
+      <p class="pipe-d">Procesamiento batch de imágenes con API OpenAI. Prompt de catálogo premium. Referencia estética: tienda.havanna.com.ar.</p>
+      <div class="pipe-tech">Python · OpenAI API · gpt-image-1</div>
+      <span class="badge now">En curso</span>
+    </div>
+    <div class="pipe">
+      <div class="pipe-n">03</div>
+      <div class="pipe-t">Data Ingestion</div>
+      <p class="pipe-d">Conversión EUR→ARS, descuento por vencimiento, generación de SEO por producto con IA. CSV listo para TiendaNube.</p>
+      <div class="pipe-tech">Python · Anthropic API · pandas</div>
+      <span class="badge now">En curso</span>
+    </div>
+    <div class="pipe">
+      <div class="pipe-n">04</div>
+      <div class="pipe-t">Activación</div>
+      <p class="pipe-d">Importación masiva CSV en TiendaNube, subida de imágenes procesadas, Google Shopping sincronizado. Tienda live.</p>
+      <div class="pipe-tech">TiendaNube API · Google Merchant</div>
+      <span class="badge next">Próximo</span>
+    </div>
+  </div>
+  <span class="sn">06 / 10</span>
+</section>
+
+<!-- ══ S07 REFERENCIA HAVANNA (blanco) ══ -->
+<section class="slide s07">
+  <h2>Referencia<br><span>estética:</span></h2>
+  <p class="s07-sub">tienda.havanna.com.ar — mismo stack (TiendaNube), mismo mercado, benchmark de UX y fotografía de catálogo.</p>
+  <div class="havanna-grid">
+    <div class="hav-card">
+      <h3>Fotografía</h3>
+      <div class="hav-num">01</div>
+      <p><strong>Fondo blanco puro.</strong> Producto centrado. Sombra difusa suave. Sin elementos extra. Resolución mínima 1080px. Ese es el output del pipeline IA.</p>
+    </div>
+    <div class="hav-card">
+      <h3>Tipografía</h3>
+      <div class="hav-num">02</div>
+      <p><strong>Hanken Grotesk</strong> — alternativa libre a Aktiv Grotesk (tipografía de Caviaroli global). Variable font 100–900. Misma geometría, costo $0.</p>
+    </div>
+    <div class="hav-card">
+      <h3>UX del catálogo</h3>
+      <div class="hav-num">03</div>
+      <p>Grid de productos limpio. Precio visible y claro. CTA directo. Filtros por categoría. <strong>Todo configurable en TiendaNube sin desarrollo.</strong></p>
+    </div>
+  </div>
+  <span class="sn" style="color:#aaa">07 / 10</span>
+</section>
+
+<!-- ══ S08 ROADMAP ══ -->
+<section class="slide s08">
+  <h2>Roadmap<br><em>7 días.</em></h2>
+  <div class="roadmap">
+    <div class="road done">
+      <div class="road-ph">Día 1</div>
+      <div>
+        <div class="road-title">Scraping caviaroli.com</div>
+        <div class="road-sub">63 productos · imágenes descargadas · metadatos extraídos</div>
+      </div>
+      <div class="road-badge done">✓ Listo</div>
+    </div>
+    <div class="road active">
+      <div class="road-ph">Día 2–3</div>
+      <div>
+        <div class="road-title">Rebrand visual IA — batch processing</div>
+        <div class="road-sub">API OpenAI gpt-image-1 · prompt catálogo · fondo blanco puro</div>
+      </div>
+      <div class="road-badge active">En curso</div>
+    </div>
+    <div class="road active">
+      <div class="road-ph">Día 2–3</div>
+      <div>
+        <div class="road-title">CSV de precios + SEO con IA</div>
+        <div class="road-sub">EUR→ARS · descuento lote urgente · descripciones Anthropic API</div>
+      </div>
+      <div class="road-badge active">En curso</div>
+    </div>
+    <div class="road">
+      <div class="road-ph">Día 4</div>
+      <div>
+        <div class="road-title">Importación masiva TiendaNube</div>
+        <div class="road-sub">CSV · imágenes procesadas · verificación catálogo completo</div>
+      </div>
+      <div class="road-badge pending">Próximo</div>
+    </div>
+    <div class="road">
+      <div class="road-ph">Día 5</div>
+      <div>
+        <div class="road-title">Google Shopping — feed orgánico</div>
+        <div class="road-sub">Sincronización automática · sin inversión publicitaria</div>
+      </div>
+      <div class="road-badge pending">Próximo</div>
+    </div>
+    <div class="road">
+      <div class="road-ph">Día 6–7</div>
+      <div>
+        <div class="road-title">Contenido IG + urgencia lote</div>
+        <div class="road-sub">Feed rebrandeado · Stories · CTA directo a tienda</div>
+      </div>
+      <div class="road-badge pending">Próximo</div>
+    </div>
+  </div>
+  <span class="sn">08 / 10</span>
+</section>
+
+<!-- ══ S09 FOTO TOMATE 2 (blanco) ══ -->
+<section class="slide s09">
+  <div class="s09-text">
+    <span class="dots" style="color:#bbb">· · · · · · · · · · · ·</span>
+    <h2>
+      UNA GOTA.<br>
+      <span>INFINITAS</span><br>
+      COMBINACIONES.
+    </h2>
+    <p>Cada producto Caviaroli transforma un plato simple en algo extraordinario. Eso es lo que comunica el rebrand. Eso es lo que vende la tienda.</p>
+    <p style="margin-top:20px;font-size:12px;color:#aaa;letter-spacing:0.1em;text-transform:uppercase;">caviaroli.com.ar — Tienda activa en 7 días</p>
+  </div>
+  <div class="s09-img">
+    <img src="img/tomate-aceite-2.jpg" alt="Aceite de oliva sobre tomate"
+         onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(135deg,#e8e0d0,#d4cfc8)'">
+  </div>
+  <span class="sn" style="color:#aaa">09 / 10</span>
+</section>
+
+<!-- ══ S10 CIERRE ══ -->
+<section class="slide s10">
+  <div class="s10-inner">
+    <span class="dots">· · · · · · · · · · · ·</span>
+    <h2>
+      Producto real.<br>
+      <em>Tienda real.</em><br>
+      <span>Consumidor</span><br>
+      <em>final.</em>
+    </h2>
+    <p class="s10-footer">Nahuel · VOLHOTIC · Jun 2026 · Caviaroli Argentina · caviaroli.com.ar</p>
+  </div>
+  <span class="sn">10 / 10</span>
+</section>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+slides[0].classList.add('vis');
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
+}, { threshold: 0.1 });
+slides.forEach(s => io.observe(s));
+</script>
+</body>
+</html>
